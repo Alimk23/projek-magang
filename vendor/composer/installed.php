@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'b046d6f961ab879754163f05a6c3f4d613b5fcb7',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
-        'almasaeed2010/adminlte' => array(
-            'pretty_version' => 'v3.1.0',
-            'version' => '3.1.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../almasaeed2010/adminlte',
-            'aliases' => array(),
-            'reference' => 'c641d7f5716ed47e76f70ab16e05ae41420120b8',
-            'dev_requirement' => false,
-        ),
         'asm89/stack-cors' => array(
             'pretty_version' => 'v2.0.3',
             'version' => '2.0.3.0',
@@ -37,11 +28,29 @@
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
             'dev_requirement' => false,
         ),
+        'cocur/slugify' => array(
+            'pretty_version' => 'v4.0.0',
+            'version' => '4.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cocur/slugify',
+            'aliases' => array(),
+            'reference' => '3f1ffc300f164f23abe8b64ffb3f92d35cec8307',
+            'dev_requirement' => false,
+        ),
         'cordoval/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'cviebrock/eloquent-sluggable' => array(
+            'pretty_version' => '8.0.8',
+            'version' => '8.0.8.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cviebrock/eloquent-sluggable',
+            'aliases' => array(),
+            'reference' => '16e21db24d80180f870c3c7c4faf3d3af23f4117',
+            'dev_requirement' => false,
         ),
         'davedevelopment/hamcrest-php' => array(
             'dev_requirement' => true,
@@ -388,15 +397,6 @@
                 0 => 'v8.77.1',
             ),
         ),
-        'jeroennoten/laravel-adminlte' => array(
-            'pretty_version' => 'v3.7.2',
-            'version' => '3.7.2.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../jeroennoten/laravel-adminlte',
-            'aliases' => array(),
-            'reference' => 'd86acf000578470709b4a146b05eb9a7fd0cdc8c',
-            'dev_requirement' => false,
-        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -413,12 +413,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'b046d6f961ab879754163f05a6c3f4d613b5fcb7',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
