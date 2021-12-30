@@ -2,7 +2,7 @@
   <div class="container">
     <a href="{{ url('/') }}" class="navbar-brand">
       <img
-        src="{{ url('vendor/adminlte/dist/img/AdminLTELogo.png') }}"
+        src="{{ url('assets_ui/adminlte/dist/img/AdminLTELogo.png') }}"
         alt="Hobi Sedekah"
         class="brand-image img-circle elevation-3"
         style="opacity: 0.8"

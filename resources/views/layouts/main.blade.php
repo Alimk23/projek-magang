@@ -13,13 +13,13 @@
     <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
-      href="/vendor/fontawesome-free/css/all.min.css"
+      href="/assets_ui/fontawesome-free/css/all.min.css"
     />
     <!-- Theme style -->
-    <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="/assets_ui/adminlte/dist/css/adminlte.min.css" />
 
     <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="/vendor/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="/assets_ui/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
 
     @yield('css-custom')
@@ -67,15 +67,15 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets_ui/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets_ui/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/vendor/adminlte/dist/js/adminlte.min.js"></script>
+    <script src="/assets_ui/adminlte/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="/vendor/adminlte/dist/js/demo.js"></script>
+    <script src="/assets_ui/adminlte/dist/js/demo.js"></script>
     <!-- SweetAlert2 -->
-    <script src="/vendor/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="/assets_ui/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
       var Toast = Swal.mixin({
         toast: true,

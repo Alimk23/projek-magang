@@ -6,10 +6,10 @@
 
 @section('css-custom')
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ url('vendor/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ url('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets_ui/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets_ui/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- summernote -->
-    <link rel="stylesheet" href="{{ url('vendor/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets_ui/plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 
 @section('sidebar')
@@ -273,11 +273,11 @@
 
 @section('js-custom')
 <!-- Summernote -->
-<script src="{{ url('vendor/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{ url('assets_ui/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- Select2 -->
-<script src="{{ url('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ url('assets_ui/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- bs-custom-file-input -->
-<script src="{{ url('vendor/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
 <script>
     const title = document.querySelector('#title');
