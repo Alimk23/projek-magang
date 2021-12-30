@@ -51,43 +51,62 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Phone</th>
+                        <th>Campaign</th>
                         <th>Nominal</th>
                         <th>Anonim</th>
                         <th>Message</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
-                    {{-- <tbody> --}}
-                    {{-- <?php $i=1; ?> --}}
-                    {{-- @foreach ($data['campaign'] as $campaign)                  
-                      <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $campaign['title'] }}</td>
-                        <td>{{ $campaign['category']['title'] }}</td>
-                        <td>{{ $campaign['target'] }}</td>
-                        <td>{{ $campaign['collected'] }}</td>
-                        <td>{{ $campaign['end_date'] }}</td>
-                        <td>{{ $campaign['fundraiser'] }}</td>
-                        <td>
-                          <img src="{{ asset('storage/'.$campaign['cover']) }}" alt="" srcset="" style="width:30px">
-                        </td>
-                        <td>
-                            <div class="row justify-content-center">
-                                <div class="col-sm-6">
-                                    <button type="button" class="btn btn-block btn-outline-primary btn-xs">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="button" class="btn btn-block btn-outline-danger btn-xs">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                      </tr>
-                      @endforeach
-                  </tbody> --}}
+                    <tbody>
+                      @php
+                          $i=1;
+                      @endphp 
+                      @foreach ($data['donation'] as $donation)                  
+                        <tr>
+                          <td>{{ $i++ }}</td>
+                          <td>
+                            @php                                
+                                $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
+                                echo $getCampaign['name'];
+                            @endphp 
+                          </td>
+                          <td>
+                            @php                                
+                                $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
+                                echo $getCampaign['phone'];
+                            @endphp 
+                          </td>
+                          <td>
+                            @php                                
+                                $getCampaign = $data['getCampaign']->firstwhere('id', $donation['campaign_id']);
+                                echo $getCampaign['title'];
+                            @endphp 
+                          </td>
+                          <td>{{ $donation['nominal'] }}</td>
+                          <td>{{ $donation['anonim'] }}</td>
+                          <td>{{ $donation['message'] }}</td>
+                          <td>
+                            {{ ($donation['status'] == 0) ? 'Menunggu Pembayaran' : ''}}
+                            {{ ($donation['status'] == 1) ? 'Menunggu Verifikasi' : ''}}
+                            {{ ($donation['status'] == 2) ? 'Transaksi Berhasil' : ''}}
+                            {{ ($donation['status'] == 3) ? 'Transaksi Gagal' : ''}}
+                          </td>
+                          <td>
+                            @if ($donation['status'] == 1)
+                              <form action="/donation/{{ $donation['id'] }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-outline-primary btn-sm rounded-sm">Verifikasi</button>
+                              </form>                                
+                            @else
+                              <button type="button" disabled class="btn btn-secondary btn-sm rounded-sm">Verifikasi</button>                                
+                            @endif
+                          </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
               </div>
               <!-- /.card-body -->

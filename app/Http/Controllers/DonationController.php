@@ -16,10 +16,23 @@ class DonationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getCampaign($id){
+        $campaign = new Campaign;
+        $getCampaign = $campaign->firstwhere('id', $id);
+        return $getCampaign;
+    }
+    public function getUser($id){
+        $user = new User;
+        $getUser = $user->firstwhere('id', $id);
+        return $getUser;
+    }
+    public function index(Donation $donation,Campaign $campaign,User $user)
     {
         $data = [
-            'title' => 'Donation'
+            'title' => 'Donation',
+            'donation'=> $donation->all(),
+            'getCampaign' => $campaign,
+            'getUser' => $user,
         ];
         return view('admin.donation',compact('data'));
     }
@@ -136,9 +149,14 @@ class DonationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $donation = new Donation;
+        $getDonation = $donation->firstwhere('id', $id);
+        $getDonation->update([
+            'status' => 2
+        ]);
+        return redirect('donation')->with('success','Payment confirmation is successfull');;
     }
 
     /**

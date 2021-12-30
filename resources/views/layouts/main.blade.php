@@ -77,7 +77,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="/assets_ui/adminlte/dist/js/demo.js"></script>
     <!-- SweetAlert2 -->
-    <script src="/assets_ui/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="/assets_ui/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
       var Toast = Swal.mixin({
         toast: true,
