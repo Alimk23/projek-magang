@@ -2,12 +2,11 @@
   <div class="container">
     <a href="{{ url('/') }}" class="navbar-brand">
       <img
-        src="{{ url('assets_ui/adminlte/dist/img/AdminLTELogo.png') }}"
+        src="{{ url('/img/logo.png') }}"
         alt="Hobi Sedekah"
-        class="brand-image img-circle elevation-3"
-        style="opacity: 0.8"
+        class="brand-image ml-4"
+        style="opacity: 0.8;transform:scale(3,3)"
       />
-      <span class="brand-text font-weight-light"><b>Hobi</b>Sedekah</span>
     </a>
     <button
       class="navbar-toggler order-1"

@@ -40,8 +40,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ url('/') }}" class="brand-link">
-            <img src="{{ url('assets_ui/adminlte/dist/img/AdminLTELogo.png') }}" alt="Hobi Sedekah" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light"><b>Hobi</b>Sedekah</span>
+            <img src="{{ url('/img/logo.png') }}" alt="Hobi Sedekah" class="brand-image" style="opacity: .8;transform:scale(4,4);margin-left:3.3rem">
+            <span class="brand-text font-weight-light" style="opacity: 1 !important; color: #343a40 !important;">..............</span>
         </a>
     
         <!-- Sidebar -->
