@@ -122,7 +122,7 @@
 @endsection
 
 @section('footer')
-    @include('partials.footer')
+    @include('partials.admin-footer')
 @endsection
 
 @section('js-custom')

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
+use App\Models\Donation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,12 +20,18 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Campaign $campaign, Donation $donation, User $user)
     {
+        $collectedDonation = Campaign::select('collected')->pluck('collected')->all();
+        if (!empty($collectedDonation)) {
+            $totalDonation = array_sum($collectedDonation);
+        } else {
+            $totalDonation = 0;
+        }
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
         ];
-        return view('admin.index',compact('data'));
+        return view('admin.index',compact('data','campaign','donation','user','totalDonation'));
     }
 
     /**

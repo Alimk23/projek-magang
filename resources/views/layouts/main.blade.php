@@ -23,6 +23,8 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="/assets_ui/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
+    {{-- Bootstrap Icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     @yield('css-custom')
 
@@ -44,8 +46,6 @@
       @yield('navbar')
       <!-- /.navbar -->
 
-      @yield('detail-content')
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
        @yield('content-header')

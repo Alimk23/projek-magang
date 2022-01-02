@@ -42,16 +42,8 @@ class DonationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Campaign $campaign,Bank $bank)
+    public function create()
     {
-        $detail = $campaign->firstwhere('id', $request->campaign_id);
-        
-        $data = [
-            'title' => 'Create Payment',
-            'details' => $detail,
-            'banks' => $bank->all(),
-        ];
-        return view('user.create-donation', compact('data'));
     }
 
     /**
@@ -126,9 +118,16 @@ class DonationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Campaign $campaign,Bank $bank)
     {
-        //
+        $detail = $campaign->firstwhere('id', $id);
+        
+        $data = [
+            'title' => 'Create Payment',
+            'details' => $detail,
+            'banks' => $bank->all(),
+        ];
+        return view('user.create-donation', compact('data'));
     }
 
     /**
@@ -152,10 +151,16 @@ class DonationController extends Controller
     public function update($id)
     {
         $donation = new Donation;
+        $campaign = new Campaign;
         $getDonation = $donation->firstwhere('id', $id);
+        $getCampaign = $campaign->firstwhere('id', $getDonation->campaign_id);
         $getDonation->update([
             'status' => 2
         ]);
+        $getCampaign->update([
+            'collected' => $getCampaign->collected + $getDonation->nominal
+        ]);
+
         return redirect('donation')->with('success','Payment confirmation is successfull');;
     }
 

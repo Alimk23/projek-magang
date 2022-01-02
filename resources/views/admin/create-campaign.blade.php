@@ -145,13 +145,24 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="post">Post</label>
-                            @error('post')
+                            <label for="caption">Caption</label>
+                            <textarea class="form-control @error('caption') is-invalid @enderror" id="caption" name="caption" value="{{ old('caption') }}" cols="30" rows="3"></textarea>
+                            @error('caption')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>
                             </div>
                             @enderror
-                            <textarea id="post" name="post">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="description">Description</label>
+                            @error('description')
+                            <div class="text-small text-danger" role="alert">
+                              <small>{{ $message }}</small>
+                            </div>
+                            @enderror
+                            <textarea id="description" name="description">
                                 <b>Geser ke bawah</b> atau pilih tampilan <b>Full Screen</b> untuk memperbesar area mengetik
                             </textarea>
                         </div>
@@ -268,7 +279,7 @@
 @endsection
 
 @section('footer')
-    @include('partials.footer')
+    @include('partials.admin-footer')
 @endsection
 
 @section('js-custom')
@@ -291,7 +302,7 @@
 
     $(function () {
         // Summernote
-        $('#post').summernote()
+        $('#description').summernote()
     });
 
     $(function () {

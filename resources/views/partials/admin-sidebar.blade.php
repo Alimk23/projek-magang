@@ -40,8 +40,9 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ url('/') }}" class="brand-link">
-            <img src="{{ url('/img/logo.png') }}" alt="Hobi Sedekah" class="brand-image" style="opacity: .8;transform:scale(4,4);margin-left:3.3rem">
+            <img src="{{ url('/img/logo.png') }}" alt="Hobi Sedekah" class="brand-image mt-2" style="opacity: .8;transform:scale(4,4);margin-left:3.3rem">
             <span class="brand-text font-weight-light" style="opacity: 1 !important; color: #343a40 !important;">..............</span>
+            <p class="text-xs text-muted text-capitalize p-0" style="color:rgb(175, 175, 175) !important; margin:1.5rem 0rem -0.5rem 4.5rem">#HidupBerkahMelimpah</p>
         </a>
     
         <!-- Sidebar -->

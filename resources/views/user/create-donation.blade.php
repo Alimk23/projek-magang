@@ -4,27 +4,33 @@
 @endsection
 
 @section('navbar')
-    @include('partials.detail-navbar')
+    @include('partials.navbar')
 @endsection
 
 @section('content')
-<div class="container-fluid w-auto">
-  <div class="row justify-content-center mt-4 pt-3">
-      <div class="col-lg-4">
+<div class="container pt-2 mb-2">
+  <div class="row justify-content-center">
+      <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-4">
-            <img src="{{ asset('/storage/'. $data['details']->cover) }}" width="100%" class="m-0 p-0 img-fluid">
+            @if (Storage::disk('public')->exists($data['details']->cover))
+              <img src="{{ Storage::disk('public')->url($data['details']->cover) }}" alt="" class="img-fluid">
+            @else
+              <img src="/img/logo.png" alt="" class="img-fluid">
+              <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahMelimpah</p>          
+            @endif
           </div>
           <div class="col-lg-8 align-self-center">
-            <p class=" font-weight-bold">{{ $data['details']->title }}</p>
+            <p>Silahkan lengkapi formulir di bawah ini untuk berdonasi ke:</p>
+            <h5 class=" font-weight-bold">{{ $data['details']->title }}</h5>
           </div>
         </div>
       </div>
   </div>
   <form action="/donation" method="post">
     @csrf
-    <div class="row justify-content-center mt-4 pt-3">
-      <div class="col-lg-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
         <div class="row mb-3">
           <div class="col">
             <input type="text" class="d-none" name="campaign_id" id="campaign_id" value="{{ $data['details']->id }}">
@@ -125,4 +131,8 @@
     </div>
   </form>
 </div>
+@endsection
+
+@section('footer')
+  @include('partials.footer')
 @endsection

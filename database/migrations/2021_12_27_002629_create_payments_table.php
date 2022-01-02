@@ -17,8 +17,12 @@ class CreatePaymentsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('donation_id');
             $table->string('order_id');
-            $table->integer('nominal');
             $table->integer('bank_id');
+            $table->integer('nominal');
+            $table->string('bank_alias')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('note')->nullable();
             $table->string('path_image')->nullable();
             $table->timestamps();
         });

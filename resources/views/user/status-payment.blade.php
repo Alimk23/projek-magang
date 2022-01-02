@@ -1,13 +1,13 @@
 @extends('layouts.main')
-@section('title','Konfirmasi Pembayaran')
+@section('title','Status Transaksi')
 
 @section('navbar')
-    @include('partials.detail-navbar')
+    @include('partials.navbar')
 @endsection
 
 @section('content')
 <div class="container-fluid w-auto">
-    <div class="row justify-content-center mt-4 pt-3">
+    <div class="row justify-content-center mb-2 pt-4">
       <div class="col-lg-4">
         <div class="row mb-3">
           <div class="col">
@@ -49,12 +49,22 @@
             </p>
           </div>
         </div>
+        <div class="row mb-3 justify-content-between border-bottom">
+          <div class="col">
+            Simpan link berikut ini untuk melihat status transaksi anda:
+            <input type="text" class="w-100 form-control form-control-border" readonly value="{{ env('APP_URL'); }}/status/{{ $data['donations']->order_id }}">
+          </div>
+        </div>
         <a href="/">
           <button type="button" class="btn btn-block btn-primary">Kembali ke menu utama</button>
         </a>
       </div>
     </div>
 </div>
+@endsection
+
+@section('footer')
+  @include('partials.footer')
 @endsection
 
 @section('js-custom')

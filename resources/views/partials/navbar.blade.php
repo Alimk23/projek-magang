@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white fixed">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
   <div class="container">
     <a href="{{ url('/') }}" class="navbar-brand">
       <img
@@ -7,6 +7,7 @@
         class="brand-image ml-4"
         style="opacity: 0.8;transform:scale(3,3)"
       />
+      <p class="text-xs text-muted text-capitalize m-0 p-0" style="color:rgb(175, 175, 175) !important">#HidupBerkahMelimpah</p>
     </a>
     <button
       class="navbar-toggler order-1"
@@ -23,13 +24,13 @@
       <!-- Left navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a href="{{ url('/') }}" class="nav-link {{ ($data['title'] == "Beranda") ? 'active' : ''}}">Beranda</a>
+          <a href="{{ url('/') }}" class="nav-link">Beranda</a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('Sedekah') }}" class="nav-link {{ ($data['title'] == "Sedekah") ? 'active' : ''}}">Sedekah</a>
+          <a href="#sedekahprioritas" class="nav-link">Sedekah Prioritas</a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('contact') }}" class="nav-link {{ ($data['title'] == "Kontak") ? 'active' : ''}}">Kontak</a>
+          <a href="#kategori" class="nav-link">Kategori</a>
         </li>
         <li class="nav-item">
           @if (Route::has('login'))

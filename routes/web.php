@@ -26,6 +26,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'checkRole']);
 Route::get('/campaign/create/checkSlug', [CampaignController::class, 'checkSlug']);
 Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
+Route::get('/status/{id}', [PaymentController::class, 'status']);
 
 Route::resources([
     'admin' => DashboardController::class,

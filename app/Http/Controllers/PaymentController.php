@@ -142,7 +142,10 @@ class PaymentController extends Controller
         $donation = new Donation;
 
         $validatedData = $request->validate([
-            'receipt' => 'image|file|max:1024',
+            'bank_alias' => 'required',
+            'bank_account' => 'required',
+            'bank_name' => 'required',
+            'receipt' => 'required|image|file|max:1024',
         ]);
         if ($request->file('receipt')) {
             $validatedData['receipt'] = $request->file('receipt')->store('receipt-image');
@@ -150,17 +153,17 @@ class PaymentController extends Controller
 
         $getPayment = $payment->firstwhere('id', $payment_id);
         $getPayment->update([
-            'path_image' => $validatedData['receipt']
+            'bank_alias' => $validatedData['bank_alias'],
+            'bank_account' => $validatedData['bank_account'],
+            'bank_name' => $validatedData['bank_name'],
+            'path_image' => $validatedData['receipt'],
         ]);
         $getDonation = $donation->firstwhere('id', $getPayment->donation_id);
         $getDonation->update([
             'status' => 1
         ]);
-        $data = [
-            'donations' => $getDonation,
-            'payments' => $getPayment,
-        ];
-        return view('user.status-payment', compact('data'));
+        
+        return redirect('/status/'. $getPayment->order_id);
     }
 
     /**
@@ -172,5 +175,13 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function status($order_id){
+        $getDonation = Donation::where('order_id', $order_id)->first();
+        $data = [
+            'donations' => $getDonation
+        ];
+        return view('user.status-payment', compact('data'));
     }
 }

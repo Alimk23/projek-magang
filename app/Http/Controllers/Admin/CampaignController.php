@@ -56,12 +56,13 @@ class CampaignController extends Controller
             'slug' => 'required|unique:campaign',
             'target' => 'required',
             'end_date' => 'required',
-            'post' => 'required',
+            'description' => 'required',
+            'caption' => 'required',
             'cover' => 'image|file|max:1024',
             'files' => 'file|max:1024',
         ]);
         $validatedData['category_id'] = 1;
-        $validatedData['fundraiser'] = "Lembaga Sosial Kemasyarakatan";
+        $validatedData['fundraiser'] = "Penggalang Dana";
 
         if ($request->file('cover')) {
             $validatedData['cover'] = $request->file('cover')->store('cover-image');
@@ -86,7 +87,7 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**

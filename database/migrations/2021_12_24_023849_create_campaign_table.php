@@ -20,7 +20,8 @@ class CreateCampaignTable extends Migration
             $table->integer('category_id');
             $table->string('cover')->nullable();
             $table->string('files')->nullable();
-            $table->longText('post');
+            $table->text('caption');
+            $table->longText('description');
             $table->integer('target');
             $table->date('end_date');
             $table->string('fundraiser');
