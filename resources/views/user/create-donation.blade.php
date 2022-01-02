@@ -13,12 +13,14 @@
       <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-4">
-            @if (Storage::disk('public')->exists($data['details']->cover))
-              <img src="{{ Storage::disk('public')->url($data['details']->cover) }}" alt="" class="img-fluid">
-            @else
-              <img src="/img/logo.png" alt="" class="img-fluid">
-              <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahMelimpah</p>          
-            @endif
+            <div class="card mt-0 mt-lg-4" style="width: 180px;height: 120px; overflow:hidden;">
+              @if (Storage::disk('public')->exists($data['details']->cover))
+                <img src="{{ Storage::disk('public')->url($data['details']->cover) }}" alt="" class="img-fluid">
+              @else
+                <img src="/img/logo.png" alt="" class="img-fluid">
+                <p class="text-xs text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -2rem 0rem 0rem 2rem">#HidupBerkahMelimpah</p>          
+              @endif
+            </div>
           </div>
           <div class="col-lg-8 align-self-center">
             <p>Silahkan lengkapi formulir di bawah ini untuk berdonasi ke:</p>

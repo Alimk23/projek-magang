@@ -84,7 +84,7 @@
                                 echo $getCampaign['title'];
                             @endphp 
                           </td>
-                          <td>{{ $donation['nominal'] }}</td>
+                          <td>{{ currency_format($donation['nominal']) }}</td>
                           <td>{{ $donation['anonim'] }}</td>
                           <td>{{ $donation['message'] }}</td>
                           <td>

@@ -44,7 +44,7 @@
                   Rp
                 </span>
               </div>
-              <input readonly type="text" class="form-control" id="nominal" value="{{ $data['donations']->nominal }}">
+              <input readonly type="text" class="form-control" id="nominal" value="{{ currency_format($data['donations']->nominal) }}">
             </div>
           </div>
         </div>

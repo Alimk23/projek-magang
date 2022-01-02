@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-4 col-md-6 mb-3">
           <p class="icon"><i class="fas fa-dollar-sign fa-3x"></i></p>
-          <p class="font-weight-bold">Rp {{ $data['totalDonation'] }}</p>
+          <p class="font-weight-bold">Rp {{ currency_format($data['totalDonation']) }}</p>
           <p class="text text-uppercase mb-0">Total Ziswaf</p>
         </div>
         <div class="col-lg-4 col-md-6 mb-3">
@@ -73,7 +73,7 @@
                 <div class="d-flex flex-column">
                   <p class="mb-0">
                     <strong>
-                     Rp. {{ $campaign['collected'] }}
+                     Rp. {{ currency_format($campaign['collected']) }}
                     </strong>
                   </p>
                   <p class="my-0 py-0">Donasi Terkumpul</p>

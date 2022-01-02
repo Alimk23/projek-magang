@@ -53,10 +53,10 @@
           <div class="d-flex flex-column">
             <h3 class="mb-0">
               <strong>
-                Rp. {{ $data['campaign']->collected }}
+                Rp. {{ currency_format($data['campaign']->collected) }}
               </strong>
             </h3>
-            <p class="my-0 py-0">Terkumpul dari Rp. {{ $data['campaign']->target }}</p>
+            <p class="my-0 py-0">Terkumpul dari Rp. {{ currency_format($data['campaign']->target) }}</p>
           </div>
           <div class="d-flex flex-column">
             <h3 class="mb-0">
@@ -143,7 +143,7 @@
                         </div>
                       </div>
                       <div class="text-primary">
-                        Rp {{ $getDonation['nominal'] }}
+                        Rp {{ currency_format($getDonation['nominal']) }}
                       </div>
                     </div>
                     @if (!empty($getDonation['message']))

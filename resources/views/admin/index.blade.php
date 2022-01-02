@@ -67,7 +67,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Donation Amount</span>
-            <span class="info-box-number">Rp {{ $totalDonation }}</span>
+            <span class="info-box-number">Rp {{ currency_format($totalDonation) }}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
