@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
@@ -20,6 +21,10 @@ use App\Http\Controllers\Admin\DashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link')
+;
+});
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);

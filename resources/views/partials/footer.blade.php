@@ -27,7 +27,7 @@
       <div class="col-lg-3 mt-4">
         <h5 class="mb-lg-4 mb-2">Alamat Kantor</h5>
         <p class="mb-lg-3 mb-1">
-          Jl. Merpati No. 239, Modalan, Banguntapan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta 55198
+          Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta
         </p>
       </div>
       <div class="col-lg-3 mt-4">
