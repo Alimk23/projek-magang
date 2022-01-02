@@ -20,7 +20,7 @@ class CreateDonationsTable extends Migration
             $table->integer('order_id');
             $table->integer('nominal');
             $table->string('anonim')->default('off');
-            $table->string('message');
+            $table->string('message')->nullable();;
             $table->integer('status');
             $table->timestamps();
         });

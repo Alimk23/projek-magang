@@ -78,8 +78,8 @@
                         <td>{{ $i++ }}</td>
                         <td>{{ $campaign['title'] }}</td>
                         <td>{{ $campaign['category']['title'] }}</td>
-                        <td>{{ $campaign['target'] }}</td>
-                        <td>{{ $campaign['collected'] }}</td>
+                        <td>Rp {{ currency_format($campaign['target']) }}</td>
+                        <td>Rp {{ currency_format($campaign['collected']) }}</td>
                         <td>{{ $campaign['end_date'] }}</td>
                         <td>{{ $campaign['fundraiser'] }}</td>
                         <td>

@@ -58,10 +58,8 @@ class DonationController extends Controller
             'campaign_id' => 'required',
             'name' => 'required',
             'phone' => 'required',
-            'email' => 'required|email',
             'nominal' => 'required|integer',
             'bank' => 'required',
-            'message' => 'required',
         ]);
         $order_id = mt_rand(100000,999999);
 

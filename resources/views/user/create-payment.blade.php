@@ -127,7 +127,7 @@
                 <div class="input-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input @error('receipt') is-invalid @enderror" name="receipt" id="receipt">
-                      <label class="custom-file-label" for="receipt">Choose file</label>
+                      <label class="custom-file-label text-muted" for="receipt">Upload Bukti Pembayaran</label>
                     </div>
                 </div>
                 @error('receipt')

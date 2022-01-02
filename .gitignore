@@ -1,0 +1,5 @@
+.gitignore
+/public/storage
+/storage/*.key
+.env
+.env.backup
