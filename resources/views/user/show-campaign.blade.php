@@ -113,6 +113,7 @@
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-donatur" role="tabpanel" aria-labelledby="custom-tabs-four-donatur-tab">
                   @foreach ($data['getDonation'] as $getDonation)
+                  @if ($getDonation['status']==2)
                     <?php 
                     $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
                     ?>
@@ -159,6 +160,7 @@
                         </div>
                       </div>
                     @endif
+                  @endif
                   @endforeach
                 </div>
               </div>
