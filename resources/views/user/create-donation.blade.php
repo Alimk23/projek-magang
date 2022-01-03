@@ -87,7 +87,7 @@
                 <label class="custom-control-label" for="anonim" style="font-weight: normal">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
           </div>
-            @error('name')
+            @error('anonim')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
             </div>

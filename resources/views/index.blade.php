@@ -21,7 +21,7 @@
   <div class="report bg-dark">
     <div class="container text-white py-5">
       <div class="row text-center">
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6 mb-5 mb-lg-3">
           <p class="icon"><i class="fas fa-users fa-3x"></i></p>
           <p class="font-weight-bold">
           @if ($data['donation']->isEmpty())
@@ -32,12 +32,12 @@
           </p>
           <p class="text text-uppercase mb-0">Donatur</p>
         </div>
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6 mb-5 mb-lg-3">
           <p class="icon"><i class="fas fa-dollar-sign fa-3x"></i></p>
           <p class="font-weight-bold">Rp {{ currency_format($data['totalDonation']) }}</p>
           <p class="text text-uppercase mb-0">Total Ziswaf</p>
         </div>
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6 mb-5 mb-lg-3">
           <p class="icon"><i class="fas fa-clipboard-check fa-3x"></i></p>
           <p class="font-weight-bold">
             {{ $data['campaign']->count() }}
@@ -125,7 +125,7 @@
             <h2 class="fa-2x mb-4 text-uppercase font-weight-bold">Kategori Program</h2>
           </div>
           @foreach ($data['category'] as $category) 
-          <a href="/category/{{ $category['id'] }}" class="text-decoration-none text-white btn btn-lg btn-primary rounded-pill mr-3 p-4 d-flex justify-content-center align-items-center" style="width: 200px">          
+          <a href="/category/{{ $category['id'] }}" class="text-decoration-none text-white btn btn-lg btn-primary rounded-pill mr-3 p-4 d-flex justify-content-center align-items-center mb-3 mb-lg-0" style="width: 200px">          
             <div class="col-lg-10 col-md-6">
               {{ $category['title'] }}
             </div>

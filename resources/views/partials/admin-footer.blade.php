@@ -1,4 +1,4 @@
-<div class="footer bg-dark fixed-bottom">
+<div class="footer bg-dark fixed-bottom d-none d-lg-block">
     <div class="container">
         <div class="d-flex justify-content-center">
             <strong>
