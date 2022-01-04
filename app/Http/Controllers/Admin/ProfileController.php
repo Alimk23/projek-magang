@@ -23,14 +23,20 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $getProfileData = $profile->firstWhere('user_id', $user->id);
-        
         $name = $user->name ? $user->name : "Belum ada data";
         $email = $user->email ? $user->email : "Belum ada data";
         $phone = $user->phone ? $user->phone : "Belum ada data";
-        $photo = $getProfileData->photo ? $getProfileData->photo : "Belum ada data";
-        $address = $getProfileData->address ? $getProfileData->address : "Belum ada data";
-        $company_name = $getProfileData->company_id ? $getProfileData->company->company_name : "Belum ada data";
-        $job_title = $getProfileData->company_id ? $getProfileData->company->job_title : "Belum ada data";
+        if (!empty($getProfileData)) {
+            $photo = $getProfileData->photo ? $getProfileData->photo : "Belum ada data";
+            $address = $getProfileData->address ? $getProfileData->address : "Belum ada data";
+            $company_name = $getProfileData->company_id ? $getProfileData->company->company_name : "Belum ada data";
+            $job_title = $getProfileData->company_id ? $getProfileData->company->job_title : "Belum ada data";
+        } else {
+            $photo = "Belum ada data";
+            $address = "Belum ada data";
+            $company_name = "Belum ada data";
+            $job_title = "Belum ada data";            
+        }
         
         
         $data = [

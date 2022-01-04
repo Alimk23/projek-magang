@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use App\Models\Profile;
 use App\Models\User;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
@@ -41,15 +42,17 @@ class HomeController extends Controller
             return redirect('/user');
         }
     }
-    public function show($slug, Campaign $campaign, Donation $donation){
+    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile){
         $detail = $campaign->firstwhere('slug', $slug);
+        $getProfile = $profile->firstwhere('user_id', 1);
         $getDonation = Donation::where('campaign_id', $detail->id)->get();
         $user = new User();
         $data = [
             'title' => $detail->title,
             'campaign' => $detail,
             'getDonation' => $getDonation,
-            'user'=>$user
+            'user'=>$user,
+            'photo'=>$getProfile->photo,
         ];
         return view('user.show-campaign', compact('data'));
     }

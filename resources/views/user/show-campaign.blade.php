@@ -21,7 +21,12 @@
       </div>
       <div class="d-flex">
         <div class="img rounded-circle">
-          <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
+        @if (Storage::disk('public')->exists($data['photo']))
+          <img src="{{ Storage::disk('public')->url($data['photo']) }}" width="40px" class="rounded-circle" alt="Profile Picture">
+        @else
+          <img src="/img/default.png" width="40px" class="rounded-circle" alt="Profile Picture" srcset="">
+        @endif
+
         </div>
         <div class="ml-3" style="margin-bottom: -1rem">
           <a href="#" class="text-decoration-none">

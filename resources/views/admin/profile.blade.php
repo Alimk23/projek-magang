@@ -96,7 +96,7 @@
                   <div class="d-flex flex-row align-items-end w-100">
                     {{-- photo --}}
                     <div class="form-group col-4 col-md-2">
-                      @if (Storage::disk('public')->exists($data['photo']))
+                    @if (Storage::disk('public')->exists($data['photo']))
                       <img src="{{ Storage::disk('public')->url($data['photo']) }}" alt="" class="rounded-circle" width="100px">
                     @else
                       <img src="/img/default.png" class="rounded-circle" width="100px" alt="" srcset="">
