@@ -24,8 +24,10 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 Route::get('/linkstorage', function () {
-    Artisan::call('storage:link')
-;
+    Artisan::call('storage:link');
+});
+Route::get('/migratefs', function () {
+    Artisan::call('migrate:fresh --seed');
 });
 Auth::routes();
 
