@@ -43,16 +43,22 @@ class HomeController extends Controller
         }
     }
     public function show($slug, Campaign $campaign, Donation $donation, Profile $profile){
-        $detail = $campaign->firstwhere('slug', $slug);
-        $getProfile = $profile->firstwhere('user_id', 1);
-        $getDonation = Donation::where('campaign_id', $detail->id)->get();
         $user = new User();
+        $detail = $campaign->firstwhere('slug', $slug);
+        $getDonation = Donation::where('campaign_id', $detail->id)->get();
+        $getProfile = $profile->firstwhere('user_id', 1);
+        if (empty($getProfile)) {
+            $photo = null;
+        } else {
+            $photo = $getProfile->photo;
+        }
+        
         $data = [
             'title' => $detail->title,
             'campaign' => $detail,
             'getDonation' => $getDonation,
             'user'=>$user,
-            'photo'=>$getProfile->photo,
+            'photo'=>$photo,
         ];
         return view('user.show-campaign', compact('data'));
     }

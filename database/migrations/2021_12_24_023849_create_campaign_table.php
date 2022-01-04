@@ -15,16 +15,16 @@ class CreateCampaignTable extends Migration
     {
         Schema::create('campaign', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('category_id');
             $table->string('title');
             $table->string('slug');
-            $table->integer('category_id');
             $table->string('cover')->nullable();
             $table->string('files')->nullable();
             $table->text('caption');
             $table->longText('description');
-            $table->integer('target');
             $table->date('end_date');
-            $table->string('fundraiser');
+            $table->integer('target');
             $table->integer('collected')->default(0);
             $table->timestamps();
         });

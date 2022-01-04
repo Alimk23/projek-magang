@@ -82,18 +82,43 @@ class CompanyController extends Controller
         $user = Auth::user();
         $getProfileData = $profile->firstWhere('user_id', $user->id);
         $getCompanyData = $company->firstWhere('user_id', $user->id);
-
-        if (empty($getCompanyData)) {            
+        if (empty($getCompanyData) && empty($getProfileData)) {
             $save = Company::create([
-                'user_id' => $id,
+                'user_id' => $user->id,
                 'company_name' => $validatedData['company_name'],
                 'job_title' => $validatedData['job_title'],
             ]);
             $getCompanyId = $company->firstWhere('user_id', $user->id);
-            $getProfileData->update([
+            Profile::create([
+                'user_id' => $user->id,
                 'company_id' => $getCompanyId->id,
             ]);
-        } else {
+        }
+        elseif (empty($getCompanyData) || empty($getProfileData)) {
+            if (empty($getCompanyData)) {
+                $save = Company::create([
+                    'user_id' => $user->id,
+                    'company_name' => $validatedData['company_name'],
+                    'job_title' => $validatedData['job_title'],
+                ]);
+                $getCompanyId = $company->firstWhere('user_id', $user->id);
+                $getProfileData->update([
+                    'company_id' => $getCompanyId->id,
+                ]);
+            }
+            elseif (empty($getProfileData)) {
+                $save = $getCompanyData->update([
+                    'company_name' => $validatedData['company_name'],
+                    'job_title' => $validatedData['job_title'],
+                ]);
+                $getCompanyId = $company->firstWhere('user_id', $user->id);
+                Profile::create([
+                    'user_id' => $user->id,
+                    'company_id' => $getCompanyId->id,
+                ]);
+            }
+        }
+        elseif (!empty($getCompanyData) && !empty($getProfileData)) {
             $save = $getCompanyData->update([
                 'company_name' => $validatedData['company_name'],
                 'job_title' => $validatedData['job_title'],
@@ -103,7 +128,7 @@ class CompanyController extends Controller
                 'company_id' => $getCompanyId->id,
             ]);
         }
-        
+
 
         if ($save == true) {
             return redirect('/profile')->with('success','Update profile is successful');

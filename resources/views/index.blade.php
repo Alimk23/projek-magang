@@ -97,7 +97,7 @@
                 {{ $campaign['title'] }}
               </h4>
               <p class="text-xs">
-                {{ $campaign['fundraiser'] }}
+                {{ $campaign['user']['company']['company_name'] }}
                 <i class="bi bi-patch-check-fill text-primary"></i>
               </p>
               <p class="card-text text-small">

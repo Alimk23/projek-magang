@@ -32,7 +32,7 @@
           <a href="#" class="text-decoration-none">
             <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
               <p class="text-sm">
-                {{ $data['campaign']->fundraiser }}
+                {{ $data['campaign']->user->company->company_name }}
                 <i class="bi bi-patch-check-fill text-primary"></i>
               </p>  
             </div>

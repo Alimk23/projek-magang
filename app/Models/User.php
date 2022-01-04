@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Company;
 use App\Models\Donation;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -47,5 +48,13 @@ class User extends Authenticatable
     public function donation()
     {
         return $this->belongsTo(Donation::class);
+    }
+    public function campaign()
+    {
+        return $this->hasOne(Campaign::class);
+    }
+    public function company()
+    {
+        return $this->hasOne(Company::class);
     }
 }

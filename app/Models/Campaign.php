@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Category;
 use App\Models\Donation;
 use Illuminate\Database\Eloquent\Model;
@@ -31,5 +32,9 @@ class Campaign extends Model
     public function donation()
     {
         return $this->belongsTo(Donation::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
