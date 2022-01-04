@@ -9,6 +9,9 @@
 @endsection
 
 @section('content-header')
+    @push('icon-header')
+    <i class="fas fa-tachometer-alt"></i>
+    @endpush
     @include('partials.content-header')
 @endsection
 

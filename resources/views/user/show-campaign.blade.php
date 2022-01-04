@@ -87,86 +87,103 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <div class="card card-primary card-outline card-outline-tabs">
-            <div class="card-header p-0 border-bottom-0">
-              <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="custom-tabs-four-deskripsi-tab" data-toggle="pill" href="#custom-tabs-four-deskripsi" role="tab" aria-controls="custom-tabs-four-deskripsi" aria-selected="true">Deskripsi</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-four-info-terbaru-tab" data-toggle="pill" href="#custom-tabs-four-info-terbaru" role="tab" aria-controls="custom-tabs-four-info-terbaru" aria-selected="false">Info Terbaru</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-four-donatur-tab" data-toggle="pill" href="#custom-tabs-four-donatur" role="tab" aria-controls="custom-tabs-four-donatur" aria-selected="false">Donatur</a>
-                </li>
-              </ul>
-            </div>
-            <div class="card-body">
-              <div class="tab-content" id="custom-tabs-four-tabContent">
-                <div class="tab-pane fade show active" id="custom-tabs-four-deskripsi" role="tabpanel" aria-labelledby="custom-tabs-four-deskripsi-tab">
-                  {!! $data['campaign']->description !!}
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-four-info-terbaru" role="tabpanel" aria-labelledby="custom-tabs-four-info-terbaru-tab">
-
-
-
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-four-donatur" role="tabpanel" aria-labelledby="custom-tabs-four-donatur-tab">
-                  @foreach ($data['getDonation'] as $getDonation)
-                  @if ($getDonation['status']==2)
-                    <?php 
-                    $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
-                    ?>
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex">
-                        <div class="img rounded-circle">
-                          <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
-                        </div>
-                        <div class="ml-3" style="margin-bottom: -1rem">
-                          <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
-                              <p class="text-sm">
-                                @if ($getDonation['anonim'] == 'on')
-                                    Hamba Allah
-                                @else
-                                    {{ $getUser->name }}
-                                @endif
-                              </p>  
-                            </div>
-                          </a>
-                          <p class="text-muted text-xs border-top">
-                            <?php 
-                            $endDate=strtotime($getDonation['updated_at']);
-                            $countdown=ceil((time()-$endDate)/60/60/24);
-                            echo $countdown . " hari yang lalu";
-                          ?>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="text-primary">
-                        Rp {{ currency_format($getDonation['nominal']) }}
-                      </div>
-                    </div>
-                    @if (!empty($getDonation['message']))
-                      <div class="card mt-2 ml-5">
-                        <div class="card-body">
-                          {{ $getDonation['message'] }}
-                        </div>
-                        <div class="card-footer p-1 text-right">
-                          <a href="" class="btn btn-sm">
-                            <i class="fas fa-heart"></i>
-                            Aamiin
-                          </a>
-                        </div>
-                      </div>
-                    @endif
-                  @endif
-                  @endforeach
+          <div class="card">
+            <div class="card-header">
+              <a href="" data-card-widget="collapse">
+                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Deskripsi</h3>
+                <div class="card-tools text-right">
+                  <button type="button" class="btn btn-tool" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
               </div>
+              </a>
+            <div class="card-body">
+              {!! $data['campaign']->description !!}
             </div>
-            <!-- /.card -->
-          </div>  
+            <!-- /.card-body -->
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <a href="" data-card-widget="collapse">
+                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Info Terbaru</h3>
+                <div class="card-tools text-right">
+                  <button type="button" class="btn btn-tool" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              </a>
+            <div class="card-body">
+              Belum ada data
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <a href="" data-card-widget="collapse">
+                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Donatur</h3>
+                <div class="card-tools text-right">
+                  <button type="button" class="btn btn-tool" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              </a>
+            <div class="card-body">
+              @foreach ($data['getDonation'] as $getDonation)
+              @if ($getDonation['status']==2)
+                <?php 
+                $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
+                ?>
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex">
+                    <div class="img rounded-circle">
+                      <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
+                    </div>
+                    <div class="ml-3" style="margin-bottom: -1rem">
+                      <a href="#" class="text-decoration-none">
+                        <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
+                          <p class="text-sm">
+                            @if ($getDonation['anonim'] == 'on')
+                                Hamba Allah
+                            @else
+                                {{ $getUser->name }}
+                            @endif
+                          </p>  
+                        </div>
+                      </a>
+                      <p class="text-muted text-xs border-top">
+                        <?php 
+                        $endDate=strtotime($getDonation['updated_at']);
+                        $countdown=ceil((time()-$endDate)/60/60/24);
+                        echo $countdown . " hari yang lalu";
+                      ?>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-primary">
+                    Rp {{ currency_format($getDonation['nominal']) }}
+                  </div>
+                </div>
+                @if (!empty($getDonation['message']))
+                  <div class="card mt-2 ml-5">
+                    <div class="card-body">
+                      {{ $getDonation['message'] }}
+                    </div>
+                    <div class="card-footer p-1 text-right">
+                      <a href="" class="btn btn-sm">
+                        <i class="fas fa-heart"></i>
+                        Aamiin
+                      </a>
+                    </div>
+                  </div>
+                @endif
+              @endif
+              @endforeach
+            </div>
+            <!-- /.card-body -->
+          </div>
         </div>
       </div>
     </div>

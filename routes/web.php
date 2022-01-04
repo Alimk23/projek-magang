@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -35,9 +37,11 @@ Route::get('/status/{id}', [PaymentController::class, 'status']);
 
 Route::resources([
     'admin' => DashboardController::class,
+    'user' => UserController::class,
     'campaign' => CampaignController::class,
     'category' => CategoryController::class,
     'profile' => ProfileController::class,
+    'company' => CompanyController::class,
     'bank' => BankController::class,
     'donation' => DonationController::class,
     'payment' => PaymentController::class,

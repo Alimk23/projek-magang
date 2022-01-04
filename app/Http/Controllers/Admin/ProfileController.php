@@ -24,11 +24,25 @@ class ProfileController extends Controller
         $user = Auth::user();
         $getProfileData = $profile->firstWhere('user_id', $user->id);
         
+        $name = $user->name ? $user->name : "Belum ada data";
+        $email = $user->email ? $user->email : "Belum ada data";
+        $phone = $user->phone ? $user->phone : "Belum ada data";
+        $photo = $getProfileData->photo ? $getProfileData->photo : "Belum ada data";
+        $address = $getProfileData->address ? $getProfileData->address : "Belum ada data";
+        $company_name = $getProfileData->company_id ? $getProfileData->company->company_name : "Belum ada data";
+        $job_title = $getProfileData->company_id ? $getProfileData->company->job_title : "Belum ada data";
+        
+        
         $data = [
             'title' => 'Profile',
+            'id'  => $user->id,
             'name'  => $user->name,
             'email'  => $user->email,
             'phone'  => $user->phone,
+            'photo'  => $photo,
+            'address'  => $address,
+            'company_name'  => $company_name,
+            'job_title'  => $job_title,
             
         ];
         return view('admin.profile',compact('data'));
@@ -86,7 +100,43 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $profile = new Profile;
+        $validatedData = $request->validate([
+            'address' => 'required|max:255',
+            'photo' => 'image|file|max:1024',
+        ]);
+        if ($request->file('photo')) {
+            $validatedData['photo'] = $request->file('photo')->store('profile-image');
+        }
+        $user = Auth::user();
+        $getProfileData = $profile->firstWhere('user_id', $user->id);
+        
+        if (empty($getProfileData)) {            
+            $save = Profile::create([
+                'user_id' => $id,
+                'address' => $validatedData['address'],
+                'photo' => $validatedData['photo'],
+            ]);
+        } else {
+            if (empty($request->photo)) {
+                $save = $getProfileData->update([
+                    'address' => $validatedData['address'],
+                ]);
+            } else {
+                $save = $getProfileData->update([
+                    'address' => $validatedData['address'],
+                    'photo' => $validatedData['photo'],
+                ]);
+            }            
+        }
+        
+
+        if ($save == true) {
+            return redirect('/profile')->with('success','Update profile is successful');
+        }
+        else{
+            return redirect('/profile')->with('error','Update profile is failed');
+        }
     }
 
     /**

@@ -25,6 +25,9 @@
 @endsection
 
 @section('content-header')
+    @push('icon-header')
+      <i class="fas fa-copy"></i>
+    @endpush
     @include('partials.content-header')
 @endsection
 

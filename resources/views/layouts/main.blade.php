@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="facebook-domain-verification" content="bela2dp6a4gt38ma3i598jrk5eb7sp" />
+    <meta property='fb:app_id' content='1092848738224575'/>   
+    <meta property="og:title" content="HobiSedekah">
+    <meta property="og:url" content="https://hobisedekah.com">
+    <meta property="og:description" content="Hidup Berkah Melimpah">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://hobisedekah.com/img/logo.png"> 
+    
     <title>@yield('title')</title>
 
     <link rel="shortcut icon" href="/img/icon.png">
@@ -32,7 +40,7 @@
 
   <body 
       @hasSection ('sidebar')
-        class="hold-transition sidebar-mini sidebar-collapse"
+        class="hold-transition sidebar-mini sidebar-collapse layout-fixed"
       @else
         class="hold-transition layout-top-nav"
       @endif

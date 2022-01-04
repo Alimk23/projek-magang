@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Company;
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Profile extends Model
+class Company extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table= 'profiles';
+    protected $table= 'companies';
 
-    public function company()
+    public function profile()
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasOne(Profile::class);
     }
 }

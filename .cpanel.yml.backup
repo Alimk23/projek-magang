@@ -3,12 +3,24 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/hobisede/public_html/
     - /bin/cp -R app $DEPLOYPATH
+    - /bin/cp -R bootstrap $DEPLOYPATH
+    - /bin/cp -R config $DEPLOYPATH
     - /bin/cp -R database $DEPLOYPATH
+    - /bin/cp -R node_modules $DEPLOYPATH
     - /bin/cp -R resources $DEPLOYPATH
     - /bin/cp -R routes $DEPLOYPATH
+    - /bin/cp -R vendor $DEPLOYPATH
+    - /bin/cp .editorconfig $DEPLOYPATH
+    - /bin/cp .env.example $DEPLOYPATH
+    - /bin/cp .gitattributes $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp .styleci.yml $DEPLOYPATH
+    - /bin/cp artisan $DEPLOYPATH
     - /bin/cp composer.json $DEPLOYPATH
     - /bin/cp composer.lock $DEPLOYPATH
     - /bin/cp package-lock.json $DEPLOYPATH
     - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp phpunit.xml $DEPLOYPATH
+    - /bin/cp README.md $DEPLOYPATH
     - /bin/cp server.php $DEPLOYPATH
     - /bin/cp webpack.mix.js $DEPLOYPATH

@@ -16,7 +16,7 @@
             <form action="{{ route('register') }}" method="post">
                 @csrf
                 <div class="input-group">
-                    <input type="name" class="form-control" id="name" name="name" placeholder="Full Name">
+                    <input type="name" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Full Name">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -30,7 +30,7 @@
                 @enderror
 
                 <div class="input-group mt-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -44,7 +44,7 @@
                 @enderror
 
                 <div class="input-group mt-3">
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+                    <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="phone">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-phone"></span>
@@ -58,7 +58,7 @@
                 @enderror
 
                 <div class="input-group mt-3">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -71,14 +71,14 @@
                 </div>
                 @enderror
                 <div class="input-group mt-3">
-                    <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="Repeat Password">
+                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password-confirm" name="password_confirmation" placeholder="Repeat Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
                 </div>
-                @error('password')
+                @error('password_confirmation')
                 <div class="text-small text-danger" role="alert">
                     <small>{{ $message }}</small>
                 </div>

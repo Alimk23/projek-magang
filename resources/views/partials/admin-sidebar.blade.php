@@ -69,34 +69,73 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-header text-uppercase">Campaign Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('campaign') }}" class="nav-link {{ ($data['title'] == "Campaign") ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-copy"></i>
                         <p>
-                            Campaign
+                            Campaign List
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('category') }}" class="nav-link {{ ($data['title'] == "category") ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-fw fa-list-ul"></i>
+                        <p>
+                            Category
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header text-uppercase">Donation Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('donation') }}" class="nav-link {{ ($data['title'] == "Donation") ? 'active' : ''}}">
                     <i class="px-1 fas fa-hand-holding-usd"></i>
                         <p>
-                            Donation
+                            Donation List
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('contributor') }}" class="nav-link {{ ($data['title'] == "contributor") ? 'active' : ''}}">
+                    <i class="px-1 fas fa-users"></i>
+                        <p>
+                            Contributor
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header text-uppercase">Payment Menu</li>
+                <li class="nav-item">
+                    <a href="{{ url('payment') }}" class="nav-link {{ ($data['title'] == "payment") ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-fw fa-cart-plus"></i>
+                        <p>
+                            Payment List
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('bank') }}" class="nav-link {{ ($data['title'] == "bank") ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-fw fa-university"></i>
+                        <p>
+                            Bank Info
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header text-uppercase">Personal Menu</li>
+                <li class="nav-item">
                     <a href="{{ url('profile') }}" class="nav-link {{ ($data['title'] == "Profile") ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-users"></i>
+                    <i class="nav-icon fas fa-fw fa-user"></i>
                         <p>
                             Profile
                         </p>
                     </a>
                 </li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-                <li class="nav-item">
+                <li class="nav-item mb-5 pb-2">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     <a class="nav-link" href=" {{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -104,7 +143,6 @@
                         <p>Logout</p>
                     </a>
                 </li>
-    
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

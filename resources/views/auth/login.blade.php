@@ -12,7 +12,23 @@
             </div>
         <div class="card-body">
             <p class="login-box-msg">Login</p>
-    
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>          
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>          
+            @endif
+
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="input-group">
@@ -46,10 +62,10 @@
             <!-- /.social-auth-links -->
     
             <p class="mb-1 mt-2">
-                <a href="{{ url('resetpass') }}">Lupa Password</a>
+                <a href="#">Lupa Password</a>
             </p>
             <p class="mb-1">
-                <a href="{{ url('register') }}" class="text-center">Buat Akun</a>
+                <a href="#" class="text-center">Buat Akun</a>
             </p>
         </div>
         <!-- /.card-body -->
