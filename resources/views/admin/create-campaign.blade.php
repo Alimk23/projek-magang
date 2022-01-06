@@ -99,7 +99,7 @@
                             <div class="select2-primary">
                               <select class="form-control select2 @error('category') is-invalid @enderror" name="category" multiple="multiple" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                 @foreach ($data['category'] as $category)
-                                <option value="{{ $category['title'] }}">{{ $category['title'] }}</option>
+                                <option value="{{ $category['category']['id'] }}">{{ $category['category']['title'] }}</option>
                                 @endforeach
                               </select>                                  
                             </div>                            

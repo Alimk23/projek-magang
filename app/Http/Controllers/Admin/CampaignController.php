@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\CategoryByUser;
+use Illuminate\Support\Facades\Auth;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CampaignController extends Controller
@@ -22,9 +24,12 @@ class CampaignController extends Controller
      */
     public function index(Campaign $campaign)
     {
+        $user = Auth::user();
+        $getCampaign = $campaign->where('user_id',$user->id)->get();
+
         $data = [
             'title'=>'Campaign',
-            'campaign'=>$campaign->all()
+            'campaign'=>$getCampaign
         ];
         return view('admin.campaign',compact('data'));
     }
@@ -34,11 +39,13 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create(CategoryByUser $categoryByUser)
     {
+        $user = Auth::user();
+        $getCategory = $categoryByUser->where('user_id',$user->id)->get();
         $data = [
             'title' => 'Create Campaign',
-            'category' => $category->all()
+            'category' => $getCategory
         ];
         return view('admin.create-campaign',compact('data'));
     }

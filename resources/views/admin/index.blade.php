@@ -40,7 +40,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Total Campaign</span>
-            <span class="info-box-number">{{ $campaign->all()->count() }}</span>
+            <span class="info-box-number">{{ $getCampaign }}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -57,7 +57,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Total Donation</span>
-            <span class="info-box-number">{{ $donation->all()->count() }}</span>
+            <span class="info-box-number">{{ $getDonation }}</span>
           </div>
           <!-- /.info-box-content -->
         </div>

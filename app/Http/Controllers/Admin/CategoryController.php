@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\CategoryByUser;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -18,12 +20,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category, CategoryByUser $categoryByUser)
     {
+        $user = Auth::user();
+        $getCategory = $categoryByUser->where('user_id',$user->id)->get();
         $data = [
             'title' => 'Category'
         ];
-        return view('admin.index',compact('data'));
+        return view('admin.category',compact('data', 'getCategory'));
     }
 
     /**
@@ -33,7 +37,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $content = file_get_contents('https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/icons.json');
+        $json = json_decode($content);
+        $icons = [];
+    
+        foreach ($json as $icon => $value) {
+            foreach ($value->styles as $style) {
+                $icons[] = 'fa-3x fa'.substr($style, 0 ,1).' fa-'.$icon;
+            }
+        }
+        $user = Auth::user();
+        $data = [
+            'title' => 'Category',
+            'user_id' => $user->id
+        ];
+        return view('admin.create-category',compact('data','icons'));
     }
 
     /**
@@ -42,22 +60,27 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category, CategoryByUser $categoryByUser)
     {
         $validatedData = $request->validate([
+            'user_id' => 'required|max:255',
             'title' => 'required|max:255',
-            'logo' => 'image|file|max:1024',
+            'icon' => 'required|max:255',
         ]);
-        if ($request->file('logo')) {
-            $validatedData['logo'] = $request->file('logo')->store('logo-image');
-        }
+        $store = Category::create([
+            'title' => $validatedData['title'],
+            'icon' => $validatedData['icon'],
+        ])->id;
+        $save = CategoryByUser::create([
+            'user_id' => $validatedData['user_id'],
+            'category_id' => $store,
+        ]);
 
-        $store = Category::create($validatedData);
-        if ($store == true) {
-            return redirect('/campaign/create')->with('success','Add new category successful');
+        if ($save == true) {
+            return redirect('/category')->with('success','Add new category successful');
         }
         else{
-            return redirect('/campaign/create')->with('error','Add new category failed');
+            return redirect('/category')->with('error','Add new category failed');
         }
     }
 

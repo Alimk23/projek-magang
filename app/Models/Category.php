@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Campaign;
+use App\Models\CategoryByUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,5 +16,9 @@ class Category extends Model
     public function campaign()
     {
         return $this->hasMany(Campaign::class);
+    }
+    public function CategoryByUser()
+    {
+        return $this->hasMany(CategoryByUser::class);
     }
 }

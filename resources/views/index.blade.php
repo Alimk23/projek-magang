@@ -127,7 +127,10 @@
           @foreach ($data['category'] as $category) 
           <a href="/category/{{ $category['id'] }}" class="text-decoration-none text-white btn btn-lg btn-primary rounded-pill mr-3 p-4 d-flex justify-content-center align-items-center mb-3 mb-lg-0" style="width: 200px">          
             <div class="col-lg-10 col-md-6">
-              {{ $category['title'] }}
+              <div class="d-flex flex-column">
+                <i class="{{ $category['icon'] }} mb-2"></i>
+                {{ $category['title'] }}
+              </div>
             </div>
           </a>
           @endforeach

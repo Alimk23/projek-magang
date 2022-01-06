@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DonationController extends Controller
 {
@@ -28,10 +29,17 @@ class DonationController extends Controller
     }
     public function index(Donation $donation,Campaign $campaign,User $user)
     {
+        $user = Auth::user();
+        $getCampaignDetail = Campaign::where('user_id',$user->id)->get();
+
+        foreach ($getCampaignDetail as $detail) {
+            $getDonation = $donation->where('campaign_id',$detail['id'])->get();
+        }
+
         $data = [
             'title' => 'Donation',
-            'donation'=> $donation->all(),
-            'getCampaign' => $campaign,
+            'donation'=> $getDonation,
+            'getCampaign' => $getDonation,
             'getUser' => $user,
         ];
         return view('admin.donation',compact('data'));
@@ -119,11 +127,11 @@ class DonationController extends Controller
     public function show($id, Campaign $campaign,Bank $bank)
     {
         $detail = $campaign->firstwhere('id', $id);
-        
+        $getBank = $bank->where('user_id', $detail->user_id)->get();
         $data = [
             'title' => 'Create Payment',
             'details' => $detail,
-            'banks' => $bank->all(),
+            'banks' => $getBank,
         ];
         return view('user.create-donation', compact('data'));
     }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Campaign;
 use App\Models\Donation;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -22,7 +23,15 @@ class DashboardController extends Controller
      */
     public function index(Campaign $campaign, Donation $donation, User $user)
     {
-        $collectedDonation = Campaign::select('collected')->pluck('collected')->all();
+        $user = Auth::user();
+        $getCampaign = $campaign->where('user_id',$user->id)->get()->count();
+        $getCampaignDetail = Campaign::where('user_id',$user->id)->get();
+
+        foreach ($getCampaignDetail as $detail) {
+            $getDonation = $donation->where('campaign_id',$detail['id'])->get()->count();
+        }
+        $collectedDonation = Campaign::select('collected')->where('user_id',$user->id)->pluck('collected')->all();
+        
         if (!empty($collectedDonation)) {
             $totalDonation = array_sum($collectedDonation);
         } else {
@@ -31,7 +40,7 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard',
         ];
-        return view('admin.index',compact('data','campaign','donation','user','totalDonation'));
+        return view('admin.index',compact('data','getCampaign','getDonation','user','totalDonation'));
     }
 
     /**

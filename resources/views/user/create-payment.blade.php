@@ -24,7 +24,7 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
-                  <img src="{{ asset('/storage/'. $data['banks']->bank_logo) }}" width="50px" alt="" srcset="">
+                  <img src="{{ $data['banks']->bank_logo }}" width="50px" alt="" srcset="">
                 </span>
               </div>
               <input readonly type="text" class="form-control" id="nominal" value="{{ $data['banks']->bank_account }}">

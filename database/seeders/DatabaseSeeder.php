@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Bank;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Profile;
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\CategoryByUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,30 +24,96 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'phone' => '0898123987',
+            'phone' => '083852542002',
+            'role' => '0',
+            'password' => Hash::make('rahasia123'),
+        ]);
+        User::create([
+            'name' => 'Jaki Umam',
+            'email' => 'jakiumam@gmail.com',
+            'phone' => '083839362022',
             'role' => '0',
             'password' => Hash::make('rahasia123'),
         ]);
 
+        Company::create([
+            'user_id' => 1,
+            'company_name' => 'BMI Jogja',
+            'job_title' => 'Customer Services',
+        ]);
+
+        Profile::create([
+            'user_id' => 1,
+            'company_id' => 1,
+            'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
+        ]);
+        Company::create([
+            'user_id' => 2,
+            'company_name' => 'Jaki Umam',
+            'job_title' => 'Customer Services',
+        ]);
+
+        Profile::create([
+            'user_id' => 2,
+            'company_id' => 2,
+            'address' => 'Jl. Merpati 239, Mondalan, Banguntapan Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
+        ]);
+        
         Category::create([
             'title' => 'Sedekah',
+            'icon' => 'fa-3x fas fa-hand-holding-usd'
         ]);
         Category::create([
             'title' => 'Bencana Alam',
+            'icon' => 'fa-3x fas fa-hand-holding-medical'
         ]);
         Category::create([
             'title' => 'Kemanusiaan',
+            'icon' => 'fa-3x fas fa-hand-holding-heart'
         ]);
         Category::create([
             'title' => 'Kegiatan Sosial',
+            'icon' => 'fa-3x fas fa-hand-holding-water'
+        ]);
+        CategoryByUser::create([
+            'user_id' => 1,
+            'category_id' => 1,
+        ]);
+        CategoryByUser::create([
+            'user_id' => 1,
+            'category_id' => 2,
+        ]);
+        CategoryByUser::create([
+            'user_id' => 1,
+            'category_id' => 3,
+        ]);
+        CategoryByUser::create([
+            'user_id' => 1,
+            'category_id' => 4,
         ]);
         Bank::create([
             'user_id' => 1,
-            'bank_logo' => 'cover-image/L2tWaf4Ph22ts9039jpZr7JX9ZjOZJ7RnbQmkqXJ.png',
+            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Bank_Syariah_Indonesia.svg',
+            'bank_code' => '451',
+            'bank_name' => 'Bank Syariah Indonesia',
+            'bank_account' => '795 795 8887',
+            'alias' => 'Yayasan Hobi Sedekah',
+        ]);
+        Bank::create([
+            'user_id' => 1,
+            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg',
             'bank_code' => '008',
             'bank_name' => 'Bank Mandiri',
-            'bank_account' => '1110887135',
-            'alias' => 'Hobi Sedekah Indonesia',
+            'bank_account' => '137 00 8822888 3',
+            'alias' => 'Yayasan Hobi Sedekah Indonesia',
+        ]);
+        Bank::create([
+            'user_id' => 2,
+            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg',
+            'bank_code' => '014',
+            'bank_name' => 'Bank BCA',
+            'bank_account' => '869 065 8454',
+            'alias' => 'Jaki Umam',
         ]);
         Campaign::create([
             'user_id' => 1,
@@ -103,7 +172,7 @@ class DatabaseSeeder extends Seeder
             - Dana juga akan digunakan untuk DPD (Dana Pengembangan Dakwah) dan kemaslahatan yang terkait dengannya',
         ]);
         Campaign::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 1,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',
             'slug' => 'bantu-negeri-kita-peroleh-nobel-pertama',
