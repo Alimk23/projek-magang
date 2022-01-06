@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="col-lg-8">
-      <div class="card-body d-flex flex-column p-2 border-bottom">
+      <div class="card-body d-flex flex-column p-2 border-bottom" style="height: 170px">
         <h4 class="card-title font-weight-bold">
           {{ $data['campaign']->title }}
         </h4>

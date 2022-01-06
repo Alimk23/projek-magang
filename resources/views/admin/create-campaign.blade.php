@@ -52,7 +52,7 @@
                             <label for="slug">Slug</label>
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">{{ env('APP_URL'); }}/campaign/</span>
+                                <span class="input-group-text" id="basic-addon1">{{ env('APP_URL'); }}/campaigns/</span>
                               </div>
                               <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Auto complete from title form" value="{{ old('slug') }}">
                             </div>
@@ -97,23 +97,13 @@
                             </div>
                           </div>
                             <div class="select2-primary">
-                              <select class="form-control select2 @error('category') is-invalid @enderror" name="category" multiple="multiple" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                              <select class="form-control select2 @error('category') is-invalid @enderror" name="category_id" multiple="multiple" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                 @foreach ($data['category'] as $category)
                                 <option value="{{ $category['category']['id'] }}">{{ $category['category']['title'] }}</option>
                                 @endforeach
                               </select>                                  
                             </div>                            
-                            @error('category')
-                            <div class="text-small text-danger" role="alert">
-                              <small>{{ $message }}</small>
-                            </div>
-                            @enderror
-                            @error('title')
-                            <div class="text-small text-danger" role="alert">
-                              <small>{{ $message }}</small>
-                            </div>
-                            @enderror
-                            @error('logo')
+                            @error('category_id')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>
                             </div>
@@ -146,7 +136,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="caption">Caption</label>
-                            <textarea class="form-control @error('caption') is-invalid @enderror" id="caption" name="caption" value="{{ old('caption') }}" cols="30" rows="3"></textarea>
+                            <textarea class="form-control @error('caption') is-invalid @enderror" id="caption" name="caption" cols="30" rows="3">{{ old('caption') }}</textarea>
                             @error('caption')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>

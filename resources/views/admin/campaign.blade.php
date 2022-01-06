@@ -84,9 +84,13 @@
                         <td>Rp {{ currency_format($campaign['target']) }}</td>
                         <td>Rp {{ currency_format($campaign['collected']) }}</td>
                         <td>{{ $campaign['end_date'] }}</td>
-                        <td>{{ $campaign['fundraiser'] }}</td>
+                        <td>{{ $campaign['user']['company']['company_name'] }}</td>
                         <td>
-                          <img src="{{ asset('storage/'.$campaign['cover']) }}" alt="" srcset="" style="width:30px">
+                          @if (Storage::disk('public')->exists($campaign['cover']))
+                            <a href="{{ Storage::disk('public')->url($campaign['cover']) }}">Custom Cover</a>
+                          @else
+                            <a href="/img/logo.png">Default Cover</a>
+                          @endif                            
                         </td>
                         <td>
                             <div class="row justify-content-center">

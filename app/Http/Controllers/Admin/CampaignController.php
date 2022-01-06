@@ -63,13 +63,14 @@ class CampaignController extends Controller
             'slug' => 'required|unique:campaign',
             'target' => 'required',
             'end_date' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'caption' => 'required',
             'cover' => 'image|file|max:1024',
             'files' => 'file|max:1024',
         ]);
-        $validatedData['category_id'] = 1;
-        $validatedData['fundraiser'] = "Penggalang Dana";
+        $user = Auth::user();
+        $validatedData['user_id'] = $user->id;
 
         if ($request->file('cover')) {
             $validatedData['cover'] = $request->file('cover')->store('cover-image');
