@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -154,5 +156,21 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getLoginInfo(User $user){
+        $id =  $_GET['id'];
+        $getData = $user->firstWhere('id', $id) ;
+        echo json_encode($getData);
+    }
+    public function getProfileInfo(Profile $profile){
+        $id =  $_GET['id'];
+        $getData = $profile->firstWhere('user_id', $id) ;
+        echo json_encode($getData);
+    }
+    public function getCompanyInfo(Company $company){
+        $id =  $_GET['id'];
+        $getData = $company->firstWhere('user_id', $id) ;
+        echo json_encode($getData);
     }
 }

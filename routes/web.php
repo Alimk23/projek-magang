@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ContributorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,11 @@ Route::get('/home', [HomeController::class, 'checkRole']);
 Route::get('/campaign/create/checkSlug', [CampaignController::class, 'checkSlug']);
 Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
 Route::get('/status/{id}', [PaymentController::class, 'status']);
+Route::get('/payment/getReceiverInfo', [PaymentController::class, 'getReceiverInfo']);
+Route::get('/payment/getPaymentInfo', [PaymentController::class, 'getPaymentInfo']);
+Route::get('profile/getLoginInfo', [ProfileController::class, 'getLoginInfo']);
+Route::get('profile/getProfileInfo', [ProfileController::class, 'getProfileInfo']);
+Route::get('profile/getCompanyInfo', [ProfileController::class, 'getCompanyInfo']);
 
 Route::resources([
     'admin' => DashboardController::class,
@@ -47,4 +53,5 @@ Route::resources([
     'bank' => BankController::class,
     'donation' => DonationController::class,
     'payment' => PaymentController::class,
+    'contributor' => ContributorController::class,
 ]);

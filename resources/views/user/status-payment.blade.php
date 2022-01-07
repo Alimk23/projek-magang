@@ -14,6 +14,7 @@
             <p class="text-small">Terima kasih telah melakukan donasi, kami akan segera memverifikasi pembayaran anda sebesar:</p>
           </div>
         </div>
+        @foreach ($data['getPayment'] as $getPayment)
         <div class="row mb-3">
           <div class="col">
             <div class="input-group">
@@ -22,7 +23,7 @@
                   Rp
                 </span>
               </div>
-              <input readonly type="text" class="form-control" id="nominal" value="{{ currency_format($data['donations']->nominal) }}">
+              <input readonly type="text" class="form-control" id="nominal" value="{{ currency_format($getPayment['nominal']) }}">
             </div>
           </div>
         </div>
@@ -32,7 +33,7 @@
           </div>
           <div class="col">
             <p class="text-small text-right">
-              {{ $data['donations']->order_id }}
+              {{ $getPayment->order_id }}
             </p>
           </div>
         </div>
@@ -42,19 +43,20 @@
           </div>
           <div class="col">
             <p class="text-small text-right">
-              {{ ($data['donations']->status) == 0 ? 'Menunggu Pembayaran' : '' }}
-              {{ ($data['donations']->status) == 1 ? 'Dalam proses verifikasi' : '' }}
-              {{ ($data['donations']->status) == 2 ? 'Transaksi berhasil' : '' }}
-              {{ ($data['donations']->status) == 3 ? 'Transaksi gagal' : '' }}
+              {{ ($getPayment->status) == 0 ? 'Menunggu Pembayaran' : '' }}
+              {{ ($getPayment->status) == 1 ? 'Dalam proses verifikasi' : '' }}
+              {{ ($getPayment->status) == 2 ? 'Transaksi berhasil' : '' }}
+              {{ ($getPayment->status) == 3 ? 'Transaksi gagal' : '' }}
             </p>
           </div>
         </div>
         <div class="row mb-3 justify-content-between border-bottom">
           <div class="col">
             Simpan link berikut ini untuk melihat status transaksi anda:
-            <input type="text" class="w-100 form-control form-control-border" readonly value="{{ env('APP_URL'); }}/status/{{ $data['donations']->order_id }}">
+            <input type="text" class="w-100 form-control form-control-border" readonly value="{{ env('APP_URL'); }}/status/{{ $getPayment->order_id }}">
           </div>
         </div>
+        @endforeach
         <a href="/">
           <button type="button" class="btn btn-block btn-primary">Kembali ke menu utama</button>
         </a>

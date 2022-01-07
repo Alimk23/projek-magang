@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\User;
+use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
-use App\Models\Payment;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -18,12 +19,13 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Payment $payment, Donation $donation)
     {
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Payment List',
+            'payment' => $payment->all()
         ];
-        return view('admin.index',compact('data'));
+        return view('admin.payment',compact('data'));
     }
 
     /**
@@ -31,19 +33,9 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Donation $donation, Campaign $campaign, Bank $bank)
+    public function create()
     {
-        $donation_id = session()->get('donation_id');
-        $bank_id = session()->get('bank_id');
-        $user_id = session()->get('user_id');
-        $getDonation = $donation->firstwhere('id', $donation_id);
-        $getBank = $bank->firstwhere('id', $bank_id);
-        dd();
-        // $data = [
-        //     'donations' => $getDonation,
-        //     'banks' => $getBank,
-        // ];
-        // return view('user.create-payment', compact('data'));
+
     }
 
     /**
@@ -100,22 +92,19 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($payment_id)
+    public function show($order_id)
     {
-        $donation = new Donation;
-        $campaign = new Campaign;
         $bank = new Bank;
         $payment = new Payment;
-        $getPayment = $payment->firstwhere('id', $payment_id);
-
-        $getDonation = $donation->firstwhere('id', $getPayment->donation_id);
-        $getBank = $bank->firstwhere('id', $getPayment->bank_id);
+        $getPayment = Payment::firstOrFail()->where('order_id', $order_id)->first();
+        $getDonation = $getPayment->donation;
+        $getBank = Bank::firstOrFail()->where('id', $getPayment->bank_id)->first();
         $data = [
-            'donations' => $getDonation,
-            'banks' => $getBank,
-            'payments' => $getPayment,
+            'getDonation' => $getDonation,
+            'getBank' => $getBank,
+            'getPayment' => $getPayment,
         ];
-        return view('user.create-payment', compact('data'));
+        return view('user.create-payment', compact('data','getPayment','getDonation','getBank'));
     }
 
     /**
@@ -156,13 +145,10 @@ class PaymentController extends Controller
             'bank_alias' => $validatedData['bank_alias'],
             'bank_account' => $validatedData['bank_account'],
             'bank_name' => $validatedData['bank_name'],
-            'path_image' => $validatedData['receipt'],
-        ]);
-        $getDonation = $donation->firstwhere('id', $getPayment->donation_id);
-        $getDonation->update([
-            'status' => 1
-        ]);
-        
+            'receipt' => $validatedData['receipt'],
+            'note' => $request->note,
+            'status' => 1,
+        ]);        
         return redirect('/status/'. $getPayment->order_id);
     }
 
@@ -178,10 +164,21 @@ class PaymentController extends Controller
     }
 
     public function status($order_id){
-        $getDonation = Donation::where('order_id', $order_id)->first();
+        $getPayment = Payment::firstOrFail()->where('order_id', $order_id)->get();
         $data = [
-            'donations' => $getDonation
+            'getPayment' => $getPayment
         ];
         return view('user.status-payment', compact('data'));
+    }
+
+    public function getReceiverInfo(Bank $bank){
+        $id =  $_GET['id'];
+        $getData = $bank->firstWhere('id', $id) ;
+        echo json_encode($getData);
+    }
+    public function getPaymentInfo(Payment $payment){
+        $id =  $_GET['id'];
+        $getData = $payment->firstWhere('id', $id) ;
+        echo json_encode($getData);
     }
 }

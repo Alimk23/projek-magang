@@ -83,11 +83,11 @@
           <div class="col">
             <div class="form-group">
               <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" name="anonim" id="anonim">
-                <label class="custom-control-label" for="anonim" style="font-weight: normal">Sembunyikan nama saya (Hamba Allah)</label>
+                <input type="checkbox" class="custom-control-input" name="anonym" id="anonym">
+                <label class="custom-control-label" for="anonym" style="font-weight: normal">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
           </div>
-            @error('anonim')
+            @error('anonym')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
             </div>
@@ -116,7 +116,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" placeholder="Tuliskan pesan atau doa disini (Optional)" value="{{ old('message') }}" cols="30" rows="5"></textarea>
+            <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" placeholder="Tuliskan pesan atau doa disini (Optional)" cols="30" rows="5">{{ old('message') }}</textarea>
             @error('email')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>

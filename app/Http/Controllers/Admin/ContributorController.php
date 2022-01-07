@@ -2,31 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
+use App\Models\Campaign;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Bank;
 use Illuminate\Support\Facades\Auth;
 
-class BankController extends Controller
+class ContributorController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Bank $bank)
+    public function index(Donation $donation, User $user)
     {
-        $user = Auth::user();
-        $getBank = $bank->where('user_id',$user->id)->get();
+        $userAuth = Auth::user();
+        $getDonation = $donation->all();
         $data = [
-            'title' => 'Bank'
+            'title' => 'Contributor',
         ];
-        return view('admin.bank',compact('data', 'getBank'));
+        return view('admin.contributor',compact('data','getDonation','userAuth', 'user', 'donation')); 
     }
 
     /**

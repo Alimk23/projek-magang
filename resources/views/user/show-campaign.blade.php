@@ -137,7 +137,7 @@
               </a>
             <div class="card-body">
               @foreach ($data['getDonation'] as $getDonation)
-              @if ($getDonation['status']==2)
+              @if ($getDonation['status']==1)
                 <?php 
                 $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
                 ?>
@@ -150,7 +150,7 @@
                       <a href="#" class="text-decoration-none">
                         <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
                           <p class="text-sm">
-                            @if ($getDonation['anonim'] == 'on')
+                            @if ($getDonation['anonym'] == 'on')
                                 Hamba Allah
                             @else
                                 {{ $getUser->name }}

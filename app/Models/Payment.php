@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bank;
 use App\Models\Donation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,5 +16,9 @@ class Payment extends Model
     public function donation()
     {
         return $this->belongsTo(Donation::class);
+    }
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
     }
 }

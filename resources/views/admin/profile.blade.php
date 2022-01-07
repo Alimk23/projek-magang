@@ -71,7 +71,7 @@
                   </div>
                 </div>
                 <div class="col-1">
-                  <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editLoginModal">
+                  <button type="button" class="editLoginInfo btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editLoginModal" data-id='{{ $data['id'] }}'>
                     <i class="fas fa-edit"></i>
                   </button>
                 </div>
@@ -93,9 +93,9 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-11">
-                  <div class="d-flex flex-row align-items-end w-100">
+                  <div class="d-flex flex-column flex-row flex-lg-row align-items-center w-100">
                     {{-- photo --}}
-                    <div class="form-group col-4 col-md-2">
+                    <div class="form-group col-md-2 mr-2">
                     @if (Storage::disk('public')->exists($data['photo']))
                       <img src="{{ Storage::disk('public')->url($data['photo']) }}" alt="" class="rounded-circle" width="100px">
                     @else
@@ -103,14 +103,14 @@
                     @endif
                     </div>
                     {{-- address --}}
-                    <div class="form-group col-8 col-md-10 d-flex flex-column mb-0">
+                    <div class="form-group col-md-10 d-flex flex-column mb-0">
                       <label for="address" class="col-form-label font-weight-normal">Alamat</label>
                       <textarea type="text" readonly class="form-control-plaintext" id="address" cols="30" rows="3">{{ $data['address'] }}</textarea>
                     </div>
                   </div>
                 </div>
                 <div class="col-1">
-                  <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editProfileModal">
+                  <button type="button" class="editProfileInfo btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editProfileModal" data-id='{{ $data['id'] }}'>
                     <i class="fas fa-edit"></i>
                   </button>
                 </div>
@@ -153,7 +153,7 @@
                   </div>
                 </div>
                 <div class="col-1">
-                  <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editCompanyModal">
+                  <button type="button" class="editCompanyInfo btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editCompanyModal" data-id='{{ $data['id'] }}'>
                     <i class="fas fa-edit"></i>
                   </button>
                 </div>
@@ -231,15 +231,15 @@
           @method('PATCH')
           <div class="form-group">
             <label for="name">Name</label>
-            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" required>
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="editName" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" required>
+            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="editEmail" required>
           </div>
           <div class="form-group">
             <label for="phone">Nomor HP</label>
-            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="phone" required>
+            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="editPhone" required>
           </div>
         </div>
         <div class="card-footer">        
@@ -277,14 +277,14 @@
             <label for="photo">Foto Profil</label>
             <div class="input-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" name="photo" id="photo">
+                <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" name="photo" id="editPhoto">
                 <label class="custom-file-label" for="photo">Pilih file</label>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="address">Alamat</label>
-            <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" id="address" required>
+            <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" id="editAddress" required>
           </div>
         </div>
         <div class="card-footer">        
@@ -320,11 +320,11 @@
           @method('PATCH')
           <div class="form-group">
             <label for="company_name">Nama Lembaga</label>
-            <input class="form-control @error('company_name') is-invalid @enderror" type="text" name="company_name" id="company_name" required>
+            <input class="form-control @error('company_name') is-invalid @enderror" type="text" name="company_name" id="editCompanyName" required>
           </div>
           <div class="form-group">
             <label for="job_title">Jabatan</label>
-            <input class="form-control @error('job_title') is-invalid @enderror" type="text" name="job_title" id="job_title" required>
+            <input class="form-control @error('job_title') is-invalid @enderror" type="text" name="job_title" id="editJobTitle" required>
           </div>
         </div>
         <div class="card-footer">        
@@ -352,6 +352,7 @@
 @section('js-custom')
 <!-- bs-custom-file-input -->
 <script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ url('js/script.js') }}"></script>
 <script>
     $(function () {
       bsCustomFileInput.init();

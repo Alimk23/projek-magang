@@ -14,7 +14,7 @@
             <p class="text-small">Yuk selesaikan sedekah Anda dengan transfer ke rekening atas nama</p>
             <div class="row">
               <div class="col">
-                <strong>{{ $data['banks']->alias }}</strong>
+                <strong>{{ $getBank->alias }}</strong>
               </div>
             </div>
           </div>
@@ -24,10 +24,10 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
-                  <img src="{{ $data['banks']->bank_logo }}" width="50px" alt="" srcset="">
+                  <img src="{{ $getBank->bank_logo }}" width="50px" alt="" srcset="">
                 </span>
               </div>
-              <input readonly type="text" class="form-control" id="nominal" value="{{ $data['banks']->bank_account }}">
+              <input readonly type="text" class="form-control" id="nominal" value="{{ $getBank->bank_account }}">
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
                   Rp
                 </span>
               </div>
-              <input readonly type="text" class="form-control" id="nominal" value="{{ currency_format($data['donations']->nominal) }}">
+              <input readonly type="text" class="form-control" id="nominal" value="{{ currency_format($getDonation->nominal) }}">
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
           </div>
           <div class="col">
             <p class="text-small text-right">
-              {{ $data['donations']->order_id }}
+              {{ $getPayment->order_id }}
             </p>
           </div>
         </div>
@@ -64,10 +64,10 @@
           </div>
           <div class="col">
             <p class="text-small text-right">
-              {{ ($data['donations']->status) == 0 ? 'Menunggu Pembayaran' : '' }}
-              {{ ($data['donations']->status) == 1 ? 'Dalam proses verifikasi' : '' }}
-              {{ ($data['donations']->status) == 2 ? 'Transaksi berhasil' : '' }}
-              {{ ($data['donations']->status) == 3 ? 'Transaksi gagal' : '' }}
+              {{ ($getDonation->status) == 0 ? 'Menunggu Pembayaran' : '' }}
+              {{ ($getDonation->status) == 1 ? 'Dalam proses verifikasi' : '' }}
+              {{ ($getDonation->status) == 2 ? 'Transaksi berhasil' : '' }}
+              {{ ($getDonation->status) == 3 ? 'Transaksi gagal' : '' }}
             </p>
           </div>
         </div>
@@ -89,7 +89,7 @@
               <p class="text-small align-text-bottom">Isi formulir konfirmasi pembayaran berikut ini:</p>
             </div>
           </div>    
-          <form action="/payment/{{ $data['payments']->id }}" method="post" enctype="multipart/form-data">
+          <form action="/payment/{{ $getPayment->id }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="row mb-3">

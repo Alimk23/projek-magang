@@ -26,7 +26,7 @@
 
 @section('content-header')
     @push('icon-header')
-      <i class="fas fa-hand-holding-usd"></i>
+      <i class="fas fa-users"></i>
     @endpush
     @include('partials.content-header')
 @endsection
@@ -51,65 +51,52 @@
                 >
                   <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Campaign</th>
-                        <th>Nominal</th>
-                        <th>Anonym</th>
-                        <th>Message</th>
-                        <th>Validation Date</th>
-                        <th>Action</th>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Campaign</th>
+                      <th>Status</th>
+                      <th>
+                          Action
+                      </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                      @php
-                          $i=1;
-                      @endphp 
-                      @foreach ($data['donation'] as $donation)
-                      @php
-                          $user = Auth::user();
-                          $getCampaign = $data['getCampaign']->firstwhere('id', $donation['campaign_id']);
-                      @endphp
-                      @if ($getCampaign->user_id == $user->id)
-                        @if ($donation['status']==1)                          
-                          <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>
-                              @php 
-                                  $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
-                                  echo $getCampaign['name'];
-                              @endphp 
-                            </td>
-                            <td>
-                              @php                                
-                                  $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
-                                  echo $getCampaign['phone'];
-                              @endphp 
-                            </td>
-                            <td>
-                              @php                                
-                                  $getCampaign = $data['getCampaign']->firstwhere('id', $donation['campaign_id']);
-                                  echo $getCampaign['title'];
-                              @endphp 
-                            </td>
-                            <td>Rp {{ currency_format($donation['nominal']) }}</td>
-                            <td>{{ $donation['anonym'] }}</td>
-                            <td>{{ $donation['message'] }}</td>
-                            <td>{{ $donation['updated_at']}}</td>
-                            <td class="align-middle d-flex flex-row">
-                              <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-edit"></i>
-                              </button>
-                              <button type="button" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </td>
-                          </tr>
+                  </thead>
+                  <tbody>
+                    @php
+                        $i=1;
+                    @endphp
+
+                      @foreach ($getDonation as $donation)
+                        @if ($donation['status']==0 || $donation['status']==1) 
+                          @if ($donation['campaign']['user_id']==$userAuth->id)
+                            @php
+                              $getUser = $user->where('id',$donation['user_id'])->first()
+                            @endphp
+                              <tr>
+                                  <td>{{ $i++ }}</td>
+                                  <td>{{ $getUser->name}}</td>
+                                  <td>{{ $getUser->phone }}</td>
+                                  <td>{{ $getUser->email }}</td>
+                                  <td>{{ $donation['campaign']['title'] }}</td>
+                                  <td>
+                                    <div class="text-danger">
+                                      {{ ($donation['status'] == 0) ? 'Not Confirm' : ''}}                                    
+                                    </div>
+                                    <div class="text-success">
+                                      {{ ($donation['status'] == 1) ? 'Confirm' : ''}}  
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-block btn-outline-danger btn-xs">
+                                      <i class="far fa-trash-alt"></i>
+                                    </button>
+                                  </td>
+                              </tr>
+                          @endif
                         @endif
-                      @endif
-                      @endforeach
-                    </tbody>
+                    @endforeach
+                  </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -122,6 +109,7 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+
 @endsection
 
 @section('footer')
@@ -142,6 +130,7 @@
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <script src="js/script.js"></script>
 
         <!-- Page specific script -->
         <script>

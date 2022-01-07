@@ -8,7 +8,7 @@ use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DonationController extends Controller
 {
@@ -17,30 +17,14 @@ class DonationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCampaign($id){
-        $campaign = new Campaign;
-        $getCampaign = $campaign->firstwhere('id', $id);
-        return $getCampaign;
-    }
-    public function getUser($id){
-        $user = new User;
-        $getUser = $user->firstwhere('id', $id);
-        return $getUser;
-    }
-    public function index(Donation $donation,Campaign $campaign,User $user)
+    public function index(Donation $donation,Campaign $campaign,Payment $payment,User $user)
     {
-        $user = Auth::user();
-        $getCampaignDetail = Campaign::where('user_id',$user->id)->get();
-
-        foreach ($getCampaignDetail as $detail) {
-            $getDonation = $donation->where('campaign_id',$detail['id'])->get();
-        }
-
         $data = [
             'title' => 'Donation',
-            'donation'=> $getDonation,
-            'getCampaign' => $getDonation,
+            'donation'=> $donation->all(),
+            'getCampaign' => $campaign,
             'getUser' => $user,
+            'getPayment' => $payment,
         ];
         return view('admin.donation',compact('data'));
     }
@@ -69,8 +53,7 @@ class DonationController extends Controller
             'nominal' => 'required|integer',
             'bank' => 'required',
         ]);
-        $order_id = mt_rand(100000,999999);
-
+        $order_id = "HB-". mt_rand(000000,999999);
         $userData = $user->firstwhere('phone', $request->phone);
         if ($userData) {
             $user_id = $userData->id;
@@ -83,39 +66,30 @@ class DonationController extends Controller
             $newUserData = $user->firstwhere('phone', $request->phone);
             $user_id = $newUserData->id;
         }
-
-        if (!empty($request->anonim)) {
+        if (!empty($request->anonym)) {
             $newDonation = Donation::create([
-                'campaign_id' => $request->campaign_id,
+                'campaign_id' => $validatedData['campaign_id'],
                 'user_id' => $user_id,
-                'anonim' => $request->anonim,
-                'order_id' => $order_id,
-                'nominal' => $request->nominal,
+                'anonym' => $request->anonym,
+                'nominal' => $validatedData['nominal'],
                 'message' => $request->message,
-                'status' => 0,
-            ]);
+            ])->id;
         } else {
             $newDonation = Donation::create([
-                'campaign_id' => $request->campaign_id,
+                'campaign_id' => $validatedData['campaign_id'],
                 'user_id' => $user_id,
-                'order_id' => $order_id,
-                'nominal' => $request->nominal,
+                'nominal' => $validatedData['nominal'],
                 'message' => $request->message,
-                'status' => 0,
-            ]);
+            ])->id;
         }
-
-        $donationData = $donation->firstwhere('order_id', $order_id);
         $newPayment = Payment::create([
-            'donation_id' => $donationData->id,
-            'order_id' => $donationData->order_id,
+            'donation_id' => $newDonation,
+            'order_id' => $order_id,
             'bank_id' => $request->bank,
-            'nominal' => $donationData->nominal,
-        ]);
+            'nominal' => $validatedData['nominal'],
+        ])->id;
         
-        $paymentData = $payment->firstwhere('order_id', $order_id);
-        
-        return redirect('/payment/'.$paymentData->id);
+        return redirect('/payment/'.$order_id);
     }
 
     /**
@@ -156,18 +130,23 @@ class DonationController extends Controller
      */
     public function update($id)
     {
-        $donation = new Donation;
-        $campaign = new Campaign;
-        $getDonation = $donation->firstwhere('id', $id);
-        $getCampaign = $campaign->firstwhere('id', $getDonation->campaign_id);
-        $getDonation->update([
-            'status' => 2
-        ]);
-        $getCampaign->update([
+        $payment = new payment;
+        $getPayment = $payment->firstwhere('id', $id);
+        $getDonation = $getPayment->donation;
+        $getCampaign = $getPayment->donation->campaign;
+
+        $updateCampaign = $getCampaign->update([
             'collected' => $getCampaign->collected + $getDonation->nominal
         ]);
+        $updateDonation = $getDonation->update([
+            'status' => 1
+        ]);
+        if ($getPayment->receipt) {
+            Storage::delete($getPayment->receipt);
+        }
+        $delPayment = $getPayment->delete();
 
-        return redirect('donation')->with('success','Payment confirmation is successfull');;
+        return redirect('donation')->with('success','Donation confirmation is successfull');;
     }
 
     /**
@@ -179,5 +158,15 @@ class DonationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getCampaign($key, $value){
+        $campaign = new Campaign;
+        $getCampaign = $campaign->firstwhere($key, $value);
+        return $getCampaign;
+    }
+    public function getUser($key, $value){
+        $user = new User;
+        $getUser = $user->firstwhere($key, $value);
+        return $getUser;
     }
 }

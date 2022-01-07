@@ -53,7 +53,7 @@
               <img src="{{ url('img/default.png') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="/profile" class="d-block">Admin</a>
+              <a href="/profile" class="d-block">{{ Auth::user()->name; }}</a>
             </div>
           </div>
     
@@ -62,7 +62,7 @@
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ url('admin') }}" class="nav-link {{ ($data['title'] == "Dashboard") ? 'active' : ''}}">
+                    <a href="{{ url('admin') }}" class="nav-link {{ Request::is('admin') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -71,7 +71,7 @@
                 </li>
                 <li class="nav-header text-uppercase">Campaign Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('campaign') }}" class="nav-link {{ ($data['title'] == "Campaign") ? 'active' : ''}}">
+                    <a href="{{ url('campaign') }}" class="nav-link {{ Request::is('campaign*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-copy"></i>
                         <p>
                             Campaign List
@@ -79,7 +79,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('category') }}" class="nav-link {{ ($data['title'] == "category") ? 'active' : ''}}">
+                    <a href="{{ url('category') }}" class="nav-link {{ Request::is('category*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-list-ul"></i>
                         <p>
                             Category
@@ -89,7 +89,7 @@
 
                 <li class="nav-header text-uppercase">Donation Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('donation') }}" class="nav-link {{ ($data['title'] == "Donation") ? 'active' : ''}}">
+                    <a href="{{ url('donation') }}" class="nav-link {{ Request::is('donation*') ? 'active' : ''}}">
                     <i class="px-1 fas fa-hand-holding-usd"></i>
                         <p>
                             Donation List
@@ -97,7 +97,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('contributor') }}" class="nav-link {{ ($data['title'] == "contributor") ? 'active' : ''}}">
+                    <a href="{{ url('contributor') }}" class="nav-link {{ Request::is('contributor*') ? 'active' : ''}}">
                     <i class="px-1 fas fa-users"></i>
                         <p>
                             Contributor
@@ -107,7 +107,7 @@
 
                 <li class="nav-header text-uppercase">Payment Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('payment') }}" class="nav-link {{ ($data['title'] == "payment") ? 'active' : ''}}">
+                    <a href="{{ url('payment') }}" class="nav-link {{ Request::is('payment*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-cart-plus"></i>
                         <p>
                             Payment List
@@ -115,7 +115,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('bank') }}" class="nav-link {{ ($data['title'] == "bank") ? 'active' : ''}}">
+                    <a href="{{ url('bank') }}" class="nav-link {{ Request::is('bank*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-university"></i>
                         <p>
                             Bank Info
@@ -125,7 +125,7 @@
 
                 <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('profile') }}" class="nav-link {{ ($data['title'] == "Profile") ? 'active' : ''}}">
+                    <a href="{{ url('profile') }}" class="nav-link {{ Request::is('profile*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-user"></i>
                         <p>
                             Profile

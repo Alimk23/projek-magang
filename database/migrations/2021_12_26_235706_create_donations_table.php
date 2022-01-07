@@ -15,13 +15,12 @@ class CreateDonationsTable extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('campaign_id');
-            $table->integer('user_id');
-            $table->integer('order_id');
+            $table->unsignedBigInteger('campaign_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('nominal');
-            $table->string('anonim')->default('off');
+            $table->string('anonym')->default('off');
             $table->string('message')->nullable();;
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

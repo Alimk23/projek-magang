@@ -44,9 +44,9 @@ class HomeController extends Controller
     }
     public function show($slug, Campaign $campaign, Donation $donation, Profile $profile){
         $user = new User();
-        $detail = $campaign->firstwhere('slug', $slug);
-        $getDonation = Donation::where('campaign_id', $detail->id)->get();
-        $getProfile = $profile->firstwhere('user_id', $detail->user_id);
+        $getCampaign = $campaign->where('slug', $slug)->first();
+        $getDonation = $donation->where('campaign_id', $getCampaign->id)->get();
+        $getProfile = $profile->where('user_id', $user->id)->first();
         if (empty($getProfile)) {
             $photo = null;
         } else {
@@ -54,8 +54,8 @@ class HomeController extends Controller
         }
         
         $data = [
-            'title' => $detail->title,
-            'campaign' => $detail,
+            'title' => $getCampaign->title,
+            'campaign' => $getCampaign,
             'getDonation' => $getDonation,
             'user'=>$user,
             'photo'=>$photo,

@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function donation()
     {
-        return $this->belongsTo(Donation::class);
+        return $this->belongsTo(Donation::class,'user_id');
     }
     public function campaign()
     {

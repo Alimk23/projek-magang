@@ -31,7 +31,7 @@ class Campaign extends Model
     }
     public function donation()
     {
-        return $this->belongsTo(Donation::class);
+        return $this->hasMany(Donation::class);
     }
     public function user()
     {

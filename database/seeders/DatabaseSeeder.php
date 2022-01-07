@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Company::create([
             'user_id' => 2,
-            'company_name' => 'Jaki Umam',
-            'job_title' => 'Customer Services',
+            'company_name' => 'KHO',
+            'job_title' => 'Pengasuh',
         ]);
 
         Profile::create([
