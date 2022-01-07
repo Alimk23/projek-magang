@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
         Profile::create([
             'user_id' => 1,
             'company_id' => 1,
+            'photo' => 'profile-image/dCVzwDO6n98hdMWlmcSoNDjqM5BksG8kOFOetUo6.jpg',
             'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
         ]);
         Company::create([
@@ -56,7 +57,8 @@ class DatabaseSeeder extends Seeder
         Profile::create([
             'user_id' => 2,
             'company_id' => 2,
-            'address' => 'Jl. Merpati 239, Mondalan, Banguntapan Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
+            'photo' => 'profile-image/xWfk44HISzHKOE2lpgJwPoKw3Ay8dufhOLDU2lto.jpg',
+            'address' => 'Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal',
         ]);
         
         Category::create([
