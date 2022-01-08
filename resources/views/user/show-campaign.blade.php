@@ -195,7 +195,7 @@
   </div>
   <div class="border-top pt-3">
     @if ($data['campaign']->category)
-      <a href="#" class="badge badge-primary p-2 rounded-pill">
+      <a href="/category/{{ $data['campaign']->category->id }}" class="badge badge-primary p-2 rounded-pill">
         {{ $data['campaign']->category->title }}
       </a>
     @endif
