@@ -35,6 +35,13 @@ class DatabaseSeeder extends Seeder
             'role' => '0',
             'password' => Hash::make('rahasia123'),
         ]);
+        User::create([
+            'name' => 'Test',
+            'email' => 'test@gmail.com',
+            'phone' => '083839362023',
+            'role' => '0',
+            'password' => Hash::make('rahasia123'),
+        ]);
 
         Company::create([
             'user_id' => 1,
@@ -77,6 +84,14 @@ class DatabaseSeeder extends Seeder
             'title' => 'Kegiatan Sosial',
             'icon' => 'fa-3x fas fa-hand-holding-water'
         ]);
+        Category::create([
+            'title' => 'Wakaf',
+            'icon' => 'fa-3x fas fa-mosque'
+        ]);
+        CategoryByUser::create([
+            'user_id' => 2,
+            'category_id' => 1,
+        ]);
         CategoryByUser::create([
             'user_id' => 1,
             'category_id' => 1,
@@ -92,6 +107,10 @@ class DatabaseSeeder extends Seeder
         CategoryByUser::create([
             'user_id' => 1,
             'category_id' => 4,
+        ]);
+        CategoryByUser::create([
+            'user_id' => 2,
+            'category_id' => 5,
         ]);
         Bank::create([
             'user_id' => 1,
@@ -175,7 +194,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Campaign::create([
             'user_id' => 2,
-            'category_id' => 1,
+            'category_id' => 2,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',
             'slug' => 'bantu-negeri-kita-peroleh-nobel-pertama',
             'cover' => 'cover-image/g15SulqNmnIn2pkPvL19tPwOp6DUHSqZFhGqYT21.png',

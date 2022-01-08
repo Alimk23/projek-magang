@@ -59,19 +59,31 @@
                     <tr>
                       <td class="align-middle">{{ $i++ }}</td>
                       <td class="align-middle">
-                        <img src="{{ $bank['bank_logo'] }}" width="50px" alt="" srcset="">
+                        @if (Storage::disk('public')->exists($bank['bank_logo']))
+                          <a href="{{ Storage::disk('public')->url($bank['bank_logo']) }}" target="_blank">
+                            Custom Logo
+                          </a>
+                        @else
+                          <a href="/img/logo.png" target="_blank">Default Logo</a>
+                        @endif                            
                       </td>
                       <td class="align-middle">{{ $bank['bank_code'] }}</td>
                       <td class="align-middle">{{ $bank['bank_name'] }}</td>
                       <td class="align-middle">{{ $bank['bank_account'] }}</td>
                       <td class="align-middle">{{ $bank['alias'] }}</td>
-                      <td class="align-middle d-flex flex-row">
-                        <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editbankModal">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editbankModal">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
+                      <td class="align-middle d-inline-flex">
+                        <form action="bank/{{ $bank['id'] }}/edit" method="GET">
+                          <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                        </form>
+                        <form action="bank/{{ $bank['id'] }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </form>
                       </td>
                     </tr>
                     @endforeach

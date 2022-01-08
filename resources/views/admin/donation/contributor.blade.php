@@ -73,6 +73,7 @@
                             @php
                               $getUser = $user->where('id',$donation['user_id'])->first()
                             @endphp
+                            @if ($getUser)                                
                               <tr>
                                   <td>{{ $i++ }}</td>
                                   <td>{{ $getUser->name}}</td>
@@ -88,11 +89,18 @@
                                     </div>
                                   </td>
                                   <td>
-                                    <button type="button" class="btn btn-block btn-outline-danger btn-xs">
-                                      <i class="far fa-trash-alt"></i>
-                                    </button>
+                                    <div class="d-inline-flex">
+                                      <form action="/contributor/{{ $donation['user_id'] }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                          <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                      </form>
+                                    </div>
                                   </td>
                               </tr>
+                            @endif
                           @endif
                         @endif
                     @endforeach

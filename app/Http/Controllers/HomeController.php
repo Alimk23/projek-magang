@@ -46,7 +46,7 @@ class HomeController extends Controller
         $user = new User();
         $getCampaign = $campaign->where('slug', $slug)->first();
         $getDonation = $donation->where('campaign_id', $getCampaign->id)->get();
-        $getProfile = $profile->where('user_id', $user->id)->first();
+        $getProfile = $profile->where('user_id', $getCampaign->user_id)->first();
         if (empty($getProfile)) {
             $photo = null;
         } else {

@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\Donation;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\CategoryByUser;
+use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CampaignController extends Controller
@@ -31,7 +34,7 @@ class CampaignController extends Controller
             'title'=>'Campaign',
             'campaign'=>$getCampaign
         ];
-        return view('admin.campaign',compact('data'));
+        return view('admin.campaign.campaign',compact('data'));
     }
 
     /**
@@ -39,15 +42,22 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CategoryByUser $categoryByUser)
+    public function create(CategoryByUser $categoryByUser, Profile $profile)
     {
         $user = Auth::user();
-        $getCategory = $categoryByUser->where('user_id',$user->id)->get();
-        $data = [
-            'title' => 'Create Campaign',
-            'category' => $getCategory
-        ];
-        return view('admin.create-campaign',compact('data'));
+        $getProfileData = $profile->firstWhere('user_id', $user->id);
+        if ($getProfileData) {
+            $getCategory = $categoryByUser->where('user_id',$user->id)->get();
+            $photo = $getProfileData->photo;
+            $data = [
+                'title' => 'Create Campaign',
+                'category' => $getCategory
+            ];
+            return view('admin.campaign.create-campaign',compact('data'));
+        } 
+        else {
+            return redirect('/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
+        }
     }
 
     /**
@@ -106,7 +116,14 @@ class CampaignController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $campaign = Campaign::where('id',$id)->first();
+        $getCategory = CategoryByUser::where('user_id',$user->id)->get();
+        $data=[
+            'title'=>'Edit Campaign',
+            'category' => $getCategory
+        ];
+        return view('admin.campaign.edit-campaign', compact('data','campaign'));
     }
 
     /**
@@ -118,7 +135,39 @@ class CampaignController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required',
+            'target' => 'required',
+            'end_date' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+            'caption' => 'required',
+            'cover' => 'image|file|max:1024',
+            'files' => 'file|max:1024',
+        ]);
+        $campaign = Campaign::where('id',$id)->first();
+
+        if ($request->file('cover')) {
+            if ($campaign->cover) {
+                Storage::delete($campaign->cover);
+            }
+            $validatedData['cover'] = $request->file('cover')->store('cover-image');
+        }
+        if ($request->file('files')) {
+            if ($campaign->files) {
+                Storage::delete($campaign->files);
+            }
+            $validatedData['files'] = $request->file('files')->store('files-image');
+        }
+        $update = $campaign->update($validatedData);
+
+        if ($update == true) {
+            return redirect('campaign')->with('success','Edit campaign is successful');
+        }
+        else{
+            return redirect('campaign')->with('error','Edit campaign is failed');
+        }
     }
 
     /**
@@ -129,7 +178,17 @@ class CampaignController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $donation = Donation::firstWhere('campaign_id',$id);
+        if ($donation) {
+            $del = $donation->delete(); 
+        }
+        $delete = Campaign::destroy($id);
+        if ($delete) {
+            return redirect('/campaign')->with('success','Delete campaign is successful');
+        }
+        else{
+            return redirect('/campaign')->with('error','Delete campaign is failed');
+        }
     }
 
     public function checkSlug(Request $request){

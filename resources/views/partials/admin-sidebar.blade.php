@@ -50,7 +50,11 @@
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="{{ url('img/default.png') }}" class="img-circle elevation-2" alt="User Image">
+            @if (Storage::disk('public')->exists(getProfilePicture()))
+                <img src="{{ Storage::disk('public')->url(getProfilePicture()) }}" class="img-circle elevation-2" alt="Profile Picture">
+            @else
+                <img src="/img/default.png" class="img-circle elevation-2" alt="Profile Picture">
+            @endif
             </div>
             <div class="info">
               <a href="/profile" class="d-block">{{ Auth::user()->name; }}</a>

@@ -24,7 +24,11 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
-                  <img src="{{ $getBank->bank_logo }}" width="50px" alt="" srcset="">
+                @if (Storage::disk('public')->exists($getBank->bank_logo))
+                  <img src="{{ Storage::disk('public')->url($getBank->bank_logo) }}" style="width: 50px;height: 20px;">
+                @else
+                  <img src="/img/logo.png" style="width: 50px;height: 20px; overflow:hidden;">
+                @endif
                 </span>
               </div>
               <input readonly type="text" class="form-control" id="nominal" value="{{ $getBank->bank_account }}">

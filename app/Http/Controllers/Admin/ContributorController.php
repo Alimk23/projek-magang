@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 
 class ContributorController extends Controller
@@ -23,7 +25,7 @@ class ContributorController extends Controller
         $data = [
             'title' => 'Contributor',
         ];
-        return view('admin.contributor',compact('data','getDonation','userAuth', 'user', 'donation')); 
+        return view('admin.donation.contributor',compact('data','getDonation','userAuth', 'user', 'donation')); 
     }
 
     /**
@@ -89,6 +91,22 @@ class ContributorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $paymentController = new PaymentController;
+        $donation = Donation::firstWhere('user_id',$id);
+        $payment = Payment::firstWhere('donation_id',$donation->id);
+        $user = User::firstWhere('id',$id);
+        if ($payment) {
+            $delPayment = $paymentController->destroy($payment->id);
+        }
+        if ($donation) {
+            $delDonation = $donation->delete(); 
+        }
+        $delete = User::destroy($id);
+        if ($delete) {
+            return redirect('/contributor')->with('success','Delete contributor is successful');
+        }
+        else{
+            return redirect('/contributor')->with('error','Delete contributor is failed');
+        }
     }
 }

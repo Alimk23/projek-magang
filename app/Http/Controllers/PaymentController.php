@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -23,9 +24,10 @@ class PaymentController extends Controller
     {
         $data = [
             'title' => 'Payment List',
+            'donation' => $donation->all(),
             'payment' => $payment->all()
         ];
-        return view('admin.payment',compact('data'));
+        return view('admin.payment.payment',compact('data'));
     }
 
     /**
@@ -160,7 +162,17 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = Payment::firstWhere('id',$id);
+        if ($payment->receipt) {
+            Storage::delete($payment->receipt);
+        }
+        $delete = $payment->delete($id);
+        if ($delete) {
+            return redirect('/payment')->with('success','Delete payment is successful');
+        }
+        else{
+            return redirect('/payment')->with('error','Delete payment is failed');
+        }
     }
 
     public function status($order_id){

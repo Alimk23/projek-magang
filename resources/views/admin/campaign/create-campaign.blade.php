@@ -17,6 +17,9 @@
 @endsection
 
 @section('content-header')
+    @push('icon-header')
+      <i class="fas fa-copy"></i>
+    @endpush
     @include('partials.content-header')
 @endsection
 
@@ -64,10 +67,9 @@
                         </div>
                         <div class="col-md-4">
                             <label for="cover">Cover</label>
-
                             <div class="input-group">
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input @error('cover') is-invalid @enderror" name="cover" id="cover">
+                                  <input type="file" class="custom-file-input @error('cover') is-invalid @enderror" name="cover" id="cover" value="{{ old('cover') }}">
                                   <label class="custom-file-label" for="cover">Choose file</label>
                                 </div>
                             </div>
@@ -81,28 +83,12 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                          <div class="row">
-                            <div class="col-3">
-                              <label for="category">Category</label>
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#createCategoryModal">
-                                  <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1" data-toggle="modal" data-target="#editCategoryModal">
-                                  <i class="fas fa-edit"></i>
-                                </button>
-                            </div>
-                          </div>
-                            <div class="select2-primary">
-                              <select class="form-control select2 @error('category') is-invalid @enderror" name="category_id" multiple="multiple" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
-                                @foreach ($data['category'] as $category)
-                                <option value="{{ $category['category']['id'] }}">{{ $category['category']['title'] }}</option>
-                                @endforeach
-                              </select>                                  
-                            </div>                            
+                          <label for="category">Category</label>
+                          <select class="form-control select2-allow-clear select2Minimal @error('category') is-invalid @enderror" name="category_id" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                            @foreach ($data['category'] as $category)
+                            <option value="{{ $category['category']['id'] }}">{{ $category['category']['title'] }}</option>
+                            @endforeach
+                          </select>                                  
                             @error('category_id')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>
@@ -153,7 +139,7 @@
                             </div>
                             @enderror
                             <textarea id="description" name="description">
-                                <b>Geser ke bawah</b> atau pilih tampilan <b>Full Screen</b> untuk memperbesar area mengetik
+                              {{ old('description') }}
                             </textarea>
                         </div>
                     </div>
@@ -177,95 +163,6 @@
     <!-- /.container-fluid -->
   </section>
   
-@endsection
-
-@section('modal')
-{{-- create new category --}}
-<div class="modal fade" id="createCategoryModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Create New Category</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="/category" method="post" enctype="multipart/form-data">
-        <div class="modal-body">
-            @csrf
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" required>
-          </div>
-          <div class="form-group">
-            <label for="logo">Logo</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input @error('logo') is-invalid @enderror" name="logo" id="logo">
-                <label class="custom-file-label" for="logo">Choose file (Optional)</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">        
-          <div class="row d-flex float-right mx-3 justify-content-end">
-            <div class="col-4 mx-1">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>                  
-            <div class="col-4 mx-1">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>                  
-          </div>
-        </div>                  
-      </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-{{-- edit category --}}
-<div class="modal fade" id="editCategoryModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Edit Category</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="category" method="post" enctype="multipart/form-data">
-        <div class="modal-body">
-            @csrf
-          <div class="form-group">
-            <label for="title">Category Name</label>
-            <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" required>
-          </div>
-          <div class="form-group">
-            <label for="logo">Logo</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input @error('logo') is-invalid @enderror" name="logo" id="logo">
-                <label class="custom-file-label" for="logo">Choose file (Optional)</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">        
-          <div class="row d-flex float-right mx-3 justify-content-end">
-            <div class="col-4 mx-1">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>                  
-            <div class="col-4 mx-1">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>                  
-          </div>
-        </div>                  
-      </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 @endsection
 
 @section('footer')
@@ -299,13 +196,12 @@
       bsCustomFileInput.init();
     });
 
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    })
+    $(document).ready(function() {
+      $('.select2Minimal').select2({
+        theme: "bootstrap4",
+        width: "resolve"
+      })
+    });
 </script>
 
 @endsection

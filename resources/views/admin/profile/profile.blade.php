@@ -28,6 +28,14 @@
     <div class="col-12 col-md-10">
       <div class="card">
         <div class="card-body">
+          @if (session()->has('forbidden'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('forbidden') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>          
+          @endif
           <div class="card card-primary card-outline">
             <div class="card-header">
               <a href="" data-card-widget="collapse">

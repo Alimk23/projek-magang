@@ -97,13 +97,16 @@
                             <td>{{ $donation['anonym'] }}</td>
                             <td>{{ $donation['message'] }}</td>
                             <td>{{ $donation['updated_at']}}</td>
-                            <td class="align-middle d-flex flex-row">
-                              <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-edit"></i>
-                              </button>
-                              <button type="button" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
+                            <td>
+                              <div class="d-inline-flex">
+                                <form action="/donation/{{ $donation['id'] }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                    <i class="fas fa-trash-alt"></i>
+                                  </button>
+                                </form>
+                              </div>
                             </td>
                           </tr>
                         @endif

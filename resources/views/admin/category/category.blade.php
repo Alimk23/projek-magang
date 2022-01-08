@@ -59,13 +59,19 @@
                       <td>
                         <i class="{{ $category['category']['icon']}}"></i>
                       </td>
-                      <td class="align-middle d-flex flex-row">
-                        <button type="button" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
+                      <td class="align-middle d-inline-flex">
+                        <form action="category/{{ $category['category']['id'] }}/edit" method="GET">
+                          <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                        </form>
+                        <form action="category/{{ $category['category']['id'] }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </form>
                       </td>
                     </tr>
                     @endforeach

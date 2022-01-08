@@ -62,7 +62,7 @@
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @if ($data['payment']->isEmpty())
+                    @if ($data['payment']->isEmpty()||$data['donation']->isEmpty())
                       <tr>
                         <td colspan="9" class="text-center">Tidak ada data yang dapat ditampilkan</td>
                       </tr>
@@ -94,17 +94,27 @@
                                 {{ ($payment['status'] == 2) ? 'Transaksi Berhasil' : ''}}
                                 {{ ($payment['status'] == 3) ? 'Transaksi Gagal' : ''}}
                             </td>
-                            <td>
+                            <td>  
                             @if ($payment['status'] == 1)
-                              <form action="/donation/{{ $payment['id'] }}" method="post">
+                            <div class="d-inline-flex">
+                              <form action="/donation/{{ $payment['id'] }}" class="mx-1" method="post">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg btn-block">Verifikasi</button>
+                                <button type="submit" class="btn btn-outline-success btn-block btn-sm rounded-lg py-0 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                  <i class="fas fa-check"></i>
+                                </button>
                               </form>
+                              <form action="/payment/{{ $payment['id'] }}" class="mx-1" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
+                            </div>
                             @else
-                              <button type="button" disabled class="btn btn-secondary btn-sm rounded-lg btn-block">Verifikasi</button>                                
+                              <button type="button" disabled class="btn btn-secondary btn-sm rounded-lg btn-block">No Action</button>                                
                             @endif
-
                             </td>
                           </tr>
                         @endif

@@ -26,7 +26,7 @@ class DonationController extends Controller
             'getUser' => $user,
             'getPayment' => $payment,
         ];
-        return view('admin.donation',compact('data'));
+        return view('admin.donation.donation',compact('data'));
     }
 
     /**
@@ -157,7 +157,17 @@ class DonationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = Payment::firstWhere('donation_id',$id);
+        if ($payment) {
+            $del = $payment->delete(); 
+        }
+        $delete = Donation::destroy($id);
+        if ($delete) {
+            return redirect('/donation')->with('success','Delete donation is successful');
+        }
+        else{
+            return redirect('/donation')->with('error','Delete donation is failed');
+        }
     }
     public function getCampaign($key, $value){
         $campaign = new Campaign;

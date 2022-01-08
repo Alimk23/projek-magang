@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Company;
 use App\Models\Profile;
+use App\Models\Campaign;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -53,7 +51,7 @@ class ProfileController extends Controller
             'job_title'  => $job_title,
             
         ];
-        return view('admin.profile',compact('data'));
+        return view('admin.profile.profile',compact('data'));
     }
 
     /**
@@ -85,7 +83,31 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $allDonation = Donation::all();
+        $getProfileData = Profile::where('user_id', $id)->first();
+        $getCampaign = Campaign::where('user_id', $id)->get();
+        
+        if ($getCampaign) {
+            foreach ($getCampaign as $campaignData) {
+                $getDonation = Donation::where('campaign_id',$campaignData['id'])->get();
+            }
+        }
+
+        $collectedDonation = Campaign::select('collected')->where('user_id',$id)->pluck('collected')->all();
+        if (!empty($collectedDonation)) {
+            $amountDonation = array_sum($collectedDonation);
+        } else {
+            $amountDonation = 0;
+        }
+
+        $data = [
+            'title' => $getProfileData->company->company_name,
+            'countCampaign' => $getCampaign->count(),
+            'countDonation' => $getDonation->count(),
+            'amountDonation' => $amountDonation,
+            'user_id' => $id,
+        ];
+        return view('user.show-profile',compact('data','getProfileData','getCampaign','allDonation'));
     }
 
     /**

@@ -87,23 +87,25 @@
                         <td>{{ $campaign['user']['company']['company_name'] }}</td>
                         <td>
                           @if (Storage::disk('public')->exists($campaign['cover']))
-                            <a href="{{ Storage::disk('public')->url($campaign['cover']) }}">Custom Cover</a>
+                            <a href="{{ Storage::disk('public')->url($campaign['cover']) }}" target="_blank">Custom Cover</a>
                           @else
-                            <a href="/img/logo.png">Default Cover</a>
+                            <a href="/img/logo.png" target="_blank">Default Cover</a>
                           @endif                            
                         </td>
                         <td>
-                            <div class="row justify-content-center">
-                                <div class="col-sm-6">
-                                    <button type="button" class="btn btn-block btn-outline-primary btn-xs">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="button" class="btn btn-block btn-outline-danger btn-xs">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </div>
+                            <div class="d-inline-flex">
+                              <form action="/campaign/{{ $campaign['id'] }}/edit" method="GET">
+                                <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                              </form>
+                              <form action="/campaign/{{ $campaign['id'] }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
                             </div>
                         </td>
                       </tr>

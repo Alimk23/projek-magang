@@ -61,7 +61,7 @@
           @foreach ($data['campaign'] as $campaign)
           <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">
             <div class="col-lg-4 col-md-6">
-              <div class="card mt-4" style="width: 360px;height: 254px; overflow:hidden;">
+              <div class="card mt-4 mx-auto" style="width: 350px;height: 244px; overflow:hidden;">
               @if (Storage::disk('public')->exists($campaign['cover']))
                 <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
               @else

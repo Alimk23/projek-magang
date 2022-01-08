@@ -29,7 +29,7 @@
 
         </div>
         <div class="ml-3" style="margin-bottom: -1rem">
-          <a href="#" class="text-decoration-none">
+          <a href="/profile/{{ $data['campaign']->user->id }}" class="text-decoration-none">
             <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
               <p class="text-sm">
                 {{ $data['campaign']->user->company->company_name }}
