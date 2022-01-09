@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         Profile::create([
             'user_id' => 1,
             'company_id' => 1,
-            'photo' => 'profile-image/dCVzwDO6n98hdMWlmcSoNDjqM5BksG8kOFOetUo6.jpg',
+            'photo' => '/profile-image/dCVzwDO6n98hdMWlmcSoNDjqM5BksG8kOFOetUo6.jpg',
             'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
         ]);
         Company::create([
@@ -114,26 +114,26 @@ class DatabaseSeeder extends Seeder
         ]);
         Bank::create([
             'user_id' => 1,
-            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Bank_Syariah_Indonesia.svg',
+            'bank_logo' => 'bank-logo/YA3TEfBSVHflumDNaShttj7MkoJUsxoC1QgT9wCh.svg',
             'bank_code' => '451',
             'bank_name' => 'Bank Syariah Indonesia',
-            'bank_account' => '795 795 8887',
+            'bank_account' => 7957958887,
             'alias' => 'Yayasan Hobi Sedekah',
         ]);
         Bank::create([
             'user_id' => 1,
-            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg',
+            'bank_logo' => 'bank-logo/BqemprRIgI4T1LgnWRSnClBlIEMaqKV8UlTjZWrv.svg',
             'bank_code' => '008',
             'bank_name' => 'Bank Mandiri',
-            'bank_account' => '137 00 8822888 3',
+            'bank_account' => 1370088228883,
             'alias' => 'Yayasan Hobi Sedekah Indonesia',
         ]);
         Bank::create([
             'user_id' => 2,
-            'bank_logo' => 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg',
+            'bank_logo' => 'bank-logo/p9VMWOWdLQhHgE0cYrIHnGiqjg4yNh1Su5gWBdV8.svg',
             'bank_code' => '014',
             'bank_name' => 'Bank BCA',
-            'bank_account' => '869 065 8454',
+            'bank_account' => 8690658454,
             'alias' => 'Jaki Umam',
         ]);
         Campaign::create([

@@ -102,7 +102,7 @@
                               <form action="/campaign/{{ $campaign['id'] }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                <button type="submit" class="d-none btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
                                   <i class="fas fa-trash-alt"></i>
                                 </button>
                               </form>

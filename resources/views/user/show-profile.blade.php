@@ -22,7 +22,10 @@
                     @endif
                 </div>
 
-                <h3 class="profile-username text-center">{{ $getProfileData->company->company_name }}</h3>
+                <h3 class="profile-username text-center">
+                    {{ $getProfileData->company->company_name }}
+                    <i class="bi bi-patch-check-fill text-primary"></i>
+                </h3>
 
                 <p class="text-muted text-center">Bergabung sejak {{ date_format($getProfileData->company->user->created_at,"d M Y") }}</p>
 
