@@ -63,28 +63,33 @@
             </h3>
             <p class="my-0 py-0">Terkumpul dari Rp. {{ currency_format($data['campaign']->target) }}</p>
           </div>
+          @php                  
+            $endDate=strtotime($data['campaign']->end_date);
+            $countdown=ceil(($endDate-time())/60/60/24);
+          @endphp 
           <div class="d-flex flex-column">
             <h3 class="mb-0">
               <strong>
-              <?php 
-                $endDate=strtotime($data['campaign']->end_date);
-                $countdown=ceil(($endDate-time())/60/60/24);
-                echo $countdown;
-                ?>
+              {{ $countdown > -0.0 ? $countdown : '' }}
                 </strong>
             </h3>
-            <p class="my-0 py-0">Hari Lagi</p>
+            <p class="my-0 py-0">{{ $countdown > -0.0 ? 'Hari Lagi' : 'Sudah berakhir' }}</p>
           </div>
         </div>
       </div>
       <div class="card-footer bg-light p-2">
+        @if ($countdown > -0.0)            
         <form action="/donation/{{ $data['campaign']->id }}" method="get">        
-          @csrf
-          <button type="submit" class="btn btn-primary btn-block rounded" style="color:white !important">
+          <button type="submit" class="btn btn-primary btn-block rounded">
             <i class="fas fa-hand-point-right mr-2"></i>
             Donasi Sekarang
           </button>
         </form>
+        @else
+        <button type="button" class="btn btn-secondary disabled text-white btn-block rounded">
+          Program telah berakhir
+        </button>
+        @endif
       </div>
     </div>
   </div>

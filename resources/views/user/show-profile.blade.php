@@ -51,27 +51,27 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                  @foreach ($allDonation as $donation)
-                      @if ($donation['campaign']['user_id'] == $data['user_id'])
+                  @foreach ($getCampaign as $campaign)
+                      @if ($campaign['user_id'] == $data['user_id'])
                       <div class="d-flex flex-row">                          
                           <div class="mr-2">
-                            <i class="{{ $donation['campaign']['category']['icon'] }}"></i>
+                            <i class="{{ $campaign['category']['icon'] }}"></i>
                           </div>
                           <div class="ml-1">
-                              <a href="/campaigns/{{ $donation['campaign']['slug'] }}">
-                                  <strong>{{ $donation['campaign']['title'] }}</strong>
+                              <a href="/campaigns/{{ $campaign['slug'] }}">
+                                  <strong>{{ $campaign['title'] }}</strong>
                               </a>
                               <p class="text-muted">
-                                {{ Str::limit($donation['campaign']['caption'], 120, '...') }}
+                                {{ Str::limit($campaign['caption'], 120, '...') }}
                               </p>
                             </div>
                         </div>
                         <div class="d-flex flex-row justify-content-between align-items-center" style="margin-bottom: -0.8rem">
-                            <a href="/category/{{ $donation['campaign']['category']['id'] }}" class="badge badge-primary py-2 px-3 rounded-pill">
-                              {{ $donation['campaign']['category']['title'] }}
+                            <a href="/category/{{ $campaign['category']['id'] }}" class="badge badge-primary py-2 px-3 rounded-pill">
+                              {{ $campaign['category']['title'] }}
                             </a>
                             <small class="mr-3"> 
-                                {{ date_format($donation['campaign']['created_at'],"d M Y") }}
+                                {{ date_format($campaign['created_at'],"d M Y") }}
                             </small>
                         </div>
                       <hr>

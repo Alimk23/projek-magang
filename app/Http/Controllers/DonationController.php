@@ -101,7 +101,12 @@ class DonationController extends Controller
     public function show($id, Campaign $campaign,Bank $bank)
     {
         $detail = $campaign->firstwhere('id', $id);
-        $getBank = $bank->where('user_id', $detail->user_id)->get();
+        // get data bank dari user yang membuat campaign
+        // $getBank = $bank->where('user_id', $detail->user_id)->get();
+        
+        // get data bank dari Super Admin (belum dibuat), sementara diambil dari user id 1
+        $getBank = $bank->where('user_id', 1)->get();
+        
         $data = [
             'title' => 'Create Payment',
             'details' => $detail,

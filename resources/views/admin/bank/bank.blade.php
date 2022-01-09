@@ -34,68 +34,72 @@
             </a>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 col-sm-10">
-            <div class="card">
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Logo</th>
-                      <th>Code</th>
-                      <th>Bank Name</th>
-                      <th>Account</th>
-                      <th>Alias</th>
-                      <th style="width: 40px">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @php
-                        $i = 1;
-                    @endphp
-                    @foreach ($getBank as $bank)
-                    <tr>
-                      <td class="align-middle">{{ $i++ }}</td>
-                      <td class="align-middle">
-                        @if (Storage::disk('public')->exists($bank['bank_logo']))
-                          <a href="{{ Storage::disk('public')->url($bank['bank_logo']) }}" target="_blank">
-                            Custom Logo
-                          </a>
-                        @else
-                          <a href="/img/logo.png" target="_blank">Default Logo</a>
-                        @endif                            
-                      </td>
-                      <td class="align-middle">{{ $bank['bank_code'] }}</td>
-                      <td class="align-middle">{{ $bank['bank_name'] }}</td>
-                      <td class="align-middle">{{ $bank['bank_account'] }}</td>
-                      <td class="align-middle">{{ $bank['alias'] }}</td>
-                      <td class="align-middle d-inline-flex">
-                        <form action="bank/{{ $bank['id'] }}/edit" method="GET">
-                          <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
-                            <i class="fas fa-edit"></i>
-                          </button>
-                        </form>
-                        <form action="bank/{{ $bank['id'] }}" method="POST">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                            <i class="fas fa-trash-alt"></i>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Logo</th>
+                        <th>Code</th>
+                        <th>Bank Name</th>
+                        <th>Account</th>
+                        <th>Alias</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php
+                          $i = 1;
+                      @endphp
+                      @foreach ($getBank as $bank)
+                      <tr>
+                        <td class="align-middle">{{ $i++ }}</td>
+                        <td class="align-middle">
+                          @if (Storage::disk('public')->exists($bank['bank_logo']))
+                            <a href="{{ Storage::disk('public')->url($bank['bank_logo']) }}" target="_blank">
+                              Custom Logo
+                            </a>
+                          @else
+                            <a href="/img/logo.png" target="_blank">Default Logo</a>
+                          @endif                            
+                        </td>
+                        <td class="align-middle">{{ $bank['bank_code'] }}</td>
+                        <td class="align-middle">{{ $bank['bank_name'] }}</td>
+                        <td class="align-middle">{{ $bank['bank_account'] }}</td>
+                        <td class="align-middle">{{ $bank['alias'] }}</td>
+                        <td class="align-middle d-inline-flex">
+                          <form action="bank/{{ $bank['id'] }}/edit" method="GET">
+                            <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                          </form>
+                          <form action="bank/{{ $bank['id'] }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
               </div>
-              <!-- /.card-body -->
+              <!-- /.card -->
+  
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
           </div>
+          <!-- /.row -->
         </div>
-        <!-- /.row -->
 
       </div>
       <!-- /.container-fluid -->

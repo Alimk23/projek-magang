@@ -3,5 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/hobisede/public_html/
     - /bin/cp -R app $DEPLOYPATH
-    - /bin/cp -R database $DEPLOYPATH
+    # - /bin/cp -R database $DEPLOYPATH
     - /bin/cp -R resources $DEPLOYPATH

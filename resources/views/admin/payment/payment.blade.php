@@ -4,21 +4,6 @@
   {{$data['title']}}
 @endsection
 
-@section('css-custom')
-        <!-- DataTables -->
-        <link
-        rel="stylesheet"
-        href="assets_ui/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="assets_ui/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="assets_ui/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"
-      />
-@endsection
 
 @section('sidebar')
     @include('partials.admin-sidebar')
@@ -133,128 +118,9 @@
         </div>
         <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
-    </section>
 
-@endsection
-
-@section('modal')
-{{-- show receiver info --}}
-<div class="modal fade" id="showReceiverInfo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Receiver Info</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="showBankName">Bank Name</label>
-          <input class="form-control" readonly type="text" name="showBankName" id="showBankName">
-        </div>
-        <div class="form-group">
-          <label for="showBankAccount">Bank Account</label>
-          <input class="form-control" readonly type="text" name="showBankAccount" id="showBankAccount">
-        </div>
-        <div class="form-group">
-          <label for="showAlias">Alias</label>
-          <input class="form-control" readonly type="text" name="showAlias" id="showAlias">
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-{{-- show payment info --}}
-<div class="modal fade" id="showPaymentInfo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Payment Info</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="showBankNamePayment">Bank Name</label>
-          <input class="form-control" readonly type="text" name="showBankNamePayment" id="showBankNamePayment">
-        </div>
-        <div class="form-group">
-          <label for="showBankAccountPayment">Bank Account</label>
-          <input class="form-control" readonly type="text" name="showBankAccountPayment" id="showBankAccountPayment">
-        </div>
-        <div class="form-group">
-          <label for="showAliasPayment">Alias</label>
-          <input class="form-control" readonly type="text" name="showAliasPayment" id="showAliasPayment">
-        </div>
-        <div class="form-group">
-          <label for="showNotePayment">Note</label>
-          <textarea class="form-control" readonly name="showNotePayment" id="showNotePayment" cols="30" rows="2"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="showReceiptPayment">Receipt</label>
-          <img id="receiptPreview" class="img-fluid mb-3 col-sm-5">
-          <input class="form-control" readonly type="text" name="showReceiptPayment" id="showReceiptPayment">
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 @endsection
 
 @section('footer')
     @include('partials.admin-footer')
-@endsection
-
-@section('js-custom')
-        <!-- DataTables  & Plugins -->
-        <script src="assets_ui/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="assets_ui/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="assets_ui/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/jszip/jszip.min.js"></script>
-        <script src="assets_ui/plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="assets_ui/plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="js/script.js"></script>
-
-        <!-- Page specific script -->
-        <script>
-            $(function () {
-                $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: false,
-                    autoWidth: false,
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-                $("#example2").DataTable({
-                paging: true,
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                info: true,
-                autoWidth: false,
-                responsive: true,
-                });
-            });
-        </script>
 @endsection
