@@ -168,10 +168,10 @@ class PaymentController extends Controller
         }
         $delete = $payment->delete($id);
         if ($delete) {
-            return redirect('/payment')->with('success','Delete payment is successful');
+            return redirect('/admin/payment')->with('success','Delete payment is successful');
         }
         else{
-            return redirect('/payment')->with('error','Delete payment is failed');
+            return redirect('/admin/payment')->with('error','Delete payment is failed');
         }
     }
 

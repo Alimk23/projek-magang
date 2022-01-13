@@ -24,46 +24,67 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'phone' => '083852542002',
+            'phone' => '0897123456',
             'role' => '0',
+            'password' => Hash::make('rahasia123'),
+        ]);
+        User::create([
+            'name' => 'BMI Jogja',
+            'email' => 'bmijogja@gmail.com',
+            'phone' => '083852542002',
+            'role' => '1',
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
             'name' => 'Jaki Umam',
             'email' => 'jakiumam@gmail.com',
             'phone' => '083839362022',
-            'role' => '0',
+            'role' => '1',
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
             'name' => 'Test',
             'email' => 'test@gmail.com',
             'phone' => '083839362023',
-            'role' => '0',
+            'role' => '3',
             'password' => Hash::make('rahasia123'),
         ]);
 
         Company::create([
             'user_id' => 1,
-            'company_name' => 'BMI Jogja',
-            'job_title' => 'Customer Services',
+            'company_name' => 'Hobi Sedekah',
+            'job_title' => 'Administrator',
         ]);
 
         Profile::create([
             'user_id' => 1,
             'company_id' => 1,
-            'photo' => '/profile-image/dCVzwDO6n98hdMWlmcSoNDjqM5BksG8kOFOetUo6.jpg',
+            'photo' => '/img/logo.png',
             'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
         ]);
+
         Company::create([
             'user_id' => 2,
-            'company_name' => 'KHO',
-            'job_title' => 'Pengasuh',
+            'company_name' => 'BMI Jogja',
+            'job_title' => 'Customer Services',
         ]);
 
         Profile::create([
             'user_id' => 2,
             'company_id' => 2,
+            'photo' => '/profile-image/dCVzwDO6n98hdMWlmcSoNDjqM5BksG8kOFOetUo6.jpg',
+            'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
+        ]);
+
+        Company::create([
+            'user_id' => 3,
+            'company_name' => 'KHO',
+            'job_title' => 'Pengasuh',
+        ]);
+
+        Profile::create([
+            'user_id' => 3,
+            'company_id' => 3,
             'photo' => 'profile-image/xWfk44HISzHKOE2lpgJwPoKw3Ay8dufhOLDU2lto.jpg',
             'address' => 'Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal',
         ]);
@@ -117,7 +138,7 @@ class DatabaseSeeder extends Seeder
             'bank_logo' => 'bank-logo/YA3TEfBSVHflumDNaShttj7MkoJUsxoC1QgT9wCh.svg',
             'bank_code' => '451',
             'bank_name' => 'Bank Syariah Indonesia',
-            'bank_account' => 7957958887,
+            'bank_account' => '7957958887',
             'alias' => 'Yayasan Hobi Sedekah',
         ]);
         Bank::create([
@@ -125,19 +146,19 @@ class DatabaseSeeder extends Seeder
             'bank_logo' => 'bank-logo/BqemprRIgI4T1LgnWRSnClBlIEMaqKV8UlTjZWrv.svg',
             'bank_code' => '008',
             'bank_name' => 'Bank Mandiri',
-            'bank_account' => 1370088228883,
+            'bank_account' => '1370088228883',
             'alias' => 'Yayasan Hobi Sedekah Indonesia',
         ]);
         Bank::create([
-            'user_id' => 2,
+            'user_id' => 3,
             'bank_logo' => 'bank-logo/p9VMWOWdLQhHgE0cYrIHnGiqjg4yNh1Su5gWBdV8.svg',
             'bank_code' => '014',
             'bank_name' => 'Bank BCA',
-            'bank_account' => 8690658454,
+            'bank_account' => '8690658454',
             'alias' => 'Jaki Umam',
         ]);
         Campaign::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 1,
             'title' => 'Sedekah Akbar Indonesia Virtual',
             'slug' => 'sedekah-akbar-indonesia-virtual',
@@ -193,8 +214,8 @@ class DatabaseSeeder extends Seeder
             - Dana juga akan digunakan untuk DPD (Dana Pengembangan Dakwah) dan kemaslahatan yang terkait dengannya',
         ]);
         Campaign::create([
-            'user_id' => 2,
-            'category_id' => 2,
+            'user_id' => 3,
+            'category_id' => 5,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',
             'slug' => 'bantu-negeri-kita-peroleh-nobel-pertama',
             'cover' => 'cover-image/g15SulqNmnIn2pkPvL19tPwOp6DUHSqZFhGqYT21.png',

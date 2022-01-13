@@ -29,7 +29,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="/bank/{{ $bank->id }}" method="post" enctype="multipart/form-data">
+                <form action="/admin/bank/{{ $bank->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="row mb-3 d-none">

@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <div class="row mb-3 mt-0">
           <div class="col-md-2">
-            <a href="{{ url('bank/create') }}">
+            <a href="{{ url('/admin/bank/create') }}">
               <button type="button" class="btn btn-block btn-outline-success btn-sm">
                 <i class="fas fa-plus-circle"></i>
                 Add New Bank
@@ -72,12 +72,12 @@
                         <td class="align-middle">{{ $bank['bank_account'] }}</td>
                         <td class="align-middle">{{ $bank['alias'] }}</td>
                         <td class="align-middle d-inline-flex">
-                          <form action="bank/{{ $bank['id'] }}/edit" method="GET">
+                          <form action="/admin/bank/{{ $bank['id'] }}/edit" method="GET">
                             <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
                               <i class="fas fa-edit"></i>
                             </button>
                           </form>
-                          <form action="bank/{{ $bank['id'] }}" method="POST">
+                          <form action="/admin/bank/{{ $bank['id'] }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">

@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
-use App\Models\User;
-use App\Models\Payment;
-use App\Models\Campaign;
-use App\Models\Donation;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\PaymentController;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class ContributorController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Donation $donation, User $user)
+    public function index()
     {
-        $userAuth = Auth::user();
-        $getDonation = $donation->all();
-        $data = [
-            'title' => 'Contributor',
-        ];
-        return view('admin.donation.contributor',compact('data','getDonation','userAuth', 'user', 'donation')); 
+        //
     }
 
     /**
@@ -91,22 +80,6 @@ class ContributorController extends Controller
      */
     public function destroy($id)
     {
-        $paymentController = new PaymentController;
-        $donation = Donation::firstWhere('user_id',$id);
-        $payment = Payment::firstWhere('donation_id',$donation->id);
-        $user = User::firstWhere('id',$id);
-        if ($payment) {
-            $delPayment = $paymentController->destroy($payment->id);
-        }
-        if ($donation) {
-            $delDonation = $donation->delete(); 
-        }
-        $delete = User::destroy($id);
-        if ($delete) {
-            return redirect('/admin/contributor')->with('success','Delete contributor is successful');
-        }
-        else{
-            return redirect('/admin/contributor')->with('error','Delete contributor is failed');
-        }
+        //
     }
 }

@@ -57,7 +57,7 @@
             @endif
             </div>
             <div class="info">
-              <a href="/admin/profile" class="d-block">{{ Auth::user()->name; }}</a>
+              <a href="/super/settings" class="d-block">{{ Auth::user()->name; }}</a>
             </div>
           </div>
     
@@ -65,74 +65,85 @@
           <!-- Sidebar Menu -->
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header text-uppercase">Main Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('admin') }}" class="nav-link {{ Request::is('admin') ? 'active' : ''}}">
+                    <a href="{{ url('superadmin') }}" class="nav-link {{ Request::is('superadmin') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-header text-uppercase">Campaign Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('/admin/campaign') }}" class="nav-link {{ Request::is('admin/campaign*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-copy"></i>
+                    <a href="{{ url('/superadmin/analytics') }}" class="nav-link {{ Request::is('superadmin/analytics*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-chart-bar"></i>
                         <p>
-                            Campaign List
+                            Analytics
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/admin/category') }}" class="nav-link {{ Request::is('admin/category*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-list-ul"></i>
-                        <p>
-                            Category
-                        </p>
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-users"></i>
+                      <p>
+                        User Management
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
                     </a>
-                </li>
-
-                <li class="nav-header text-uppercase">Donation Menu</li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/donation') }}" class="nav-link {{ Request::is('admin/donation*') ? 'active' : ''}}">
-                    <i class="px-1 fas fa-hand-holding-usd"></i>
-                        <p>
-                            Donation List
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/contributor') }}" class="nav-link {{ Request::is('admin/contributor*') ? 'active' : ''}}">
-                    <i class="px-1 fas fa-users"></i>
-                        <p>
-                            Contributor
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-header text-uppercase">Payment Menu</li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/payment') }}" class="nav-link {{ Request::is('admin/payment*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-cart-plus"></i>
-                        <p>
-                            Payment List
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/bank') }}" class="nav-link {{ Request::is('admin/bank*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-university"></i>
-                        <p>
-                            Bank Info
-                        </p>
-                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/superadmin/campaign') }}" class="nav-link {{ Request::is('superadmin/campaign*') ? 'active' : ''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Fundraiser
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/superadmin/contributor') }}" class="nav-link {{ Request::is('superadmin/contributor*') ? 'active' : ''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Contributor
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
+                <li class="nav-header text-uppercase">Payment Gateway</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-fw fa-university"></i>
+                      <p>
+                        Manual Transfer
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('/superadmin/bank') }}" class="nav-link {{ Request::is('superadmin/bank*') ? 'active' : ''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Bank Info
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/superadmin/transaction') }}" class="nav-link {{ Request::is('superadmin/transaction*') ? 'active' : ''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Transaction
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('/admin/profile') }}" class="nav-link {{ Request::is('admin/profile*') ? 'active' : ''}}">
+                    <a href="{{ url('/superadmin/profile') }}" class="nav-link {{ Request::is('superadmin/profile*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-user"></i>
                         <p>
-                            Profile
+                            Settings
                         </p>
                     </a>
                 </li>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Campaign;
-use App\Models\Category;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Models\CategoryByUser;
@@ -56,7 +55,7 @@ class CampaignController extends Controller
             return view('admin.campaign.create-campaign',compact('data'));
         } 
         else {
-            return redirect('/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
+            return redirect('/admin/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
         }
     }
 
@@ -91,10 +90,10 @@ class CampaignController extends Controller
 
         $store = Campaign::create($validatedData);
         if ($store == true) {
-            return redirect('campaign')->with('success','Add new campaign successful');
+            return redirect('/admin/campaign')->with('success','Add new campaign successful');
         }
         else{
-            return redirect('campaign')->with('error','Add new campaign failed');
+            return redirect('/admin/campaign')->with('error','Add new campaign failed');
         }
     }
     /**
@@ -163,10 +162,10 @@ class CampaignController extends Controller
         $update = $campaign->update($validatedData);
 
         if ($update == true) {
-            return redirect('campaign')->with('success','Edit campaign is successful');
+            return redirect('/admin/campaign')->with('success','Edit campaign is successful');
         }
         else{
-            return redirect('campaign')->with('error','Edit campaign is failed');
+            return redirect('/admin/campaign')->with('error','Edit campaign is failed');
         }
     }
 
@@ -184,10 +183,10 @@ class CampaignController extends Controller
         }
         $delete = Campaign::destroy($id);
         if ($delete) {
-            return redirect('/campaign')->with('success','Delete campaign is successful');
+            return redirect('/admin/campaign')->with('success','Delete campaign is successful');
         }
         else{
-            return redirect('/campaign')->with('error','Delete campaign is failed');
+            return redirect('/admin/campaign')->with('error','Delete campaign is failed');
         }
     }
 

@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <div class="row mb-3 mt-0">
           <div class="col-md-2">
-            <a href="{{ url('category/create') }}">
+            <a href="{{ url('/admin/category/create') }}">
               <button type="button" class="btn btn-block btn-outline-success btn-sm">
                 <i class="fas fa-plus-circle"></i>
                 Add New Category
@@ -60,12 +60,12 @@
                         <i class="{{ $category['category']['icon']}}"></i>
                       </td>
                       <td class="align-middle d-inline-flex">
-                        <form action="category/{{ $category['category']['id'] }}/edit" method="GET">
+                        <form action="/admin/category/{{ $category['category']['id'] }}/edit" method="GET">
                           <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
                             <i class="fas fa-edit"></i>
                           </button>
                         </form>
-                        <form action="category/{{ $category['category']['id'] }}" method="POST">
+                        <form action="/admin/category/{{ $category['category']['id'] }}" method="POST">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">

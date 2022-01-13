@@ -48,7 +48,7 @@ class BankController extends Controller
             return view('admin.bank.create-bank',compact('data'));
         } 
         else {
-            return redirect('/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
+            return redirect('/admin/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
         }
     }
 
@@ -74,10 +74,10 @@ class BankController extends Controller
 
         $store = Bank::create($validatedData);
         if ($store == true) {
-            return redirect('bank')->with('success','Add new bank successful');
+            return redirect('/admin/bank')->with('success','Add new bank successful');
         }
         else{
-            return redirect('bank')->with('error','Add new bank failed');
+            return redirect('/admin/bank')->with('error','Add new bank failed');
         }
     }
 
@@ -138,10 +138,10 @@ class BankController extends Controller
         $update = $bank->update($validatedData);
 
         if ($update == true) {
-            return redirect('bank')->with('success','Edit bank is successful');
+            return redirect('/admin/bank')->with('success','Edit bank is successful');
         }
         else{
-            return redirect('bank')->with('error','Edit bank is failed');
+            return redirect('/admin/bank')->with('error','Edit bank is failed');
         }
     }
 
@@ -155,10 +155,10 @@ class BankController extends Controller
     {
         $delete = Bank::destroy($id);
         if ($delete) {
-            return redirect('/bank')->with('success','Delete bank is successful');
+            return redirect('/admin/bank')->with('success','Delete bank is successful');
         }
         else{
-            return redirect('/bank')->with('error','Delete bank is failed');
+            return redirect('/admin/bank')->with('error','Delete bank is failed');
         }
     }
 }

@@ -99,7 +99,7 @@
                             <td>{{ $donation['updated_at']}}</td>
                             <td>
                               <div class="d-inline-flex">
-                                <form action="/donation/{{ $donation['id'] }}" method="POST">
+                                <form action="/admin/donation/{{ $donation['id'] }}" method="POST">
                                   @csrf
                                   @method('DELETE')
                                   <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">

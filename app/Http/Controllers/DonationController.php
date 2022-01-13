@@ -151,7 +151,7 @@ class DonationController extends Controller
         }
         $delPayment = $getPayment->delete();
 
-        return redirect('donation')->with('success','Donation confirmation is successfull');;
+        return redirect('/admin/donation')->with('success','Donation confirmation is successfull');;
     }
 
     /**
@@ -168,10 +168,10 @@ class DonationController extends Controller
         }
         $delete = Donation::destroy($id);
         if ($delete) {
-            return redirect('/donation')->with('success','Delete donation is successful');
+            return redirect('/admin/donation')->with('success','Delete donation is successful');
         }
         else{
-            return redirect('/donation')->with('error','Delete donation is failed');
+            return redirect('/admin/donation')->with('error','Delete donation is failed');
         }
     }
     public function getCampaign($key, $value){

@@ -42,7 +42,7 @@
       <div class="container-fluid">
         <div class="row mb-3 mt-0">
           <div class="col-md-2">
-            <a href="{{ url('campaign/create') }}">
+            <a href="{{ url('/admin/campaign/create') }}">
               <button type="button" class="btn btn-block btn-outline-success btn-sm">
                 <i class="fas fa-plus-circle"></i>
                 Add New Campaign
@@ -66,9 +66,10 @@
                         <th>Category</th>
                         <th>Target</th>
                         <th>Collected</th>
-                        <th>End Date</th>
+                        <th>End_Date</th>
                         <th>Fundraiser</th>
                         <th>Cover</th>
+                        <th>News_Report</th>
                         <th>
                             Action
                         </th>
@@ -81,8 +82,8 @@
                         <td>{{ $i++ }}</td>
                         <td>{{ $campaign['title'] }}</td>
                         <td>{{ $campaign['category']['title'] }}</td>
-                        <td>Rp {{ currency_format($campaign['target']) }}</td>
-                        <td>Rp {{ currency_format($campaign['collected']) }}</td>
+                        <td>Rp.{{ currency_format($campaign['target']) }}</td>
+                        <td>Rp.{{ currency_format($campaign['collected']) }}</td>
                         <td>{{ $campaign['end_date'] }}</td>
                         <td>{{ $campaign['user']['company']['company_name'] }}</td>
                         <td>
@@ -93,13 +94,23 @@
                           @endif                            
                         </td>
                         <td>
+                          <div class="d-inline-flex">
+                            <form action="/admin/news" method="get">
+                              <input type="text" class="d-none" name="id" id="id" value="{{ $campaign['id'] }}">
+                              <button type="submit" class="btn btn-outline-success btn-sm rounded-lg py-0 px-1 mx-1">
+                                Update
+                              </button>
+                            </form>
+                          </div>
+                        </td>
+                        <td>
                             <div class="d-inline-flex">
-                              <form action="/campaign/{{ $campaign['id'] }}/edit" method="GET">
+                              <form action="/admin/campaign/{{ $campaign['id'] }}/edit" method="GET">
                                 <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
                                   <i class="fas fa-edit"></i>
                                 </button>
                               </form>
-                              <form action="/campaign/{{ $campaign['id'] }}" method="POST">
+                              <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="d-none btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">

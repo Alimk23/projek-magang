@@ -29,7 +29,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ url('bank') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('/admin/bank') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3 d-none">
                         <div class="col">

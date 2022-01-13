@@ -35,7 +35,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="/category/{{ $category->id }}" method="POST">
+                <form action="/admin/category/{{ $category->id }}" method="POST">
                     @csrf
                     @method('PATCH')
                     <div class="row mb-3">

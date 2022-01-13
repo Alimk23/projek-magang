@@ -45,7 +45,7 @@ class CategoryController extends Controller
             return view('admin.category.create-category',compact('data','icons'));
         } 
         else {
-            return redirect('/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
+            return redirect('/admin/profile')->with('forbidden','Silahkan lengkapi data profil terlebih dahulu');
         }
     }
 
@@ -72,10 +72,10 @@ class CategoryController extends Controller
         ]);
 
         if ($save == true) {
-            return redirect('/category')->with('success','Add new category successful');
+            return redirect('/admin/category')->with('success','Add new category successful');
         }
         else{
-            return redirect('/category')->with('error','Add new category failed');
+            return redirect('/admin/category')->with('error','Add new category failed');
         }
     }
 
@@ -126,10 +126,10 @@ class CategoryController extends Controller
         $update = $category->update($validatedData);
 
         if ($update == true) {
-            return redirect('/category')->with('success','Edit category is successful');
+            return redirect('/admin/category')->with('success','Edit category is successful');
         }
         else{
-            return redirect('/category')->with('error','Edit category is failed');
+            return redirect('/admin/category')->with('error','Edit category is failed');
         }
     }
 
@@ -145,10 +145,10 @@ class CategoryController extends Controller
         $del = $CategoryByUser->delete();
         $delete = Category::destroy($id);
         if ($delete) {
-            return redirect('/category')->with('success','Delete category is successful');
+            return redirect('/admin/category')->with('success','Delete category is successful');
         }
         else{
-            return redirect('/category')->with('error','Delete category is failed');
+            return redirect('/admin/category')->with('error','Delete category is failed');
         }
     }
     public function getIconData(){

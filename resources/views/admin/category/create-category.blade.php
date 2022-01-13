@@ -35,7 +35,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ url('category') }}" method="post">
+                <form action="{{ url('/admin/category') }}" method="post">
                     @csrf
                     <div class="row mb-3 d-none">
                         <div class="col">

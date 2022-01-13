@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\News;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Donation;
@@ -32,6 +33,10 @@ class Campaign extends Model
     public function donation()
     {
         return $this->hasMany(Donation::class);
+    }
+    public function news()
+    {
+        return $this->hasMany(News::class);
     }
     public function user()
     {

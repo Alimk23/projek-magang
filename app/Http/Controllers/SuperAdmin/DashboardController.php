@@ -1,31 +1,54 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\User;
-use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 
-class ContributorController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Donation $donation, User $user)
+    public function index(Campaign $campaign, Donation $donation)
     {
-        $userAuth = Auth::user();
-        $getDonation = $donation->all();
+        $user = Auth::user();
+        $getCampaign = $campaign->where('user_id',$user->id)->get()->count();
+        $getCampaignDetail = Campaign::where('user_id',$user->id)->get();
+        $getDonation = 0;
+        $countUser = 0;
+
+        if ($getCampaignDetail) {            
+            foreach ($getCampaignDetail as $detail) {
+                $getDonation = $donation->where('campaign_id',$detail['id'])->get()->count();
+            }
+        }
+        $collectedDonation = Campaign::select('collected')->where('user_id',$user->id)->pluck('collected')->all();
+        if (!empty($collectedDonation)) {
+            $totalDonation = array_sum($collectedDonation);
+        } else {
+            $totalDonation = 0;
+        }
+
+        $allDonation = $donation->all();
+
+        foreach ($allDonation as $findDonation) {
+            if ($findDonation['status']==0 || $findDonation['status']==1) {
+                if ($findDonation['campaign']['user_id']==$user->id) {
+                    $countUser = User::where('id',$findDonation['user_id'])->get()->count();
+                }
+            }
+        }
         $data = [
-            'title' => 'Contributor',
+            'title' => 'Dashboard',
         ];
-        return view('admin.donation.contributor',compact('data','getDonation','userAuth', 'user', 'donation')); 
+        return view('superadmin.dashboard.index',compact('data','getCampaign','getDonation','countUser','totalDonation'));
     }
 
     /**
@@ -91,22 +114,6 @@ class ContributorController extends Controller
      */
     public function destroy($id)
     {
-        $paymentController = new PaymentController;
-        $donation = Donation::firstWhere('user_id',$id);
-        $payment = Payment::firstWhere('donation_id',$donation->id);
-        $user = User::firstWhere('id',$id);
-        if ($payment) {
-            $delPayment = $paymentController->destroy($payment->id);
-        }
-        if ($donation) {
-            $delDonation = $donation->delete(); 
-        }
-        $delete = User::destroy($id);
-        if ($delete) {
-            return redirect('/admin/contributor')->with('success','Delete contributor is successful');
-        }
-        else{
-            return redirect('/admin/contributor')->with('error','Delete contributor is failed');
-        }
+        //
     }
 }

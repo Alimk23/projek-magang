@@ -90,7 +90,7 @@
                                   </td>
                                   <td>
                                     <div class="d-inline-flex">
-                                      <form action="/contributor/{{ $donation['user_id'] }}" method="POST">
+                                      <form action="/admin/contributor/{{ $donation['user_id'] }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
@@ -138,7 +138,7 @@
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="js/script.js"></script>
+        <script src="/js/script.js"></script>
 
         <!-- Page specific script -->
         <script>

@@ -37,7 +37,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="/campaign/{{ $campaign->id }}" method="post" enctype="multipart/form-data">
+                <form action="/admin/campaign/{{ $campaign->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="row mb-3">
@@ -191,7 +191,7 @@
     const slug = document.querySelector('#slug');
 
     title.addEventListener('change', function(){
-        fetch('/campaign/create/checkSlug?title=' + title.value)
+        fetch('/admin/campaign/create/checkSlug?title=' + title.value)
             .then(response => response.json())
             .then(data => slug.value = data.slug)
     });

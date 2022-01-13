@@ -131,10 +131,10 @@ class CompanyController extends Controller
 
 
         if ($save == true) {
-            return redirect('/profile')->with('success','Update profile is successful');
+            return redirect('/admin/profile')->with('success','Update profile is successful');
         }
         else{
-            return redirect('/profile')->with('error','Update profile is failed');
+            return redirect('/admin/profile')->with('error','Update profile is failed');
         }
     }
 

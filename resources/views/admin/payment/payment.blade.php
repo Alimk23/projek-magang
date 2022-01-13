@@ -82,14 +82,14 @@
                             <td>  
                             @if ($payment['status'] == 1)
                             <div class="d-inline-flex">
-                              <form action="/donation/{{ $payment['id'] }}" class="mx-1" method="post">
+                              <form action="/admin/donation/{{ $payment['id'] }}" class="mx-1" method="post">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-outline-success btn-block btn-sm rounded-lg py-0 mx-1" data-toggle="modal" data-target="#editCategoryModal">
                                   <i class="fas fa-check"></i>
                                 </button>
                               </form>
-                              <form action="/payment/{{ $payment['id'] }}" class="mx-1" method="POST">
+                              <form action="/admin/payment/{{ $payment['id'] }}" class="mx-1" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1" data-toggle="modal" data-target="#editCategoryModal">
@@ -121,6 +121,86 @@
 
 @endsection
 
+@section('modal')
+{{-- show receiver info --}}
+<div class="modal fade" id="showReceiverInfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title">Receiver Info</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="showBankName">Bank Name</label>
+          <input class="form-control" readonly type="text" name="showBankName" id="showBankName">
+        </div>
+        <div class="form-group">
+          <label for="showBankAccount">Bank Account</label>
+          <input class="form-control" readonly type="text" name="showBankAccount" id="showBankAccount">
+        </div>
+        <div class="form-group">
+          <label for="showAlias">Alias</label>
+          <input class="form-control" readonly type="text" name="showAlias" id="showAlias">
+        </div>
+      </div>
+      <div class="card-footer">        
+        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+{{-- show payment info --}}
+<div class="modal fade" id="showPaymentInfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title">Payment Info</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="showBankNamePayment">Bank Name</label>
+          <input class="form-control" readonly type="text" name="showBankNamePayment" id="showBankNamePayment">
+        </div>
+        <div class="form-group">
+          <label for="showBankAccountPayment">Bank Account</label>
+          <input class="form-control" readonly type="text" name="showBankAccountPayment" id="showBankAccountPayment">
+        </div>
+        <div class="form-group">
+          <label for="showAliasPayment">Alias</label>
+          <input class="form-control" readonly type="text" name="showAliasPayment" id="showAliasPayment">
+        </div>
+        <div class="form-group">
+          <label for="showNotePayment">Note</label>
+          <textarea class="form-control" readonly name="showNotePayment" id="showNotePayment" cols="30" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="showReceiptPayment">Receipt</label>
+          <img id="receiptPreview" class="img-fluid mb-3 col-sm-5">
+          <input class="form-control" readonly type="text" name="showReceiptPayment" id="showReceiptPayment">
+        </div>
+      </div>
+      <div class="card-footer">        
+        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+@endsection
+
 @section('footer')
     @include('partials.admin-footer')
+@endsection
+
+@section('js-custom')
+<script src="/js/script.js"></script>
 @endsection

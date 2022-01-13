@@ -86,7 +86,7 @@
                 <input type="checkbox" class="custom-control-input" name="anonym" id="anonym">
                 <label class="custom-control-label" for="anonym" style="font-weight: normal">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
-          </div>
+            </div>
             @error('anonym')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>

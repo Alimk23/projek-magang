@@ -5,7 +5,7 @@
 @endsection
 
 @section('sidebar')
-    @include('partials.admin-sidebar')
+    @include('partials.superadmin-sidebar')
 @endsection
 
 @section('content-header')
@@ -88,44 +88,6 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-6">
-        <div class="card">
-          <div class="card-header h4 font-weight-bold">
-            Donation Detail
-          </div>
-          <div class="card-body">
-            <div class="d-flex flex-column">
-              <div class="my-2 d-flex justify-content-between">
-                <h5>Collected Amount</h5>
-                <h5 class="font-weight-bold">Rp {{ currency_format($totalDonation) }}</h5>
-              </div>
-
-              @php
-                $commisionFee = $totalDonation * 5/100;
-              @endphp
-              <div class="my-2 d-flex justify-content-between text-danger">
-                <div class="d-flex flex-column">
-                  <h5 class="mb-0">Commission Fee</h5>
-                  <small class="mt-0">5% from Collected Donation</small>
-                </div>
-                <h5 class="font-weight-bold">-Rp {{ currency_format($commisionFee) }}</h5>
-              </div>
-
-              <div class="my-2 d-flex justify-content-between text-success">
-                <h5>Withdrawable Cash</h5>
-                <h5 class="font-weight-bold">Rp {{ currency_format($totalDonation-$commisionFee) }}</h5>
-              </div>
-            </div>
-
-          </div>
-          <div class="card-footer">
-            <button type="button" class="btn btn-outline-primary btn-block w-100">Withdraw</button>
-          </div>
-        </div>
-      </div>
-    </div>
 @endsection
 
 @section('footer')
