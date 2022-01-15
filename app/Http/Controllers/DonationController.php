@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\UserGrade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,9 +63,8 @@ class DonationController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-            ]);
-            $newUserData = $user->firstwhere('phone', $request->phone);
-            $user_id = $newUserData->id;
+            ])->id;
+            $user_id = $newUser;
         }
         if (!empty($request->anonym)) {
             $newDonation = Donation::create([
@@ -104,7 +104,7 @@ class DonationController extends Controller
         // get data bank dari user yang membuat campaign
         // $getBank = $bank->where('user_id', $detail->user_id)->get();
         
-        // get data bank dari Super Admin (belum dibuat), sementara diambil dari user id 1
+        // get data bank dari Super Admin id 1
         $getBank = $bank->where('user_id', 1)->get();
         
         $data = [
@@ -151,7 +151,7 @@ class DonationController extends Controller
         }
         $delPayment = $getPayment->delete();
 
-        return redirect('/admin/donation')->with('success','Donation confirmation is successfull');;
+        return redirect()->back()->with('success','Donation confirmation is successfull');;
     }
 
     /**

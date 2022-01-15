@@ -8,7 +8,6 @@ use App\Models\Company;
 use App\Models\Profile;
 use App\Models\Campaign;
 use App\Models\Category;
-use App\Models\CategoryByUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,7 +45,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test',
             'email' => 'test@gmail.com',
             'phone' => '083839362023',
-            'role' => '3',
+            'role' => '1',
             'password' => Hash::make('rahasia123'),
         ]);
 
@@ -109,30 +108,6 @@ class DatabaseSeeder extends Seeder
             'title' => 'Wakaf',
             'icon' => 'fa-3x fas fa-mosque'
         ]);
-        CategoryByUser::create([
-            'user_id' => 2,
-            'category_id' => 1,
-        ]);
-        CategoryByUser::create([
-            'user_id' => 1,
-            'category_id' => 1,
-        ]);
-        CategoryByUser::create([
-            'user_id' => 1,
-            'category_id' => 2,
-        ]);
-        CategoryByUser::create([
-            'user_id' => 1,
-            'category_id' => 3,
-        ]);
-        CategoryByUser::create([
-            'user_id' => 1,
-            'category_id' => 4,
-        ]);
-        CategoryByUser::create([
-            'user_id' => 2,
-            'category_id' => 5,
-        ]);
         Bank::create([
             'user_id' => 1,
             'bank_logo' => 'bank-logo/YA3TEfBSVHflumDNaShttj7MkoJUsxoC1QgT9wCh.svg',
@@ -160,6 +135,7 @@ class DatabaseSeeder extends Seeder
         Campaign::create([
             'user_id' => 2,
             'category_id' => 1,
+            'status' => 1,
             'title' => 'Sedekah Akbar Indonesia Virtual',
             'slug' => 'sedekah-akbar-indonesia-virtual',
             'cover' => 'cover-image/YxdqXVdsEPXMgfAz0uypq5i9Fxxw88gIab0IyStC.jpg',
@@ -216,6 +192,7 @@ class DatabaseSeeder extends Seeder
         Campaign::create([
             'user_id' => 3,
             'category_id' => 5,
+            'status' => 1,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',
             'slug' => 'bantu-negeri-kita-peroleh-nobel-pertama',
             'cover' => 'cover-image/g15SulqNmnIn2pkPvL19tPwOp6DUHSqZFhGqYT21.png',

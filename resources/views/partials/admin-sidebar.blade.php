@@ -65,6 +65,7 @@
           <!-- Sidebar Menu -->
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header text-uppercase">Main Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('admin') }}" class="nav-link {{ Request::is('admin') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-tachometer-alt"></i>
@@ -73,51 +74,32 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header text-uppercase">Campaign Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/campaign') }}" class="nav-link {{ Request::is('admin/campaign*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-copy"></i>
                         <p>
-                            Campaign List
+                            Campaign
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/category') }}" class="nav-link {{ Request::is('admin/category*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-list-ul"></i>
-                        <p>
-                            Category
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-header text-uppercase">Donation Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/donation') }}" class="nav-link {{ Request::is('admin/donation*') ? 'active' : ''}}">
-                    <i class="px-1 fas fa-hand-holding-usd"></i>
+                    <i class="nav-icon fas fa-hand-holding-usd"></i>
                         <p>
-                            Donation List
+                            Donation
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/contributor') }}" class="nav-link {{ Request::is('admin/contributor*') ? 'active' : ''}}">
-                    <i class="px-1 fas fa-users"></i>
+                    <i class="nav-icon fas fa-users"></i>
                         <p>
                             Contributor
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-header text-uppercase">Payment Menu</li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/payment') }}" class="nav-link {{ Request::is('admin/payment*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-cart-plus"></i>
-                        <p>
-                            Payment List
-                        </p>
-                    </a>
-                </li>
+                
+                <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/bank') }}" class="nav-link {{ Request::is('admin/bank*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-university"></i>
@@ -126,8 +108,6 @@
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/profile') }}" class="nav-link {{ Request::is('admin/profile*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-fw fa-user"></i>

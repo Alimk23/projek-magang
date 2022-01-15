@@ -14,6 +14,7 @@
           <h4 class="fa-3x mb-2 text-uppercase font-weight-bold">{{ $selectedCategory->title }}</h4>
         </div>
         @foreach ($getCampaign as $campaign)
+        @if ($campaign['status'] == 1)            
         <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">
           <div class="col-lg-4 col-md-6">
             <div class="card mt-4 mx-auto" style="width: 310px;height: 210px; overflow:hidden;">
@@ -68,10 +69,11 @@
             </div>
           </div>              
         </a>
+        @endif
         @endforeach
       </div>
     </div>
-    <div class="col-sm-2 bg-white">
+    <div class="col-sm-2">
       <nav class="mt-3">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header text-uppercase">Kategori</li>

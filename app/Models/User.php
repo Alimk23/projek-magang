@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Company;
+use App\Models\Profile;
 use App\Models\Donation;
+use App\Models\UserGrade;
 use App\Models\CategoryByUser;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -37,18 +39,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     public function donation()
     {
-        return $this->belongsTo(Donation::class,'user_id');
+        return $this->hasMany(Donation::class,'user_id');
     }
     public function campaign()
     {
@@ -56,10 +53,14 @@ class User extends Authenticatable
     }
     public function company()
     {
-        return $this->hasOne(Company::class);
+        return $this->hasOne(Company::class, 'user_id');
     }
-    public function CategoryByUser()
+    public function profile()
     {
-        return $this->hasMany(CategoryByUser::class);
+        return $this->hasOne(Profile::class);
+    }
+    public function UserGrade()
+    {
+        return $this->hasMany(UserGrade::class, 'user_id');
     }
 }

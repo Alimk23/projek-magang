@@ -20,14 +20,9 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Payment $payment, Donation $donation)
+    public function index()
     {
-        $data = [
-            'title' => 'Payment List',
-            'donation' => $donation->all(),
-            'payment' => $payment->all()
-        ];
-        return view('admin.payment.payment',compact('data'));
+        // 
     }
 
     /**
@@ -162,17 +157,7 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        $payment = Payment::firstWhere('id',$id);
-        if ($payment->receipt) {
-            Storage::delete($payment->receipt);
-        }
-        $delete = $payment->delete($id);
-        if ($delete) {
-            return redirect('/admin/payment')->with('success','Delete payment is successful');
-        }
-        else{
-            return redirect('/admin/payment')->with('error','Delete payment is failed');
-        }
+        // 
     }
 
     public function status($order_id){
@@ -183,14 +168,4 @@ class PaymentController extends Controller
         return view('user.status-payment', compact('data'));
     }
 
-    public function getReceiverInfo(Bank $bank){
-        $id =  $_GET['id'];
-        $getData = $bank->firstWhere('id', $id) ;
-        echo json_encode($getData);
-    }
-    public function getPaymentInfo(Payment $payment){
-        $id =  $_GET['id'];
-        $getData = $payment->firstWhere('id', $id) ;
-        echo json_encode($getData);
-    }
 }

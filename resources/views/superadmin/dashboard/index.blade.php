@@ -20,7 +20,7 @@
     <!-- Info boxes -->
     <div class="row">
       <div class="col-12 col-sm-6 col-md-3">
-        <a href="/admin/contributor" class="text-dark text-decoration-none">
+        <a href="/superadmin/contributor" class="text-dark text-decoration-none">
           <div class="info-box">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
   
@@ -37,7 +37,7 @@
       </div>
       
       <div class="col-12 col-sm-6 col-md-3">
-        <a href="/admin/campaign" class="text-dark text-decoration-none">
+        <a href="/superadmin/campaign" class="text-dark text-decoration-none">
         <!-- /.col -->
           <div class="info-box mb-3">
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-fw fa-copy"></i></span>
@@ -57,7 +57,7 @@
       <div class="clearfix hidden-md-up"></div>
 
       <div class="col-12 col-sm-6 col-md-3">
-        <a href="/admin/donation" class="text-dark text-decoration-none">
+        <a href="/superadmin/donation" class="text-dark text-decoration-none">
           <div class="info-box mb-3">
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
   
@@ -72,7 +72,7 @@
       </div>
         <!-- /.col -->
       <div class="col-12 col-sm-6 col-md-3">
-        <a href="/admin/donation" class="text-dark text-decoration-none">
+        <a href="/superadmin/donation" class="text-dark text-decoration-none">
           <div class="info-box mb-3">
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
   
@@ -86,6 +86,47 @@
         </a>
       </div>
         <!-- /.col -->
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card">
+          <div class="card-header h5 font-weight-bold">
+            Payment Request
+          </div>
+          <div class="card-body">
+
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-primary btn-block w-100">Action</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card">
+          <div class="card-header h5 font-weight-bold">
+            Campaign Request
+          </div>
+          <div class="card-body">
+
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-primary btn-block w-100">Action</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card">
+          <div class="card-header h5 font-weight-bold">
+            Withdraw Request
+          </div>
+          <div class="card-body">
+
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-primary btn-block w-100">Action</button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /.row -->
 @endsection

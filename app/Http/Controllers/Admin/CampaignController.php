@@ -7,6 +7,7 @@ use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Models\CategoryByUser;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -41,12 +42,12 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CategoryByUser $categoryByUser, Profile $profile)
+    public function create(Profile $profile)
     {
         $user = Auth::user();
         $getProfileData = $profile->firstWhere('user_id', $user->id);
         if ($getProfileData) {
-            $getCategory = $categoryByUser->where('user_id',$user->id)->get();
+            $getCategory = Category::all();
             $photo = $getProfileData->photo;
             $data = [
                 'title' => 'Create Campaign',
@@ -117,7 +118,7 @@ class CampaignController extends Controller
     {
         $user = Auth::user();
         $campaign = Campaign::where('id',$id)->first();
-        $getCategory = CategoryByUser::where('user_id',$user->id)->get();
+        $getCategory = Category::all();
         $data=[
             'title'=>'Edit Campaign',
             'category' => $getCategory

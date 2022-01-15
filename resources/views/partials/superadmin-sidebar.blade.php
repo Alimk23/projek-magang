@@ -1,4 +1,3 @@
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <ul class="navbar-nav">
@@ -57,7 +56,7 @@
             @endif
             </div>
             <div class="info">
-              <a href="/super/settings" class="d-block">{{ Auth::user()->name; }}</a>
+              <a href="/superadmin/settings" class="d-block">{{ Auth::user()->name; }}</a>
             </div>
           </div>
     
@@ -76,9 +75,17 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/superadmin/analytics') }}" class="nav-link {{ Request::is('superadmin/analytics*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-chart-bar"></i>
+                    <i class="nav-icon fas fa-chart-line"></i>
                         <p>
                             Analytics
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/superadmin/category') }}" class="nav-link {{ Request::is('superadmin/category*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Category
                         </p>
                     </a>
                 </li>
@@ -92,7 +99,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/superadmin/campaign') }}" class="nav-link {{ Request::is('superadmin/campaign*') ? 'active' : ''}}">
+                            <a href="{{ url('/superadmin/fundraiser') }}" class="nav-link {{ Request::is('superadmin/fundraiser*') ? 'active' : ''}}">
                             <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Fundraiser
@@ -108,6 +115,22 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/superadmin/withdraw') }}" class="nav-link {{ Request::is('superadmin/withdraw*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-wallet"></i>
+                        <p>
+                            Withdraw Management
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/superadmin/campaign') }}" class="nav-link {{ Request::is('superadmin/campaign*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Campaign Management
+                        </p>
+                    </a>
                 </li>
 
                 <li class="nav-header text-uppercase">Payment Gateway</li>
@@ -129,10 +152,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/superadmin/transaction') }}" class="nav-link {{ Request::is('superadmin/transaction*') ? 'active' : ''}}">
+                            <a href="{{ url('/superadmin/payment') }}" class="nav-link {{ Request::is('superadmin/payment*') ? 'active' : ''}}">
                             <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Transaction
+                                    Payment Request
                                 </p>
                             </a>
                         </li>
@@ -140,8 +163,8 @@
                 </li>
                 <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">
-                    <a href="{{ url('/superadmin/profile') }}" class="nav-link {{ Request::is('superadmin/profile*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-fw fa-user"></i>
+                    <a href="{{ url('/superadmin/settings') }}" class="nav-link {{ Request::is('superadmin/settings*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-fw fa-cog"></i>
                         <p>
                             Settings
                         </p>

@@ -26,6 +26,7 @@ class CreateCampaignTable extends Migration
             $table->date('end_date');
             $table->integer('target');
             $table->integer('collected')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

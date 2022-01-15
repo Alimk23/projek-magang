@@ -17,8 +17,4 @@ class Category extends Model
     {
         return $this->hasMany(Campaign::class);
     }
-    public function CategoryByUser()
-    {
-        return $this->hasMany(CategoryByUser::class);
-    }
 }

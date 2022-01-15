@@ -86,7 +86,7 @@
                           <label for="category">Category</label>
                           <select class="form-control select2-allow-clear select2Minimal @error('category') is-invalid @enderror" name="category_id" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
                             @foreach ($data['category'] as $category)
-                            <option value="{{ $category['category']['id'] }}">{{ $category['category']['title'] }}</option>
+                            <option value="{{ $category['id'] }}">{{ $category['title'] }}</option>
                             @endforeach
                           </select>                                  
                             @error('category_id')

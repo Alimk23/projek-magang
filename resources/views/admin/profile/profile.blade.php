@@ -359,7 +359,7 @@
 
 @section('js-custom')
 <!-- bs-custom-file-input -->
-<script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ url('/assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script src="{{ url('/js/script.js') }}"></script>
 <script>
     $(function () {

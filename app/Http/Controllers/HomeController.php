@@ -32,6 +32,21 @@ class HomeController extends Controller
         return view('index',compact('data'));
     }
 
+    public function checkRole()
+    {
+        $user = Auth::user();
+        
+        if ($user->role == 0) {
+            return redirect('/superadmin');
+        }
+        if ($user->role == 1) {
+            return redirect('/admin');
+        }
+        if ($user->role == 2
+        ) {
+            return redirect('/user');
+        }
+    }
     public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news){
         $user = new User();
         $getCampaign = $campaign->where('slug', $slug)->first();

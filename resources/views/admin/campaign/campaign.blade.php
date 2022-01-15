@@ -8,15 +8,15 @@
         <!-- DataTables -->
         <link
         rel="stylesheet"
-        href="assets_ui/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"
+        href="/assets_ui/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"
       />
       <link
         rel="stylesheet"
-        href="assets_ui/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"
+        href="/assets_ui/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"
       />
       <link
         rel="stylesheet"
-        href="assets_ui/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"
+        href="/assets_ui/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"
       />
 @endsection
 
@@ -54,10 +54,10 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body table-responsive">
                 <table
                   id="example1"
-                  class="table table-bordered table-striped"
+                  class="table table-head-fixed text-nowrap table-bordered table-striped"
                 >
                   <thead>
                     <tr>
@@ -70,6 +70,7 @@
                         <th>Fundraiser</th>
                         <th>Cover</th>
                         <th>News_Report</th>
+                        <th>Status</th>
                         <th>
                             Action
                         </th>
@@ -79,45 +80,63 @@
                     <?php $i=1; ?>
                     @foreach ($data['campaign'] as $campaign)                  
                       <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $campaign['title'] }}</td>
-                        <td>{{ $campaign['category']['title'] }}</td>
-                        <td>Rp.{{ currency_format($campaign['target']) }}</td>
-                        <td>Rp.{{ currency_format($campaign['collected']) }}</td>
-                        <td>{{ $campaign['end_date'] }}</td>
-                        <td>{{ $campaign['user']['company']['company_name'] }}</td>
                         <td>
-                          @if (Storage::disk('public')->exists($campaign['cover']))
-                            <a href="{{ Storage::disk('public')->url($campaign['cover']) }}" target="_blank">Custom Cover</a>
-                          @else
-                            <a href="/img/logo.png" target="_blank">Default Cover</a>
-                          @endif                            
+                            {{ $i++ }}
                         </td>
                         <td>
-                          <div class="d-inline-flex">
+                            {{ $campaign['title'] }}
+                        </td>
+                        <td>
+                            {{ $campaign['category']['title'] }}
+                        </td>
+                        <td>
+                            Rp.{{ currency_format($campaign['target']) }}
+                        </td>
+                        <td>
+                            Rp.{{ currency_format($campaign['collected']) }}
+                        </td>
+                        <td>
+                            {{ $campaign['end_date'] }}
+                        </td>
+                        <td>
+                          {{ $campaign['user']['company']['company_name'] }}
+                        </td>
+                        <td>
+                            @if (Storage::disk('public')->exists($campaign['cover']))
+                              <a href="{{ Storage::disk('public')->url($campaign['cover']) }}" target="_blank">Custom Cover</a>
+                            @else
+                              <a href="/img/logo.png" target="_blank">Default Cover</a>
+                            @endif                            
+                        </td>
+                        <td>
                             <form action="/admin/news" method="get">
                               <input type="text" class="d-none" name="id" id="id" value="{{ $campaign['id'] }}">
-                              <button type="submit" class="btn btn-outline-success btn-sm rounded-lg py-0 px-1 mx-1">
+                              <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
                                 Update
                               </button>
                             </form>
-                          </div>
                         </td>
                         <td>
-                            <div class="d-inline-flex">
-                              <form action="/admin/campaign/{{ $campaign['id'] }}/edit" method="GET">
-                                <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
-                                  <i class="fas fa-edit"></i>
-                                </button>
-                              </form>
-                              <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="d-none btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                  <i class="fas fa-trash-alt"></i>
-                                </button>
-                              </form>
-                            </div>
+                          @if ($campaign['status'] == 0)
+                              <div class="text-danger">Publish Request</div>
+                          @endif
+                          @if ($campaign['status'] == 1)
+                              <div class="text-success">Published</div>
+                          @endif
+                        </td>
+                        <td>
+                            <form action="/admin/campaign/{{ $campaign['id'] }}/edit" method="GET">
+                              <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                                <i class="fas fa-edit"></i>
+                              </button>
+                            </form>
+                            <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="d-none btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </form>
                         </td>
                       </tr>
                       @endforeach
@@ -142,25 +161,25 @@
 
 @section('js-custom')
         <!-- DataTables  & Plugins -->
-        <script src="assets_ui/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="assets_ui/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="assets_ui/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="assets_ui/plugins/jszip/jszip.min.js"></script>
-        <script src="assets_ui/plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="assets_ui/plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <script src="/assets_ui/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="/assets_ui/plugins/jszip/jszip.min.js"></script>
+        <script src="/assets_ui/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="/assets_ui/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <!-- Page specific script -->
         <script>
             $(function () {
                 $("#example1")
                 .DataTable({
-                    responsive: true,
+                    responsive: false,
                     lengthChange: false,
                     autoWidth: false,
                 })
@@ -170,12 +189,13 @@
                 $("#example2").DataTable({
                 paging: true,
                 lengthChange: false,
-                searching: false,
+
                 ordering: true,
                 info: true,
                 autoWidth: false,
                 responsive: true,
                 });
+
             });
         </script>
 @endsection
