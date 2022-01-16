@@ -27,7 +27,7 @@
       <div class="col-lg-3 mt-4">
         <h5 class="mb-lg-4 mb-2">Alamat Kantor</h5>
         <p class="mb-lg-3 mb-1">
-          Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal
+          Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal, Jawa Tengah
         </p>
       </div>
       <div class="col-lg-3 mt-4">

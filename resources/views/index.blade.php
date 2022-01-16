@@ -80,6 +80,7 @@
             </h3>
           </div>
           @foreach ($data['campaign'] as $campaign)
+          @if ($campaign['status'] == 1)
             @php                          
             $endDate=strtotime($campaign['end_date']);
             $countdown=ceil(($endDate-time())/60/60/24);
@@ -144,6 +145,7 @@
                 </div>
               </div>              
             </a>
+            @endif
           @endforeach
         </div>
       </div>

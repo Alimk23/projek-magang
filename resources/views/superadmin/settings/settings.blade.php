@@ -233,7 +233,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="#" method="post">
+      <form action="/userdata/{{ $data['id'] }}" method="post">
         <div class="modal-body">
           @csrf
           @method('PATCH')
@@ -277,7 +277,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/admin/profile/{{ $data['id'] }}" method="post" enctype="multipart/form-data">
+      <form action="/superadmin/settings/{{ $data['id'] }}" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           @csrf
           @method('PATCH')
@@ -322,7 +322,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/admin/company/{{ $data['id'] }}" method="post">
+      <form action="/superadmin/company/{{ $data['id'] }}" method="post">
         <div class="modal-body">
           @csrf
           @method('PATCH')

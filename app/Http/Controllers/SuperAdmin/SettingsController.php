@@ -174,20 +174,4 @@ class SettingsController extends Controller
     {
         //
     }
-
-    public function getLoginInfo(User $user){
-        $id =  $_GET['id'];
-        $getData = $user->firstWhere('id', $id) ;
-        echo json_encode($getData);
-    }
-    public function getProfileInfo(Profile $profile){
-        $id =  $_GET['id'];
-        $getData = $profile->firstWhere('user_id', $id) ;
-        echo json_encode($getData);
-    }
-    public function getCompanyInfo(Company $company){
-        $id =  $_GET['id'];
-        $getData = $company->firstWhere('user_id', $id) ;
-        echo json_encode($getData);
-    }
 }

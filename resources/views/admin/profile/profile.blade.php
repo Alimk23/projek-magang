@@ -233,7 +233,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="#" method="post">
+      <form action="/userdata/{{ $data['id'] }}" method="post">
         <div class="modal-body">
           @csrf
           @method('PATCH')

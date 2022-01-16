@@ -58,7 +58,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">{{ env('APP_URL'); }}/campaigns/</span>
                               </div>
-                              <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Auto complete from title form" value="{{ $campaign->slug }}">
+                              <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" readonly value="{{ $campaign->slug }}">
                             </div>
                             @error('slug')
                             <div class="text-small text-danger" role="alert">
@@ -187,15 +187,6 @@
 <script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
 <script>
-    const title = document.querySelector('#title');
-    const slug = document.querySelector('#slug');
-
-    title.addEventListener('change', function(){
-        fetch('/admin/campaign/create/checkSlug?title=' + title.value)
-            .then(response => response.json())
-            .then(data => slug.value = data.slug)
-    });
-
     $(function () {
         // Summernote
         $('#description').summernote()

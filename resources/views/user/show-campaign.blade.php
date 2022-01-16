@@ -16,7 +16,7 @@
           <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="img-fluid">
         @else
           <img src="/img/logo.png" alt="" class="img-fluid">
-          <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahMelimpah</p>          
+          <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahBerlimpah</p>          
         @endif
       </div>
       <div class="d-flex">

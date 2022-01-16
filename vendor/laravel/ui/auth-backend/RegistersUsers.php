@@ -29,52 +29,17 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
 
-        $getPhone = User::where('phone', $request['phone'])->first();
-        $getEmail = User::where('email', $request['email'])->first();
-        if (!empty($getPhone)) {            
-            if (empty($getPhone->password)) {
-                if (empty($getPhone->email)) {
-                    $name = $getPhone->name;
-                    $phone = $getPhone->phone;
-                    $email = "";
-                } else {
-                    $name = $getPhone->name;
-                    $phone = $getPhone->phone;
-                    $email = $getPhone->email;
-                }
-                // dd($name,$email,$phone);
-                // return view('auth.resetpass', compact('name','phone','email'));
-            }
-            elseif (!empty($getPhone->password)) {
-                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
-            }
-        }
-        if (!empty($getEmail)) {            
-            if (empty($getEmail->password)) {
-                $name = $getEmail->name;
-                $phone = $getEmail->phone;
-                $email = $getEmail->email;
-            }
-            elseif (!empty($getEmail->password)) {
-                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
-            }
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
         }
 
-        else {
-            event(new Registered($user = $this->create($request->all())));
-    
-            $this->guard()->login($user);
-    
-            if ($response = $this->registered($request, $user)) {
-                return $response;
-            }
-    
-            return $request->wantsJson()
-                        ? new JsonResponse([], 201)
-                        : redirect($this->redirectPath());
-        }
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 
     /**

@@ -65,7 +65,7 @@
                 <a href="#">Lupa Password</a>
             </p>
             <p class="mb-1">
-                <a href="#" class="text-center">Buat Akun</a>
+                <a href="{{ route('register') }}" class="text-center">Buat Akun</a>
             </p>
         </div>
         <!-- /.card-body -->

@@ -53,12 +53,13 @@
                     <div class="row mb-3">
                         <div class="col-md-8">
                             <label for="slug">Slug</label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">{{ env('APP_URL'); }}/campaigns/</span>
                               </div>
-                              <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Auto complete from title form" value="{{ old('slug') }}">
+                              <input type="text" aria-describedby="slugHelp" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Auto complete from title form" value="{{ old('slug') }}">
                             </div>
+                            <small id="slugHelp" class="form-text text-muted mb-3"><span class="text-danger font-weight-bold">*</span> Slug hanya dapat dibuat sekali</small>
                             @error('slug')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>

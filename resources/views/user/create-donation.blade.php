@@ -18,7 +18,7 @@
                 <img src="{{ Storage::disk('public')->url($data['details']->cover) }}" alt="" class="img-fluid">
               @else
                 <img src="/img/logo.png" alt="" class="img-fluid">
-                <p class="text-xs text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -2rem 0rem 0rem 2rem">#HidupBerkahMelimpah</p>          
+                <p class="text-xs text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -2rem 0rem 0rem 2rem">#HidupBerkahBerlimpah</p>          
               @endif
             </div>
           </div>

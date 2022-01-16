@@ -22,7 +22,7 @@
               <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
             @else
               <img src="/img/logo.png" alt="" class="card-img-top">
-              <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahMelimpah</p>          
+              <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahBerlimpah</p>          
             @endif
             </div>
             <div class="card-body p-2">

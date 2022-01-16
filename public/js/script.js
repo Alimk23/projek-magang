@@ -41,7 +41,7 @@ $(function () {
     $(".editLoginInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/profile/getLoginInfo",
+            url: "http://localhost:8000/user-data/getLoginInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -58,7 +58,7 @@ $(function () {
     $(".editProfileInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/profile/getProfileInfo",
+            url: "http://localhost:8000/user-data/getProfileInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -76,7 +76,7 @@ $(function () {
     $(".editCompanyInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/profile/getCompanyInfo",
+            url: "http://localhost:8000/user-data/getCompanyInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -99,21 +99,6 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 $("#showCaption").val(data.caption);
-            },
-        });
-    });
-});
-//show description info
-$(function () {
-    $(".btnDescriptionInfo").on("click", function () {
-        const id = $(this).data("id");
-        $.ajax({
-            url: "http://localhost:8000/campaign/getCampaignInfo",
-            data: { id: id },
-            method: "get",
-            dataType: "json",
-            success: function (data) {
-                $("#showDescription").val(data.description);
             },
         });
     });

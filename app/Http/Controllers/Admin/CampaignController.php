@@ -146,6 +146,7 @@ class CampaignController extends Controller
             'cover' => 'image|file|max:1024',
             'files' => 'file|max:1024',
         ]);
+        $validatedData['status'] = 0;
         $campaign = Campaign::where('id',$id)->first();
 
         if ($request->file('cover')) {

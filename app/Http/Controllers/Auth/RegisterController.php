@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -71,5 +74,75 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $getPhone = User::where('phone', $request['phone'])->first();
+        $getEmail = User::where('email', $request['email'])->first();
+        if (!empty($getPhone)) {            
+            if (empty($getPhone->password)) {
+                $update = $getPhone->update([
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+                if ($update == true) {
+                    return redirect('/login')->with('success','Registrasi akun berhasil, silahkan login');
+                }
+                else{
+                    return redirect('/login')->with('error','Registrasi akun gagal');
+                }
+            }
+            elseif (!empty($getPhone->password)) {
+                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
+            }
+        }
+        if (!empty($getEmail)) {            
+            if (empty($getEmail->password)) {
+                $update = $getEmail->update([
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+                if ($update == true) {
+                    return redirect('/login')->with('success','Registrasi akun berhasil, silahkan login');
+                }
+                else{
+                    return redirect('/login')->with('error','Registrasi akun gagal');
+                }
+            }
+            elseif (!empty($getEmail->password)) {
+                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
+            }
+        }
+
+        else {
+            event(new Registered($user = $this->create($request->all())));
+    
+            $this->guard()->login($user);
+    
+            if ($response = $this->registered($request, $user)) {
+                return $response;
+            }
+    
+            return $request->wantsJson()
+                        ? new JsonResponse([], 201)
+                        : redirect($this->redirectPath());
+        }
     }
 }

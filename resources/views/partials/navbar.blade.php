@@ -26,12 +26,14 @@
         <li class="nav-item">
           <a href="{{ url('/') }}" class="nav-link">Beranda</a>
         </li>
+        @if (Request::is('/'))            
         <li class="nav-item">
           <a href="#sedekahprioritas" class="nav-link">Sedekah Prioritas</a>
         </li>
         <li class="nav-item">
           <a href="#kategori" class="nav-link">Kategori</a>
         </li>
+        @endif
         <li class="nav-item">
           @if (Route::has('login'))
           @auth

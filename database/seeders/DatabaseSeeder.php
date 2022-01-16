@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'phone' => '0897123456',
+            'phone' => '083852542004',
             'role' => '0',
             'password' => Hash::make('rahasia123'),
         ]);
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'company_id' => 1,
             'photo' => '/img/logo.png',
-            'address' => 'Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta',
+            'address' => 'Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal, Jawa Tengah',
         ]);
 
         Company::create([

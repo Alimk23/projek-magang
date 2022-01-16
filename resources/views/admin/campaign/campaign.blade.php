@@ -109,34 +109,43 @@
                             @endif                            
                         </td>
                         <td>
+                          <div class="d-flex justify-content-center">
                             <form action="/admin/news" method="get">
                               <input type="text" class="d-none" name="id" id="id" value="{{ $campaign['id'] }}">
                               <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
                                 Update
                               </button>
                             </form>
+                          </div>
                         </td>
                         <td>
                           @if ($campaign['status'] == 0)
-                              <div class="text-danger">Publish Request</div>
+                              <div class="text-warning">Need Review</div>
                           @endif
                           @if ($campaign['status'] == 1)
                               <div class="text-success">Published</div>
                           @endif
+                          @if ($campaign['status'] == 2)
+                              <div class="text-danger">Rejected</div>
+                          @endif
                         </td>
                         <td>
-                            <form action="/admin/campaign/{{ $campaign['id'] }}/edit" method="GET">
-                              <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
-                                <i class="fas fa-edit"></i>
-                              </button>
-                            </form>
-                            <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="d-none btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </form>
+                            <div class="d-flex justify-content-center">
+                              <form action="/admin/campaign/{{ $campaign['id'] }}/edit" method="GET">
+                                <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                              </form>
+                              @if ($campaign['status'] != 1)                                
+                              <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </form>
+                              @endif
+                            </div>
                         </td>
                       </tr>
                       @endforeach

@@ -73,10 +73,13 @@
                       <tr>
                         <td>
                           @if ($campaign['status'] == 0)
-                              <div class="text-danger">Need Review</div>
+                              <div class="text-warning">Need Review</div>
                           @endif
                           @if ($campaign['status'] == 1)
                               <div class="text-success">Published</div>
+                          @endif
+                          @if ($campaign['status'] == 2)
+                              <div class="text-danger">Rejected</div>
                           @endif
                         </td>
                         <td>
@@ -110,9 +113,11 @@
                           </button>
                         </td>
                         <td>
-                          <button type="button" class="btnDescriptionInfo btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showDescriptionInfo" data-id='{{ $campaign['id'] }}'>
-                            <i class="far fa-eye fa-2x"></i>
-                          </button>
+                          <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="get">
+                            <button type="submit" class="btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1">
+                              <i class="far fa-eye fa-2x"></i>
+                            </button>
+                          </form>
                         </td>
                         <td>
                           {{ date_format($campaign['created_at'],"d M Y | H:i") }}
@@ -147,14 +152,6 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                               </button>
                             </form>
-                            <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="post">
-                              @csrf
-                              @method('DELETE')
-                              <input type="text" name="status" class="d-none" id="status" value="1">
-                              <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </form>
                           </div>
                           @endif
                         </td>
@@ -176,7 +173,7 @@
 @endsection
 
 @section('modal')
-{{-- show receiver info --}}
+{{-- show caption info --}}
 <div class="modal fade" id="showCaptionInfo">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -189,29 +186,6 @@
       <div class="modal-body">
         <div class="form-group">
           <textarea class="form-control" readonly id="showCaption" name="showCaption" rows="8"></textarea>
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-{{-- show payment info --}}
-<div class="modal fade" id="showDescriptionInfo">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Description</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <textarea class="form-control" readonly id="showDescription" name="showDescription" rows="16"></textarea>
         </div>
       </div>
       <div class="card-footer">        

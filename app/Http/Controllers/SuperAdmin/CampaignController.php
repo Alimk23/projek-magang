@@ -51,7 +51,12 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        // 
+        $getCampaign = Campaign::find($id);
+        $data = [
+            'title' => $getCampaign->title,
+            'description' => $getCampaign->description,
+        ];
+        return view('superadmin.campaign.show-campaign', compact('data'));
     }
 
     /**
