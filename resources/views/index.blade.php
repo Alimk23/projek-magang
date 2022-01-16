@@ -71,7 +71,7 @@
                 <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
               @else
                 <img src="/img/logo.png" alt="" class="card-img-top">
-                <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahMelimpah</p>          
+                <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahBerlimpah</p>          
               @endif
               </div>
               <div class="card-body p-2">
@@ -88,10 +88,9 @@
                     @if ($countdown > -0.0)                          
                     <p class="mb-0">
                       <strong>
-                        {{ $countdown }}
+                        {{ \Carbon\Carbon::parse($campaign['end_date'])->diffForHumans() }}
                       </strong>
                     </p>
-                    <p class="my-0 py-0">Hari Lagi</p>
                     @else
                       <p class="my-0 py-0 text-muted">Sudah berakhir</p>                    
                     @endif

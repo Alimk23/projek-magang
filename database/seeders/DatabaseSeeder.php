@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'sedekah-akbar-indonesia-virtual',
             'cover' => 'cover-image/YxdqXVdsEPXMgfAz0uypq5i9Fxxw88gIab0IyStC.jpg',
             'target' => 1000000000,
-            'end_date' => '2022-01-09',
+            'end_date' => '2022-07-31',
             'caption' => 'Bagaimana Rasanya Jika Do\'a Mu Diaminkan Oleh Ribuan Yatim & Penghafal Al-Qur\'an? InsyaAllah Tembus Kelangit. Mau?',
             'description' => 'Assalamualaikum #OrangBaik
 
@@ -195,7 +195,7 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',
             'slug' => 'bantu-negeri-kita-peroleh-nobel-pertama',
-            'cover' => 'cover-image/g15SulqNmnIn2pkPvL19tPwOp6DUHSqZFhGqYT21.png',
+            'cover' => 'cover-image/OhF47fO5uIKZQ958qrOCpMvGIXToRntpFAEqBFPy.jpg',
             'target' => 1000000000,
             'end_date' => '2023-01-09',
             'caption' => 'Mari bantu kami mengembangkan laboratorium untuk kejayaan masa depan Indonesia. Insya Allah kelak pusat fisika dan teknologi mutakhir dunia akan berpindah ke negeri kita.',

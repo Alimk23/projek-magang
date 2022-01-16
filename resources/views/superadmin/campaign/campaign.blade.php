@@ -105,12 +105,12 @@
                             @endif                            
                         </td>
                         <td>
-                          <button type="button" class="btnReceiverInfo btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showReceiverInfo" data-id='{{ $campaign['id'] }}'>
+                          <button type="button" class="btnCaptionInfo btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showCaptionInfo" data-id='{{ $campaign['id'] }}'>
                             <i class="far fa-eye fa-2x"></i>
                           </button>
                         </td>
                         <td>
-                          <button type="button" class="btnPaymentInfo btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showPaymentInfo" data-id='{{ $campaign['id'] }}'>
+                          <button type="button" class="btnDescriptionInfo btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showDescriptionInfo" data-id='{{ $campaign['id'] }}'>
                             <i class="far fa-eye fa-2x"></i>
                           </button>
                         </td>
@@ -118,6 +118,7 @@
                           {{ date_format($campaign['created_at'],"d M Y | H:i") }}
                         </td>
                         <td>
+                          @if ($campaign['status']==0)                              
                           <div class="d-flex">    
                             <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="post">
                               @csrf
@@ -136,6 +137,26 @@
                               </button>
                             </form>
                           </div>
+                          @else
+                          <div class="d-flex">    
+                            <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="post">
+                              @csrf
+                              @method('PATCH')
+                              <input type="text" name="status" class="d-none" id="status" value="1">
+                              <button type="submit" class="btn btn-outline-warning btn-block btn-sm rounded-lg py-0 mx-1">
+                                <i class="fas fa-exclamation-triangle"></i>
+                              </button>
+                            </form>
+                            <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <input type="text" name="status" class="d-none" id="status" value="1">
+                              <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </form>
+                          </div>
+                          @endif
                         </td>
                       </tr>
                       @endforeach
@@ -152,6 +173,55 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+@endsection
+
+@section('modal')
+{{-- show receiver info --}}
+<div class="modal fade" id="showCaptionInfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title">Caption</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea class="form-control" readonly id="showCaption" name="showCaption" rows="8"></textarea>
+        </div>
+      </div>
+      <div class="card-footer">        
+        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+{{-- show payment info --}}
+<div class="modal fade" id="showDescriptionInfo">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea class="form-control" readonly id="showDescription" name="showDescription" rows="16"></textarea>
+        </div>
+      </div>
+      <div class="card-footer">        
+        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 @endsection
 
 @section('footer')
@@ -172,6 +242,7 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <script src="/js/script.js"></script>
 
         <!-- Page specific script -->
         <script>

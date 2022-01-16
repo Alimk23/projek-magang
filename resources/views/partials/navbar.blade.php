@@ -7,7 +7,7 @@
         class="brand-image ml-4"
         style="opacity: 0.8;transform:scale(3,3)"
       />
-      <p class="text-xs text-muted text-capitalize m-0 p-0" style="color:rgb(175, 175, 175) !important">#HidupBerkahMelimpah</p>
+      <p class="text-xs text-muted text-capitalize m-0 p-0" style="color:rgb(175, 175, 175) !important">#HidupBerkahBerlimpah</p>
     </a>
     <button
       class="navbar-toggler order-1"

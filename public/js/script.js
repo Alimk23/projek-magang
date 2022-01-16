@@ -87,3 +87,34 @@ $(function () {
         });
     });
 });
+
+//show caption info
+$(function () {
+    $(".btnCaptionInfo").on("click", function () {
+        const id = $(this).data("id");
+        $.ajax({
+            url: "http://localhost:8000/campaign/getCampaignInfo",
+            data: { id: id },
+            method: "get",
+            dataType: "json",
+            success: function (data) {
+                $("#showCaption").val(data.caption);
+            },
+        });
+    });
+});
+//show description info
+$(function () {
+    $(".btnDescriptionInfo").on("click", function () {
+        const id = $(this).data("id");
+        $.ajax({
+            url: "http://localhost:8000/campaign/getCampaignInfo",
+            data: { id: id },
+            method: "get",
+            dataType: "json",
+            success: function (data) {
+                $("#showDescription").val(data.description);
+            },
+        });
+    });
+});

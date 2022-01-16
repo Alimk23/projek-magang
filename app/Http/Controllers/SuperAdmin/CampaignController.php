@@ -118,4 +118,10 @@ class CampaignController extends Controller
             return redirect('/superadmin/campaign')->with('error','Delete campaign is failed');
         }
     }
+
+    public function getCampaignInfo(Campaign $campaign){
+        $id =  $_GET['id'];
+        $getData = $campaign->firstWhere('id', $id) ;
+        echo json_encode($getData);
+    }
 }

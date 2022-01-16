@@ -8,7 +8,7 @@
         <p class="mb-1">
           <a href="tel:08977020249" class="text-decoration-none" style="color: white !important">
             <i class="fas fa-phone mr-2"></i>
-            0897-7020-249
+            083852542004
           </a>
         </p>
         <p class="mb-1">
@@ -27,7 +27,7 @@
       <div class="col-lg-3 mt-4">
         <h5 class="mb-lg-4 mb-2">Alamat Kantor</h5>
         <p class="mb-lg-3 mb-1">
-          Jl. Imogiri Timur, Dladan, Tamanan, Kec. Banguntapan, Kab. Bantul, DI. Yogyakarta
+          Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal
         </p>
       </div>
       <div class="col-lg-3 mt-4">

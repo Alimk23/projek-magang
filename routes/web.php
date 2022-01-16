@@ -55,11 +55,12 @@ Route::get('/admin/campaign/create/checkSlug', [adminCampaign::class, 'checkSlug
 Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
 Route::get('/status/{id}', [PaymentController::class, 'status']);
 
-Route::get('profile/getLoginInfo', [adminProfile::class, 'getLoginInfo']);
+Route::get('/profile/getLoginInfo', [adminProfile::class, 'getLoginInfo']);
 Route::get('/profile/getProfileInfo', [adminProfile::class, 'getProfileInfo']);
 Route::get('/profile/getCompanyInfo', [adminProfile::class, 'getCompanyInfo']);
 Route::get('/payment/getReceiverInfo', [superAdminPayment::class, 'getReceiverInfo']);
 Route::get('/payment/getPaymentInfo', [superAdminPayment::class, 'getPaymentInfo']);
+Route::get('/campaign/getCampaignInfo', [superAdminCampaign::class, 'getCampaignInfo']);
 
 Route::resource('donation', DonationController::class)->except('index','destroy','update');
 Route::resource('payment', PaymentController::class)->except('index','destroy');
