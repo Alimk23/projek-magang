@@ -50,14 +50,37 @@ class PaymentController extends Controller
         $getDonation = $getPayment->donation;
         $getCampaign = $getPayment->donation->campaign;
         $getUserGrade = UserGrade::firstwhere('user_id', $getDonation->user_id);
+        $donationGradeUpdate = 1;
+        $nominal = $getDonation->nominal;
+        if ($nominal >= 500000) {
+            $amountGrade = 'B';
+        }else {
+            $amountGrade = 'A';
+        }
 
         if ($getUserGrade) {
+            if ($nominal > $getUserGrade->amount_max) {
+                $amountMaxUpdate = $nominal;
+                $amountGradeUpdate = 'B';
+            } else {
+                $amountMaxUpdate = $getUserGrade->amount_max;
+                $amountGradeUpdate = $getUserGrade->amount_grade;
+            }
+
+            if ($getUserGrade->donation_total >= 3) {
+                $donationGradeUpdate = 2;
+            }
             $getUserGrade->update([
-                'grade' => $getUserGrade->grade + 1,
+                'donation_total' => $getUserGrade->donation_total + 1,
+                'amount_max' => $amountMaxUpdate,
+                'donation_grade'=> $donationGradeUpdate,
+                'amount_grade'=> $amountGradeUpdate,
             ]);
         } else {
             UserGrade::create([
                 'user_id' => $getDonation->user_id,
+                'amount_max'=> $nominal,
+                'amount_grade'=> $amountGrade,
             ]);
         }
         

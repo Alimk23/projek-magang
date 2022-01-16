@@ -80,7 +80,7 @@
                         </td>
                         <td>
                           @foreach ($user->UserGrade as $usergrade)
-                              {{ $usergrade->grade }}
+                              {{ $usergrade->donation_grade }}{{ $usergrade->amount_grade }}
                           @endforeach
                         </td>
                         <td>
