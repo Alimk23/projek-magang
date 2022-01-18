@@ -90,11 +90,36 @@ class DonationController extends Controller
         
         $getDonationData = Donation::find($newDonation);
         $getPaymentData = Payment::find($newPayment);
-        $msgUser = "Assalamu'alaikum Kak $request->name, \n\nSepertinya ada donasi kak $request->name untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " yang belum selesai \n\nJika sudah, mohon ketersediannya untuk melakukan konfirmasi dengan mengirim bukti transfernya ya kak, agar donasi yang kakak titipkan bisa disalurkan sesuai akad yang kakak amanahkan \n\nAtau jika belum, kak $request->name bisa melanjutkan dengan melakukan transfer melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nSemoga dimudahkan dengan segala urusannya kak $request->name, terima kasih";
-        $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nHobiSedekah Notification";
-        $this->sendMessage($request->phone, $msgUser);
-        $this->sendMessage($getDonationData->campaign->user->phone, $msgAdmin);
+        if (substr(trim($request->phone), 0, 1)=='0') {
+            $phone = '62'.substr(trim($request->phone), 1);
+        }
 
+        $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
+
+Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
+Selangkah lagi, Bapak/Ibu akan mengukir senyum para santri yatim dan penghafal Alquran, dan semoga ini menjadi Amal Sholeh yang diterima Allah SWT.
+
+Bapak/Ibu tinggal transfer infaq terbaik sejumlah:
+
+Rp ". currency_format($getDonationData->nominal) ."
+
+Ke nomor rekening sebagai berikut:
+⬇⬇⬇⬇⬇⬇⬇
+
+" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias."
+
+". $getPaymentData->bank->bank_name ."
+
+Kode Bank: ". $getPaymentData->bank->bank_code ."
+
+Atau donasi Bpk/Ibu dapat dibayarkan via E-Payment (Auto checking) dengan klik link berikut:
+". env('APP_URL').'/payment/'.$order_id ."
+
+Semoga Allah Mudahkan Bapak/ibu dalam berinfaq dan semoga Menjadi Amal sholeh yang Allah terima.
+Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
+        $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
+        $sendtoUser = $this->sendMessage($request->phone, $msgUser);
+        $sendtoAdmin = $this->sendMessage($getDonationData->campaign->user->phone, $msgAdmin);
         return redirect('/payment/'.$order_id);
     }
 

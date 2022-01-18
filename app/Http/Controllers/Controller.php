@@ -32,7 +32,7 @@ class Controller extends BaseController
         $response = curl_exec($curl);
         $err = curl_error($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);   
+        curl_close($curl);
         if (!$err)
         {
             $res = json_decode($response);
