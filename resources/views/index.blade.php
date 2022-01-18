@@ -159,7 +159,7 @@
           <h3 class="mb-4 text-uppercase font-weight-bold">Kategori Program</h3>
         </div>
         @foreach ($data['category'] as $category) 
-        <a href="/category/{{ $category['id'] }}" class="text-decoration-none text-white btn btn-lg btn-primary rounded-pill mr-3 p-2 d-flex justify-content-center align-items-center mb-3 mb-lg-0" style="width: 200px">          
+        <a href="/category/{{ $category['id'] }}" class="text-decoration-none text-white btn btn-lg btn-primary rounded-pill mr-3 p-2 d-flex justify-content-center align-items-center mb-3" style="width: 200px">          
           <div class="col-10">
             <div class="d-flex flex-column">
               <i class="{{ $category['icon'] }} mb-2"></i>

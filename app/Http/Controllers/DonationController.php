@@ -88,6 +88,13 @@ class DonationController extends Controller
             'nominal' => $validatedData['nominal'],
         ])->id;
         
+        $getDonationData = Donation::find($newDonation);
+        $getPaymentData = Payment::find($newPayment);
+        $msgUser = "Assalamu'alaikum Kak $request->name, \n\nSepertinya ada donasi kak $request->name untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " yang belum selesai \n\nJika sudah, mohon ketersediannya untuk melakukan konfirmasi dengan mengirim bukti transfernya ya kak, agar donasi yang kakak titipkan bisa disalurkan sesuai akad yang kakak amanahkan \n\nAtau jika belum, kak $request->name bisa melanjutkan dengan melakukan transfer melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nSemoga dimudahkan dengan segala urusannya kak $request->name, terima kasih";
+        $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nHobiSedekah Notification";
+        $this->sendMessage($request->phone, $msgUser);
+        $this->sendMessage($getDonationData->campaign->user->phone, $msgAdmin);
+
         return redirect('/payment/'.$order_id);
     }
 

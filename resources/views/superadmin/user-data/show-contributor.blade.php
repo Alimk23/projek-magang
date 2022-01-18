@@ -35,7 +35,7 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                    <b>Grade</b> <a class="float-right text-muted font-weight-bold">{{ $userGrade->donation_grade }}{{ $userGrade->amount_grade }}</a>
+                    <b>Grade</b> <a class="float-right text-muted font-weight-bold">{{ $userGrade ? $userGrade->donation_grade : '0'}}{{$userGrade ? $userGrade->amount_grade : '' }}</a>
                 </li>
                 <li class="list-group-item">
                     <b>Donation Count</b> <a class="float-right text-muted font-weight-bold">{{ $data['totalDonation'] ? $data['totalDonation'] : '0'}}</a>
