@@ -61,7 +61,6 @@ class DonationController extends Controller
             $newUser = User::create([
                 'name' => $request->name,
                 'phone' => $request->phone,
-                'email' => $request->email,
             ])->id;
             $user_id = $newUser;
         }

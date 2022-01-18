@@ -91,7 +91,6 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         $getPhone = User::where('phone', $request['phone'])->first();
-        $getEmail = User::where('email', $request['email'])->first();
         if (!empty($getPhone)) {            
             if (empty($getPhone->password)) {
                 $update = $getPhone->update([
@@ -108,25 +107,6 @@ class RegisterController extends Controller
                 }
             }
             elseif (!empty($getPhone->password)) {
-                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
-            }
-        }
-        if (!empty($getEmail)) {            
-            if (empty($getEmail->password)) {
-                $update = $getEmail->update([
-                    'name' => $request->name,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                ]);
-                if ($update == true) {
-                    return redirect('/login')->with('success','Registrasi akun berhasil, silahkan login');
-                }
-                else{
-                    return redirect('/login')->with('error','Registrasi akun gagal');
-                }
-            }
-            elseif (!empty($getEmail->password)) {
                 return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
             }
         }

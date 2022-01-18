@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-center">
             <strong>
                 Copyright &copy; {{  date("Y") }}
-                <a href="/" class="text-white">HobiSedekah</a>
+                <a href="/" class="text-white">Hobi Sedekah</a>
             </strong>
         </div>
     </div>

@@ -40,11 +40,73 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <div class="input-group">
+            <p>Insya Allah, pecinta sedekah yang baik akan:</p>
+            <div class="d-flex align-items-baseline">
+              <i class="fas fa-check text-success mr-1"></i>
+              <p>
+                Didoakan oleh puluhan ribu santri yatim dan penghafal Quran.
+              </p>  
+            </div>
+            <div class="d-flex align-items-baseline">
+              <i class="fas fa-check text-success mr-1"></i>
+              <p>
+                Berkah berlimpah rezekinya, menjadi wasilah datangnya rasa tenang dan bahagia
+              </p>  
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="">Pilihan Infaq</label>
+            {{-- <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Rp</span>
                 </div>
                 <input type="text" placeholder="Masukkan Nominal"  class="form-control @error('nominal') is-invalid @enderror" id="nominal" name="nominal" value="{{ old('nominal') }}">
+            </div> --}}
+            <div class="form-check">
+              <div class="row">
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal1" value="1000000" checked>
+                  <label class="form-check-label" for="nominal1">
+                    Rp 1.000.000
+                  </label>
+                </div>
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal2" value="500000">
+                  <label class="form-check-label" for="nominal2">
+                    Rp 500.000
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal3" value="250000">
+                  <label class="form-check-label" for="nominal3">
+                    Rp 250.000
+                  </label>
+                </div>
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal4" value="100000">
+                  <label class="form-check-label" for="nominal4">
+                    Rp 100.000
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal5" value="50000">
+                  <label class="form-check-label" for="nominal5">
+                    Rp 50.000
+                  </label>
+                </div>
+                <div class="col-4">
+                  <input class="form-check-input @error('nominal') is-invalid @enderror"" type="radio" name="nominal" id="nominal6" value="25000">
+                  <label class="form-check-label" for="nominal6">
+                    Rp 25.000
+                  </label>
+                </div>
+              </div>
             </div>
             @error('nominal')
               <div class="text-small text-danger" role="alert">
@@ -96,7 +158,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Handphone" value="{{ old('phone') }}">
+            <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Whatsapp" value="{{ old('phone') }}">
             @error('phone')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
@@ -106,18 +168,8 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email (Optional)" value="{{ old('email') }}">
-            @error('email')
-            <div class="text-small text-danger" role="alert">
-              <small>{{ $message }}</small>
-            </div>
-            @enderror
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
             <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" placeholder="Tuliskan pesan atau doa disini (Optional)" cols="30" rows="5">{{ old('message') }}</textarea>
-            @error('email')
+            @error('message')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
             </div>
