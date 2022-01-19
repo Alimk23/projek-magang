@@ -16,4 +16,8 @@ class Bank extends Model
     {
         return $this->hasMany(Payment::class,'bank_id');
     }
+    public function withdraw()
+    {
+        return $this->hasMany(Withdraw::class, 'campaign_id');
+    }
 }

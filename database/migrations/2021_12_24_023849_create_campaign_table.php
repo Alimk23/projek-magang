@@ -16,6 +16,7 @@ class CreateCampaignTable extends Migration
         Schema::create('campaign', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('cs_id');
             $table->integer('category_id');
             $table->string('title');
             $table->string('slug');
@@ -24,8 +25,8 @@ class CreateCampaignTable extends Migration
             $table->text('caption');
             $table->longText('description');
             $table->date('end_date');
-            $table->integer('target');
-            $table->integer('collected')->default(0);
+            $table->bigInteger('target');
+            $table->bigInteger('collected')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

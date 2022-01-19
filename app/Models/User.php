@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Company;
 use App\Models\Profile;
 use App\Models\Donation;
+use App\Models\Withdraw;
 use App\Models\UserGrade;
 use App\Models\CategoryByUser;
 use Laravel\Sanctum\HasApiTokens;
@@ -62,5 +63,9 @@ class User extends Authenticatable
     public function UserGrade()
     {
         return $this->hasMany(UserGrade::class, 'user_id');
+    }
+    public function withdraw()
+    {
+        return $this->hasMany(Withdraw::class, 'user_id');
     }
 }

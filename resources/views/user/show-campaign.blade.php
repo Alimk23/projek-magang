@@ -95,138 +95,162 @@
   </div>
   <div class="row mt-3">
     <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="card">
-            <div class="card-header">
-              <a href="" data-card-widget="collapse">
-                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Deskripsi</h3>
-                <div class="card-tools text-right">
-                  <button type="button" class="btn btn-tool" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
+      <div class="bg-white">
+        <div class="card">
+          <div class="card-header">
+            <a href="" data-card-widget="collapse">
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Deskripsi</h3>
+              <div class="card-tools text-right">
+                <button type="button" class="btn btn-tool" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
               </div>
-              </a>
-            <div class="card-body">
-              {!! $data['campaign']->description !!}
             </div>
-            <!-- /.card-body -->
+            </a>
+          <div class="card-body">
+            {!! $data['campaign']->description !!}
           </div>
-          <div class="card">
-            <div class="card-header">
-              <a href="" data-card-widget="collapse">
-                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Info Terbaru</h3>
-                <div class="card-tools text-right">
-                  <button type="button" class="btn btn-tool" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
+          <!-- /.card-body -->
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <a href="" data-card-widget="collapse">
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Kontak</h3>
+              <div class="card-tools text-right">
+                <button type="button" class="btn btn-tool" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
               </div>
-              </a>
-            <div class="card-body">
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- The time line -->
-                  <div class="timeline">
-                    <!-- timeline time label -->
-                    @if ($data['getNews'])                        
-                    @foreach ($data['getNews'] as $newsReport) 
-                    <div class="time-label">
-                      <span class="bg-red">{{ date_format($newsReport['created_at'],"d M Y") }}</span>
-                    </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-envelope bg-blue"></i>
-                      <div class="timeline-item">
-                        <span class="time"><i class="fas fa-clock"></i> {{ date_format($newsReport['created_at'],"H:i") }}</span>
-                        <h3 class="timeline-header">{{ $newsReport['title'] }}</h3>
-      
-                        <div class="timeline-body">
-                          {!! $newsReport['description'] !!}
-                        </div>
+            </div>
+            </a>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <p>Informasi lebih lanjut hubungi customer service kami:</p>
+                <p>{{ $data['cs']->name }} 
+                  (<a href="tel:{{ $data['cs']->phone }}">
+                    {{ $data['cs']->phone }}
+                  </a>)
+                </p>
+              </div>
+              <!-- /.col -->
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <a href="" data-card-widget="collapse">
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Info Terbaru</h3>
+              <div class="card-tools text-right">
+                <button type="button" class="btn btn-tool" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            </a>
+          <div class="card-body">
+            
+            <div class="row">
+              <div class="col-md-12">
+                <!-- The time line -->
+                <div class="timeline">
+                  <!-- timeline time label -->
+                  @if ($data['getNews'])                        
+                  @foreach ($data['getNews'] as $newsReport) 
+                  <div class="time-label">
+                    <span class="bg-red">{{ date_format($newsReport['created_at'],"d M Y") }}</span>
+                  </div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <div>
+                    <i class="fas fa-envelope bg-blue"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> {{ date_format($newsReport['created_at'],"H:i") }}</span>
+                      <h3 class="timeline-header">{{ $newsReport['title'] }}</h3>
+    
+                      <div class="timeline-body">
+                        {!! $newsReport['description'] !!}
                       </div>
                     </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    @endforeach
-                    @endif
                   </div>
+                  <!-- END timeline item -->
+                  <!-- timeline item -->
+                  @endforeach
+                  @endif
                 </div>
-                <!-- /.col -->
               </div>
-
-
+              <!-- /.col -->
             </div>
-            <!-- /.card-body -->
+
+
           </div>
-          <div class="card">
-            <div class="card-header">
-              <a href="" data-card-widget="collapse">
-                <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Donatur</h3>
-                <div class="card-tools text-right">
-                  <button type="button" class="btn btn-tool" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
+          <!-- /.card-body -->
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <a href="" data-card-widget="collapse">
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Donatur</h3>
+              <div class="card-tools text-right">
+                <button type="button" class="btn btn-tool" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            </a>
+          <div class="card-body">
+            @foreach ($data['getDonation'] as $getDonation)
+            @if ($getDonation['status']==1)
+              <?php 
+              $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
+              ?>
+              <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                  <div class="img rounded-circle">
+                    <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
+                  </div>
+                  <div class="ml-3" style="margin-bottom: -1rem">
+                    <a href="#" class="text-decoration-none">
+                      <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
+                        <p class="text-sm">
+                          @if ($getDonation['anonym'] == 'on')
+                              Hamba Allah
+                          @else
+                              {{ $getUser->name }}
+                          @endif
+                        </p>  
+                      </div>
+                    </a>
+                    <p class="text-muted text-xs border-top">
+                      <?php 
+                      $endDate=strtotime($getDonation['updated_at']);
+                      $countdown=ceil((time()-$endDate)/60/60/24);
+                      echo $countdown . " hari yang lalu";
+                    ?>
+                    </p>
+                  </div>
+                </div>
+                <div class="text-primary">
+                  Rp {{ currency_format($getDonation['nominal']) }}
                 </div>
               </div>
-              </a>
-            <div class="card-body">
-              @foreach ($data['getDonation'] as $getDonation)
-              @if ($getDonation['status']==1)
-                <?php 
-                $getUser = $data['user']->firstwhere('id',$getDonation['user_id']);
-                ?>
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex">
-                    <div class="img rounded-circle">
-                      <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
-                    </div>
-                    <div class="ml-3" style="margin-bottom: -1rem">
-                      <a href="#" class="text-decoration-none">
-                        <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
-                          <p class="text-sm">
-                            @if ($getDonation['anonym'] == 'on')
-                                Hamba Allah
-                            @else
-                                {{ $getUser->name }}
-                            @endif
-                          </p>  
-                        </div>
-                      </a>
-                      <p class="text-muted text-xs border-top">
-                        <?php 
-                        $endDate=strtotime($getDonation['updated_at']);
-                        $countdown=ceil((time()-$endDate)/60/60/24);
-                        echo $countdown . " hari yang lalu";
-                      ?>
-                      </p>
-                    </div>
+              @if (!empty($getDonation['message']))
+                <div class="card mt-2 ml-5">
+                  <div class="card-body">
+                    {{ $getDonation['message'] }}
                   </div>
-                  <div class="text-primary">
-                    Rp {{ currency_format($getDonation['nominal']) }}
+                  <div class="card-footer p-1 text-right">
+                    <a href="" class="btn btn-sm">
+                      <i class="fas fa-heart"></i>
+                      Aamiin
+                    </a>
                   </div>
                 </div>
-                @if (!empty($getDonation['message']))
-                  <div class="card mt-2 ml-5">
-                    <div class="card-body">
-                      {{ $getDonation['message'] }}
-                    </div>
-                    <div class="card-footer p-1 text-right">
-                      <a href="" class="btn btn-sm">
-                        <i class="fas fa-heart"></i>
-                        Aamiin
-                      </a>
-                    </div>
-                  </div>
-                @endif
               @endif
-              @endforeach
-            </div>
-            <!-- /.card-body -->
+            @endif
+            @endforeach
           </div>
+          <!-- /.card-body -->
         </div>
       </div>
     </div>

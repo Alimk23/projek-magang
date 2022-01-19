@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Profile;
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\CustomerService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,8 +133,20 @@ class DatabaseSeeder extends Seeder
             'bank_account' => '8690658454',
             'alias' => 'Jaki Umam',
         ]);
+        CustomerService::create([
+            'user_id' => 2,
+            'name' => 'Sudirman',
+            'phone' => '089833695525',
+        ]);
+        CustomerService::create([
+            'user_id' => 3,
+            'name' => 'Putri',
+            'phone' => '089700582007',
+        ]);
+
         Campaign::create([
             'user_id' => 2,
+            'cs_id' => 1,
             'category_id' => 1,
             'status' => 1,
             'title' => 'Sedekah Akbar Indonesia Virtual',
@@ -191,6 +204,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Campaign::create([
             'user_id' => 3,
+            'cs_id' => 2,
             'category_id' => 5,
             'status' => 1,
             'title' => 'Bantu negeri kita peroleh Nobel pertama',

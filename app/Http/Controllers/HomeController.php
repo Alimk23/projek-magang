@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\CustomerService;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
@@ -47,12 +48,13 @@ class HomeController extends Controller
             return redirect('/user');
         }
     }
-    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news){
+    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news, CustomerService $customerService){
         $user = new User();
         $getCampaign = $campaign->where('slug', $slug)->first();
         $getDonation = $donation->where('campaign_id', $getCampaign->id)->get();
         $getNews = $news->where('campaign_id', $getCampaign->id)->get();
         $getProfile = $profile->where('user_id', $getCampaign->user_id)->first();
+        $getCS = $customerService->where('id', $getCampaign->cs_id)->first();
         if (empty($getProfile)) {
             $photo = null;
         } else {
@@ -66,6 +68,7 @@ class HomeController extends Controller
             'getNews' => $getNews,
             'user'=>$user,
             'photo'=>$photo,
+            'cs'=>$getCS,
         ];
         return view('user.show-campaign', compact('data'));
     }

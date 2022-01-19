@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Exception;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
+    public function __construct()
+    {
+        ini_set('max_execution_time', 120);
+    }
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function sendMessage($number,$message){
@@ -29,18 +34,22 @@ class Controller extends BaseController
                        "content-type: application/x-www-form-urlencoded"
                    ),
                ));
-        $response = curl_exec($curl);
         $err = curl_error($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        if (!$err)
-        {
-            $res = json_decode($response);
-            $collection = collect([$res,$httpcode]);
-            //  dd($collection[0]->status);
-            //  dd($collection[1]);
-            return $collection;    
-        }else {
+        if (!$err){
+            try {
+                $response = curl_exec($curl);        
+                $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                curl_close($curl);
+                $res = json_decode($response);
+                $collection = collect([$res,$httpcode]);
+                //  dd($collection[0]->status);
+                //  dd($collection[1]);
+                return $collection;    
+            } catch (Exception $e) {
+                return $e;
+            }
+        }
+        else {
             return $err;
         }
     }
@@ -62,18 +71,22 @@ class Controller extends BaseController
                        "content-type: application/x-www-form-urlencoded"
                    ),
                ));
-        $response = curl_exec($curl);
         $err = curl_error($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);   
-        if (!$err)
-        {
-            $res = json_decode($response);
-            $collection = collect([$res,$httpcode]);
-            //  dd($collection[0]->status);
-            //  dd($collection[1]);
-            return $collection;    
-        }else {
+        if (!$err){
+            try {
+                $response = curl_exec($curl);        
+                $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                curl_close($curl);
+                $res = json_decode($response);
+                $collection = collect([$res,$httpcode]);
+                //  dd($collection[0]->status);
+                //  dd($collection[1]);
+                return $collection;    
+            } catch (Exception $e) {
+                return $e;
+            }
+        }
+        else {
             return $err;
         }
     }

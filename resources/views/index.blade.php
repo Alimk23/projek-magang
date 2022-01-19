@@ -12,7 +12,7 @@
     <div class="shadow-sm p-3 bg-light" style="border-radius: 40px">
       <div class="card rounded-pill p-4 text-center bg-opacity-50">
         <h3 class="font-weight-bold display-4 mt-3">Hobi Sedekah</h3>
-        <p class="lead text-capitalize">hidup berkah melimpah</p>
+        <p class="lead text-capitalize">hidup berkah berlimpah</p>
         <a href="#sedekahprioritas" class="btn btn-primary rounded-pill w-50 m-auto">Yuk Donasi Sekarang</a>
       </div>
     </div>

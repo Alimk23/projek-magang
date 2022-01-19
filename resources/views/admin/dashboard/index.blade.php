@@ -121,7 +121,11 @@
 
           </div>
           <div class="card-footer">
-            <button type="button" class="btn btn-outline-primary btn-block w-100">Withdraw</button>
+            <button type="button" class="btn btn-outline-primary btn-block w-100">
+              <a href="/admin/withdraw/create">
+                Withdraw
+              </a>
+            </button>
           </div>
         </div>
       </div>

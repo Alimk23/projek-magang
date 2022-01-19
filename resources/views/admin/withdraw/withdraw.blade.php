@@ -21,14 +21,12 @@
 @endsection
 
 @section('sidebar')
-    @include('partials.superadmin-sidebar')
+    @include('partials.admin-sidebar')
 @endsection
 
 @section('content-header')
     @push('icon-header')
-      <a href="{{ URL::previous() }}" class="text-dark">
-      <i class="fas fa-arrow-circle-left"></i>
-      </a>
+      <i class="fas fa-wallet"></i>
     @endpush
     @include('partials.content-header')
 @endsection
@@ -42,12 +40,44 @@
         <input type="text" class="d-none" id="errorAlert" value="{{ session('error') }}">
       @endif
       <div class="container-fluid">
+        <div class="row mb-3 mt-0">
+          <div class="col-md-2">
+            <a href="{{ url('/admin/withdraw/create') }}">
+              <button type="button" class="btn btn-block btn-outline-success btn-sm">
+                <i class="fas fa-plus-circle"></i>
+                Add New Withdraw Request
+              </button>
+            </a>
+          </div>
+        </div>
         <div class="row">
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body table-responsive" style="width: 100px">
-                {!! $data['description'] !!}
+              <div class="card-body table-responsive">
+                <table
+                  id="example1"
+                  class="table table-head-fixed text-nowrap table-bordered table-striped"
+                >
+                  <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Campaign</th>
+                        <th>Nominal</th>
+                        <th>Fee</th>
+                        <th>Bank Detail</th>
+                        <th>Cash Total</th>
+                        <th>Status</th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i=1; ?>
+                    
+                  </tbody>
+                </table>
               </div>
               <!-- /.card-body -->
             </div>
@@ -59,55 +89,6 @@
       </div>
       <!-- /.container-fluid -->
     </section>
-@endsection
-
-@section('modal')
-{{-- show receiver info --}}
-<div class="modal fade" id="showCaptionInfo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Caption</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <textarea class="form-control" readonly id="showCaption" name="showCaption" rows="8"></textarea>
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-{{-- show payment info --}}
-<div class="modal fade" id="showDescriptionInfo">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Description</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <textarea class="form-control" readonly id="showDescription" name="showDescription" rows="16"></textarea>
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 @endsection
 
 @section('footer')
@@ -128,7 +109,6 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="/js/script.js"></script>
 
         <!-- Page specific script -->
         <script>

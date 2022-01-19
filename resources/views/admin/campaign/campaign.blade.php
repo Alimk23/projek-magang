@@ -67,7 +67,7 @@
                         <th>Target</th>
                         <th>Collected</th>
                         <th>End_Date</th>
-                        <th>Fundraiser</th>
+                        <th>Customer Service</th>
                         <th>Cover</th>
                         <th>News_Report</th>
                         <th>Status</th>
@@ -78,7 +78,7 @@
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @foreach ($data['campaign'] as $campaign)                  
+                    @foreach ($data['campaign'] as $campaign)
                       <tr>
                         <td>
                             {{ $i++ }}
@@ -99,7 +99,12 @@
                             {{ $campaign['end_date'] }}
                         </td>
                         <td>
-                          {{ $campaign['user']['company']['company_name'] }}
+                          @php
+                              $getCS = $cs->where('id',$campaign['cs_id'])->first();
+                          @endphp
+                          {{ $getCS->name }}
+                          <br>
+                          ({{ $getCS->phone }})
                         </td>
                         <td>
                             @if (Storage::disk('public')->exists($campaign['cover']))
@@ -128,6 +133,9 @@
                           @if ($campaign['status'] == 2)
                               <div class="text-danger">Rejected</div>
                           @endif
+                          @if ($campaign['status'] == 3)
+                              <div class="text-warning">Update Review</div>
+                          @endif
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
@@ -136,7 +144,7 @@
                                   <i class="fas fa-edit"></i>
                                 </button>
                               </form>
-                              @if ($campaign['status'] != 1)                                
+                              @if ($campaign['status'] == 0 || $campaign['status'] == 2)
                               <form action="/admin/campaign/{{ $campaign['id'] }}" method="POST">
                                 @csrf
                                 @method('DELETE')

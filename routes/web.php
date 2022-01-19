@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\NewsController as adminNewsInfo;
 use App\Http\Controllers\Admin\CompanyController as adminCompany;
 use App\Http\Controllers\Admin\ProfileController as adminProfile;
 use App\Http\Controllers\Admin\CampaignController as adminCampaign;
+use App\Http\Controllers\Admin\WithdrawController as adminWithdraw;
+use App\Http\Controllers\Admin\CustomerServiceController as adminCustomerService;
 
 use App\Http\Controllers\Admin\DashboardController as adminDashboard;
 use App\Http\Controllers\SuperAdmin\BankController as superAdminBank;
@@ -28,6 +30,7 @@ use App\Http\Controllers\SuperAdmin\AnalyticsController as superAdminAnalytics;
 use App\Http\Controllers\SuperAdmin\DashboardController as superadminDashboard;
 use App\Http\Controllers\SuperAdmin\FundraiserController as superAdminFundraiser;
 use App\Http\Controllers\SuperAdmin\ContributorController as superAdminContributor;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,6 +82,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/company', adminCompany::class)->only('update');
     Route::resource('admin/bank', adminBank::class)->except('show');
     Route::resource('admin/news', adminNewsInfo::class);
+    Route::resource('admin/withdraw', adminWithdraw::class);
+    Route::resource('admin/customer-service', adminCustomerService::class);
     Route::get('admin/donation', [DonationController::class, 'index']);
     Route::patch('admin/donation/{donation}', [DonationController::class, 'update']);
     Route::delete('admin/donation/{donation}', [DonationController::class, 'destroy']);

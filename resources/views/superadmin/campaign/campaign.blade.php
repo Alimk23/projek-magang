@@ -72,7 +72,7 @@
                     @foreach ($data['campaign'] as $campaign)                  
                       <tr>
                         <td>
-                          @if ($campaign['status'] == 0)
+                          @if ($campaign['status'] == 0 || $campaign['status'] == 3)
                               <div class="text-warning">Need Review</div>
                           @endif
                           @if ($campaign['status'] == 1)
@@ -123,7 +123,7 @@
                           {{ date_format($campaign['created_at'],"d M Y | H:i") }}
                         </td>
                         <td>
-                          @if ($campaign['status']==0)                              
+                          @if ($campaign['status'] == 0 || $campaign['status'] == 3)                              
                           <div class="d-flex">    
                             <form action="/superadmin/campaign/{{ $campaign['id'] }}" class="mx-1" method="post">
                               @csrf

@@ -41,10 +41,23 @@
                     @csrf
                     @method('PATCH')
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-md-8">
                             <label for="title">Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ $campaign->title }}">
                             @error('title')
+                            <div class="text-small text-danger" role="alert">
+                              <small>{{ $message }}</small>
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                          <label for="cs">Customer Service</label>
+                          <select class="form-control select2-allow-clear select2Minimal @error('cs') is-invalid @enderror" name="cs_id" data-placeholder="Choose the customer service" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                            @foreach ($data['cs'] as $cs)
+                            <option value="{{ $cs['id'] }}" {{ $cs['id'] == $campaign->cs_id ? 'selected' : ''}}>{{ $cs['name'] }}</option>
+                            @endforeach
+                          </select>                                  
+                            @error('cs_id')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>
                             </div>
@@ -110,7 +123,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon1">Rp</span>
                                 </div>
-                                <input type="text" class="form-control @error('target') is-invalid @enderror" id="target" name="target" value="{{ $campaign->target }}">
+                                <input type="number" class="form-control @error('target') is-invalid @enderror" id="target" name="target" value="{{ $campaign->target }}">
                             </div>
                             @error('target')
                             <div class="text-small text-danger" role="alert">

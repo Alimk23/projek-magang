@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
-use App\Models\CategoryByUser;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CustomerService;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -25,16 +25,15 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Campaign $campaign)
+    public function index(Campaign $campaign, CustomerService $cs)
     {
         $user = Auth::user();
         $getCampaign = $campaign->where('user_id',$user->id)->get();
-
         $data = [
             'title'=>'Campaign',
             'campaign'=>$getCampaign
         ];
-        return view('admin.campaign.campaign',compact('data'));
+        return view('admin.campaign.campaign',compact('data','cs'));
     }
 
     /**
@@ -48,10 +47,12 @@ class CampaignController extends Controller
         $getProfileData = $profile->firstWhere('user_id', $user->id);
         if ($getProfileData) {
             $getCategory = Category::all();
+            $getCS = CustomerService::where('user_id',$user->id)->get();
             $photo = $getProfileData->photo;
             $data = [
                 'title' => 'Create Campaign',
-                'category' => $getCategory
+                'category' => $getCategory,
+                'cs' => $getCS,
             ];
             return view('admin.campaign.create-campaign',compact('data'));
         } 
@@ -71,6 +72,7 @@ class CampaignController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:campaign',
+            'cs_id' => 'required',
             'target' => 'required',
             'end_date' => 'required',
             'category_id' => 'required',
@@ -119,9 +121,11 @@ class CampaignController extends Controller
         $user = Auth::user();
         $campaign = Campaign::where('id',$id)->first();
         $getCategory = Category::all();
+        $getCS = CustomerService::where('user_id',$user->id)->get();
         $data=[
             'title'=>'Edit Campaign',
-            'category' => $getCategory
+            'category' => $getCategory,
+            'cs' => $getCS,
         ];
         return view('admin.campaign.edit-campaign', compact('data','campaign'));
     }
@@ -137,6 +141,7 @@ class CampaignController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'cs_id' => 'required',
             'slug' => 'required',
             'target' => 'required',
             'end_date' => 'required',
@@ -146,7 +151,7 @@ class CampaignController extends Controller
             'cover' => 'image|file|max:1024',
             'files' => 'file|max:1024',
         ]);
-        $validatedData['status'] = 0;
+        $validatedData['status'] = 3;
         $campaign = Campaign::where('id',$id)->first();
 
         if ($request->file('cover')) {

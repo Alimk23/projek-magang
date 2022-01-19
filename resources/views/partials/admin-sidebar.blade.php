@@ -98,6 +98,22 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('/admin/withdraw') }}" class="nav-link {{ Request::is('admin/withdraw*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-wallet"></i>
+                        <p>
+                            Withdraw
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/admin/customer-service') }}" class="nav-link {{ Request::is('admin/customer-service*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Customer Service
+                        </p>
+                    </a>
+                </li>
                 
                 <li class="nav-header text-uppercase">Personal Menu</li>
                 <li class="nav-item">

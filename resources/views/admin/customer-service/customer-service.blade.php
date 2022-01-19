@@ -21,14 +21,12 @@
 @endsection
 
 @section('sidebar')
-    @include('partials.superadmin-sidebar')
+    @include('partials.admin-sidebar')
 @endsection
 
 @section('content-header')
     @push('icon-header')
-      <a href="{{ URL::previous() }}" class="text-dark">
-      <i class="fas fa-arrow-circle-left"></i>
-      </a>
+      <i class="fas fa-user"></i>
     @endpush
     @include('partials.content-header')
 @endsection
@@ -42,72 +40,73 @@
         <input type="text" class="d-none" id="errorAlert" value="{{ session('error') }}">
       @endif
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <!-- /.card-header -->
-              <div class="card-body table-responsive" style="width: 100px">
-                {!! $data['description'] !!}
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+        <div class="row mb-3 mt-0">
+          <div class="col-md-2">
+            <a href="{{ url('/admin/customer-service/create') }}">
+              <button type="button" class="btn btn-block btn-outline-success btn-sm">
+                <i class="fas fa-plus-circle"></i>
+                Add New Customer Service
+              </button>
+            </a>
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-md-8">
+              <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <table
+                    id="example1"
+                    class="table table-head-fixed text-nowrap table-bordered table-striped"
+                  >
+                    <thead>
+                      <tr>
+                        <th style="width: 20px">No</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th style="width: 40px">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php
+                          $i = 1;
+                      @endphp
+                      @foreach ($data['customerService'] as $cs)
+                      <tr>
+                        <td class="align-middle">{{ $i++ }}</td>
+                        <td class="align-middle">{{ $cs['name'] }}</td>
+                        <td class="align-middle">{{ $cs['phone'] }}</td>
+                        <td class="align-middle d-inline-flex">
+                          <form action="/admin/customer-service/{{ $cs['id'] }}/edit" method="GET">
+                            <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                          </form>
+                          <form action="/admin/customer-service/{{ $cs['id'] }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+
       </div>
       <!-- /.container-fluid -->
     </section>
-@endsection
-
-@section('modal')
-{{-- show receiver info --}}
-<div class="modal fade" id="showCaptionInfo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Caption</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <textarea class="form-control" readonly id="showCaption" name="showCaption" rows="8"></textarea>
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-{{-- show payment info --}}
-<div class="modal fade" id="showDescriptionInfo">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h4 class="modal-title">Description</h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <textarea class="form-control" readonly id="showDescription" name="showDescription" rows="16"></textarea>
-        </div>
-      </div>
-      <div class="card-footer">        
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 @endsection
 
 @section('footer')
@@ -128,7 +127,6 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="/js/script.js"></script>
 
         <!-- Page specific script -->
         <script>
