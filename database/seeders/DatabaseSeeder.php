@@ -25,28 +25,28 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'phone' => '083852542004',
-            'role' => '0',
+            'role' => 0,
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
             'name' => 'BMI',
             'email' => 'bmijogja@gmail.com',
             'phone' => '083852542002',
-            'role' => '1',
+            'role' => 1,
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
             'name' => 'Jaki Umam',
             'email' => 'jakiumam@gmail.com',
             'phone' => '083839362022',
-            'role' => '1',
+            'role' => 1,
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
             'name' => 'Test',
             'email' => 'test@gmail.com',
             'phone' => '083839362023',
-            'role' => '1',
+            'role' => 1,
             'password' => Hash::make('rahasia123'),
         ]);
 

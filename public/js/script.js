@@ -118,18 +118,3 @@ $(function () {
         });
     });
 });
-//show collected campaign
-$(function () {
-    $("#campaignId").on("change", function () {
-        const id = $(this).data("id");
-        $.ajax({
-            url: "http://localhost:8000/user-data/withdraw/getWithdrawInfo",
-            data: { id: id },
-            method: "get",
-            dataType: "json",
-            success: function (data) {
-                $("#showDescriptionWd").val(data.description);
-            },
-        });
-    });
-});
