@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Bank;
+use App\Models\News;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PaymentController;
 
 class WithdrawController extends Controller
 {
@@ -18,13 +21,16 @@ class WithdrawController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        $users = User::where('role',1)->get();
+        $withdraw = Withdraw::all();
+        $campaign = Campaign::all();
+        $bank = Bank::all();
+        $user = User::all();
         $data = [
             'title' => 'Withdraw Management',
         ];
-        return view('superadmin.withdraw.withdraw',compact('data','users')); 
+        return view('superadmin.withdraw.withdraw',compact('data','withdraw','campaign','bank','user')); 
     }
 
     /**
@@ -79,7 +85,27 @@ class WithdrawController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'status' => 'required',
+        ]);
+        $withdraw = Withdraw::where('id',$id)->first();
+        $update = $withdraw->update($validatedData);
+        if ($request->status == 2) {
+            $dateNow = \Carbon\Carbon::now()->timezone('Asia/Jakarta');
+            $store = News::create([
+                'campaign_id' => $withdraw->campaign_id,
+                'title' => 'Pencairan dana sebesar Rp '. currency_format($withdraw->nominal),
+                'description' => $withdraw->description,
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+            ]);
+        }
+        if ($update == true) {
+            return redirect('/superadmin/withdraw')->with('success','Update status withdraw request is successful');
+        }
+        else{
+            return redirect('/superadmin/withdraw')->with('error','Update status withdraw request is failed');
+        }
     }
 
     /**

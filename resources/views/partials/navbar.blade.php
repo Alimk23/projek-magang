@@ -36,11 +36,52 @@
         @endif
         <li class="nav-item">
           @if (Route::has('login'))
-          @auth
-            <a href="{{ url('home') }}" class="nav-link">Dashboard</a>
-          @else
-            <a href="{{ url('login') }}" class="nav-link">Login</a>
-          @endauth
+            @auth
+              @if (Auth::user()->role == "2")
+                <li class="nav-item dropdown">
+                  <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ Auth::user()->name }}</a>
+                  <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li class="dropdown-divider"></li>
+                    <li><a href="/user" class="dropdown-item nav-link {{ Request::is('user') ? 'active text-white' : ''}}">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      Dashboard 
+                    </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="/user/fundraising" class="dropdown-item nav-link {{ Request::is('user/fundraising') ? 'active text-white' : ''}}">
+                      <i class="nav-icon fas fa-bullhorn"></i>
+                      Fundraising 
+                    </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="/user/profile" class="dropdown-item nav-link {{ Request::is('user/profile') ? 'active text-white' : ''}}">
+                      <i class="nav-icon fas fa-user"></i>
+                      Profil Saya 
+                    </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="/user/donation" class="dropdown-item nav-link {{ Request::is('user/donation') ? 'active text-white' : ''}}">
+                      <i class="nav-icon fas fa-donate"></i>
+                      Donasi Saya 
+                    </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                      </form>
+                      <a class="dropdown-item nav-link" href=" {{ route('logout') }}"
+                          onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+                          <i class="nav-icon fas fa-sign-out-alt">
+                          </i>
+                          Logout
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              @else             
+                <a href="{{ url('home') }}" class="nav-link">Dashboard</a>
+              @endif
+            @else
+              <a href="{{ url('login') }}" class="nav-link">Login</a>
+            @endauth
           @endif
         </li>
       </ul>

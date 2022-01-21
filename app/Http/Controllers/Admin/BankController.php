@@ -66,11 +66,7 @@ class BankController extends Controller
             'bank_code' => 'required',
             'bank_account' => 'required',
             'alias' => 'required|max:255',
-            'bank_logo' => 'required|image|file|max:1024',
         ]);
-        if ($request->file('bank_logo')) {
-            $validatedData['bank_logo'] = $request->file('bank_logo')->store('bank-logo');
-        }
 
         $store = Bank::create($validatedData);
         if ($store == true) {
@@ -124,16 +120,8 @@ class BankController extends Controller
             'bank_code' => 'required',
             'bank_account' => 'required',
             'alias' => 'required|max:255',
-            'bank_logo' => 'image|file|max:1024',
         ]);
         $bank = Bank::where('id',$id)->first();
-
-        if ($request->file('bank_logo')) {
-            if ($bank->bank_logo) {
-                Storage::delete($bank->bank_logo);
-            }
-            $validatedData['bank_logo'] = $request->file('bank_logo')->store('bank-logo');
-        }
 
         $update = $bank->update($validatedData);
 

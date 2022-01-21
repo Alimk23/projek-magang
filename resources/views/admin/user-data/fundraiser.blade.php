@@ -21,12 +21,12 @@
 @endsection
 
 @section('sidebar')
-    @include('partials.superadmin-sidebar')
+    @include('partials.admin-sidebar')
 @endsection
 
 @section('content-header')
     @push('icon-header')
-      <i class="fas fa-users"></i>
+      <i class="fas fa-user-plus"></i>
     @endpush
     @include('partials.content-header')
 @endsection
@@ -40,16 +40,6 @@
         <input type="text" class="d-none" id="errorAlert" value="{{ session('error') }}">
       @endif
       <div class="container-fluid">
-        <div class="row mb-3 mt-0">
-          <div class="col-md-2">
-            <a href="{{ url('/superadmin/fundraiser/create') }}">
-              <button type="button" class="btn btn-block btn-outline-success btn-sm">
-                <i class="fas fa-plus-circle"></i>
-                Add New Fundraiser
-              </button>
-            </a>
-          </div>
-        </div>
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -63,70 +53,40 @@
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>Phone</th>
-                        <th>Company</th>
-                        <th>Status</th>
-                        <th>Profile</th>
-                        <th>
-                            Action
-                        </th>
+                        <th>Campaign Detail</th>
+                        <th>Donation Total</th>
+                        <th>Donation Amount</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; ?>
-                    @foreach ($users as $user)                  
-                      <tr>
-                        <td>
-                          {{ $i }}
-                        </td>
-                        <td>
-                          {{ $user['name'] }}
-                        </td>
-                        <td>
-                          {{ $user['email'] }}
-                        </td>
-                        <td>
-                          {{ $user['phone'] }}
-                        </td>
-                        <td>
-                          @php
-                              $companyData = collect($user->company);
-                              $getCompany = $companyData->get('company_name');
-                          @endphp
-                          @if ($getCompany)
-                            {{ $getCompany }}
-                          @else
-                          <div class="text-muted">
-                            _
-                          </div>
-                          @endif
-                        </td>
-                        <td>
-                          <div class="text-success">
-                            Active
-                          </div>
-                        </td>
-                        <td>
-                            <form action="/superadmin/fundraiser/{{ $user['id'] }}" method="get">
-                              <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
-                                <i class="far fa-eye"></i>
-                              </button>
-                            </form>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <form action="/superadmin/campaign/id" method="POST">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                      @endforeach
+                    <?php $i = 1 ?>
+                    @foreach ($fundraising as $item)
+                    @php
+                        $getCampaign = $campaign->where('id',$item['campaign_id'])->first()
+                    @endphp
+                    @if ($getCampaign['user_id'] == $auth->id)                        
+                    <tr>
+                      <td>{{ $i++ }}</td>
+                      <td>
+                        {{ $user->where('id',$item['user_id'])->first()->name }}
+                      </td>
+                      <td>
+                        {{ $user->where('id',$item['user_id'])->first()->phone }}
+                      </td>
+                      <td>
+                        {{ $getCampaign['title'] }}
+                      </td>
+                      <td>
+                        {{ $DonationByFundraiser->where('fundraising_id',$item['id'])->get()->count() }}
+                      </td>
+                      <td>
+                        Rp {{ currency_format($item['total']) }}
+                      </td>
+                    </tr>
+                    @endif
+                    @endforeach
+
                   </tbody>
                 </table>
               </div>

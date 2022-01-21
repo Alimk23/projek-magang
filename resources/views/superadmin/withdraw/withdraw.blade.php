@@ -51,11 +51,14 @@
                 >
                   <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Detail Campaign</th>
+                        <th>Status</th>
+                        <th>Fundraiser</th>
+                        <th>Campaign</th>
+                        <th>Nominal</th>
+                        <th>Fee</th>
+                        <th>Bank Detail</th>
+                        <th>Cash Total</th>
+                        <th>Description</th>
                         <th>
                             Action
                         </th>
@@ -63,40 +66,91 @@
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @foreach ($users as $user)                  
-                      <tr>
-                        <td>
-                          {{ $i++ }}
-                        </td>
-                        <td>
-                          {{ $user['name'] }}
-                        </td>
-                        <td>
-                          {{ $user['email'] }}
-                        </td>
-                        <td>
-                          {{ $user['phone'] }}
-                        </td>
-                        <td>
-                            <form action="/superadmin/fundraiser/ {{ $user['id'] }}" method="get">
-                              <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
-                                Lihat
-                              </button>
-                            </form>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <form action="/superadmin/campaign/id" method="POST">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                      @endforeach
+                    @foreach ($withdraw as $wd)
+                    <tr>
+                      <td>
+                        @if ($wd['status'] == 0)
+                            <div class="text-warning">Pending</div>
+                        @endif
+                        @if ($wd['status'] == 1)
+                            <div class="text-primary">Processing</div>
+                        @endif
+                        @if ($wd['status'] == 2)
+                            <div class="text-success">Successful</div>
+                        @endif
+                        @if ($wd['status'] == 3)
+                            <div class="text-danger">Rejected</div>
+                        @endif
+                      </td>
+                      <td>
+                        @php
+                          $getUser = $user->find($wd['user_id']);
+                        @endphp
+                        {{ $getUser->company->company_name }}
+                      </td>
+                      <td>
+                      @php
+                          $getCampaign = $campaign->find($wd['campaign_id']);
+                      @endphp
+                      {{ $getCampaign->title }}
+                      </td>
+                      <td>Rp {{ currency_format($wd['nominal']) }}</td>
+                      <td>Rp {{ currency_format($wd['nominal']*5/100) }}</td>
+                      <td>
+                        @php
+                            $getBank = $bank->find($wd['bank_id']);
+                        @endphp
+                        {{ $getBank->bank_name }} ({{ $getBank->bank_code }}) <br>
+                        {{ $getBank->bank_account }}
+                        an. {{ $getBank->alias }}
+                      </td>
+                      <td>
+                        Rp {{ currency_format(($wd['nominal']) - $wd['nominal']*5/100) }}
+                    </td>
+                    <td>
+                      <button type="button" class="btnWdDesc btn btn-block btn-outline-primary btn-xs rounded-lg py-0 my-0 px-1" data-toggle="modal" data-target="#showWdDescInfo" data-id='{{ $wd['id'] }}'>
+                        <i class="far fa-eye fa-2x"></i>
+                      </button>
+                    </td>
+                    <td>
+                      @if ($wd['status'] == 0)
+                      <div class="d-flex">
+                        <form action="/superadmin/withdraw/{{ $wd['id'] }}" class="mx-1" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <input type="number" name="status" id="status" value="1" class="d-none">
+                          <button type="submit" class="btn btn-outline-success btn-block btn-sm rounded-lg py-0 mx-1">
+                            <i class="fas fa-sync fa-spin"></i>
+                          </button>
+                        </form>
+                        <form action="/superadmin/withdraw/{{ $wd['id'] }}" class="mx-1" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <input type="number" name="status" id="status" value="3" class="d-none">
+                          <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </form>
+                      </div>
+                      @endif
+                      @if ($wd['status'] == 1)
+                      <div class="d-flex">
+                        <form action="/superadmin/withdraw/{{ $wd['id'] }}" class="mx-1" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <input type="number" name="status" id="status" value="2" class="d-none">
+                          <button type="submit" class="btn btn-outline-success btn-block btn-sm rounded-lg py-0 mx-1">
+                            <i class="fas fa-check"></i>
+                          </button>
+                        </form>
+                      </div>
+                      @endif
+                      @if ($wd['status'] == 2 || $wd['status'] == 3)
+                      <button type="button" disabled class="btn btn-secondary btn-sm rounded-lg btn-block">No Action</button>
+                      @endif
+                    </td>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -110,6 +164,34 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+@endsection
+
+@section('modal')
+
+{{-- show caption info --}}
+<div class="modal fade" id="showWdDescInfo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea class="form-control" readonly id="showDescriptionWd" name="showDescriptionWd" rows="8"></textarea>
+        </div>
+      </div>
+      <div class="card-footer">        
+        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
 @endsection
 
 @section('footer')
@@ -130,7 +212,7 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+        <script src="/js/script.js"></script>
         <!-- Page specific script -->
         <script>
             $(function () {

@@ -52,7 +52,7 @@
         </div>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
+            <div class="col-md-8">
               <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
@@ -63,7 +63,6 @@
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Logo</th>
                         <th>Code</th>
                         <th>Bank Name</th>
                         <th>Account</th>
@@ -78,15 +77,6 @@
                       @foreach ($getBank as $bank)
                       <tr>
                         <td class="align-middle">{{ $i++ }}</td>
-                        <td class="align-middle">
-                          @if (Storage::disk('public')->exists($bank['bank_logo']))
-                            <a href="{{ Storage::disk('public')->url($bank['bank_logo']) }}" target="_blank">
-                              Custom Logo
-                            </a>
-                          @else
-                            <a href="/img/logo.png" target="_blank">Default Logo</a>
-                          @endif                            
-                        </td>
                         <td class="align-middle">{{ $bank['bank_code'] }}</td>
                         <td class="align-middle">{{ $bank['bank_name'] }}</td>
                         <td class="align-middle">{{ $bank['bank_account'] }}</td>

@@ -121,7 +121,7 @@
               <option selected disabled>Pilih Metode Pembayaran</option>
               <option disabled>Transfer manual dibutuhkan waktu 24 jam verifikasi</option>
               @foreach ($data['banks'] as $bank)
-                <option value="{{ $bank->id }}"> {{ $bank->bank_name }}</option>
+                <option value="{{ $bank['id'] }}" {{ (old('bank') == $bank['id']) ? 'selected' : '' }}> {{ $bank->bank_name }}</option>
               @endforeach
             </select>                                  
             @error('bank')
@@ -145,7 +145,7 @@
           <div class="col">
             <div class="form-group">
               <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" name="anonym" id="anonym">
+                <input type="checkbox" class="custom-control-input" name="anonym" id="anonym" {{ (old('anonym') == 'on') ? 'checked' : '' }}>
                 <label class="custom-control-label" for="anonym" style="font-weight: normal">Sembunyikan nama saya (Hamba Allah)</label>
               </div>
             </div>
@@ -158,12 +158,17 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Whatsapp" value="{{ old('phone') }}">
+            <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Whatsapp (ex. 0821{{  date("d") }}{{  date("m") }}{{  date("Y") }})" value="{{ old('phone') }}">
             @error('phone')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
             </div>
             @enderror
+          </div>
+        </div>
+        <div class="row mb-3 d-none">
+          <div class="col">
+            <input type="text" class="form-control" id="ref" name="ref" value="{{ $data['ref'] }}">
           </div>
         </div>
         <div class="row mb-3">

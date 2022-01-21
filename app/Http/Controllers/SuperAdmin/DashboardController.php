@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,20 +18,14 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Campaign $campaign, Donation $donation)
+    public function index(Campaign $campaign, Donation $donation, User $user)
     {
         $user = Auth::user();
-        $getCampaign = $campaign->where('user_id',$user->id)->get()->count();
-        $getCampaignDetail = Campaign::where('user_id',$user->id)->get();
-        $getDonation = 0;
-        $countUser = 0;
+        $getCampaign = $campaign->all()->count();
+        $getDonation = $donation->where('status',1)->count();
+        $getContributor = Donation::select('user_id')->distinct()->count('user_id');
 
-        if ($getCampaignDetail) {            
-            foreach ($getCampaignDetail as $detail) {
-                $getDonation = $donation->where('campaign_id',$detail['id'])->get()->count();
-            }
-        }
-        $collectedDonation = Campaign::select('collected')->where('user_id',$user->id)->pluck('collected')->all();
+        $collectedDonation = Campaign::select('collected')->pluck('collected')->all();
         if (!empty($collectedDonation)) {
             $totalDonation = array_sum($collectedDonation);
         } else {
@@ -45,10 +41,23 @@ class DashboardController extends Controller
                 }
             }
         }
+        $getPayment = Payment::where('status',1)->get();
+        $getWithdraw = Withdraw::where('status',0)->get();
+        $getCampaignStatus = Campaign::where('status',0)->get();
         $data = [
             'title' => 'Dashboard',
         ];
-        return view('superadmin.dashboard.index',compact('data','getCampaign','getDonation','countUser','totalDonation'));
+        return view('superadmin.dashboard.index',compact(
+            'data',
+            'getCampaign',
+            'getDonation',
+            'getContributor',
+            'totalDonation',
+            'getPayment',
+            'getCampaignStatus',
+            'getWithdraw',
+            'user',
+        ));
     }
 
     /**

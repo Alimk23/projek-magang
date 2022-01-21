@@ -87,33 +87,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                          <div class="d-flex flex-row justify-content-between">
-                            <label for="bank_logo">Logo Bank</label>
-                            @if (Storage::disk('public')->exists($bank->bank_logo))
-                              <a href="{{ Storage::disk('public')->url($bank->bank_logo) }}" target="_blank">Custom Logo</a>
-                            @else
-                              <a href="/img/logo.png" target="_blank">Default Logo</a>
-                            @endif
-                          </div>
-                          <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input @error('bank_logo') is-invalid @enderror" aria-describedby="logoBankHelp" name="bank_logo" id="bank_logo" value="{{ $bank->bank_logo }}">
-                              <label class="custom-file-label" for="bank_logo">Choose file</label>
-                            </div>
-                          </div>
-                          <small id="logoBankHelp" class="form-text text-muted">
-                            Ukuran logo yang ditampilkan adalah 50 x 20 piksel
-                          </small>
-                        </div>
-                            @error('bank_logo')
-                            <div class="text-small text-danger" role="alert">
-                              <small>{{ $message }}</small>
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col mt-2">

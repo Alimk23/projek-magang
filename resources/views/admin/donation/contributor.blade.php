@@ -89,18 +89,11 @@
                                     </div>
                                   </td>
                                   <td>
-                                    <div class="d-none">
-                                      <div class="d-inline-flex">
-                                        <form action="/admin/contributor/{{ $donation['user_id'] }}" method="POST">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                            <i class="fas fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      </div>
-                                    </div>
-                                    <button type="button" disabled class="btn btn-secondary btn-sm rounded-lg btn-block">No Action</button>                                
+                                    <a href="https://api.whatsapp.com/send?phone={{ whatsapp_format($getUser->phone) }}" target="_blank">
+                                      <button type="button" class="btn btn-outline-success btn-sm rounded-lg btn-block">
+                                        <i class="fab fa-whatsapp"></i>
+                                      </button>                                
+                                    </a>
                                   </td>
                               </tr>
                             @endif

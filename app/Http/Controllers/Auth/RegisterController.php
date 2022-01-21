@@ -55,7 +55,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:13',],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email','unique:users', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -107,7 +107,7 @@ class RegisterController extends Controller
                 }
             }
             elseif (!empty($getPhone->password)) {
-                return redirect('/login')->with('error','Email atau no. HP sudah terdaftar, silahkan login atau lupa password');
+                return redirect('/login')->with('error','No. HP sudah terdaftar, silahkan login atau lupa password');
             }
         }
 

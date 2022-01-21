@@ -61,10 +61,15 @@ class FundraiserController extends Controller
         $user = User::where('id',$id)->first();
         $getProfile = Profile::where('user_id',$id)->first();
         $getCampaign = Campaign::where('user_id',$id)->get();
-
+        $getContributor = 0;
+        $getDonation = Donation::where('status',1)->get();
         if ($getCampaign) {
             foreach ($getCampaign as $campaignData) {
-                $getDonation = Donation::where('campaign_id',$campaignData['id'])->get();
+                foreach ($campaignData->donation as $donation) {
+                    if ($donation['status']==1) {
+                        $getContributor++;
+                    }
+                }
             }
         }
 
@@ -76,9 +81,9 @@ class FundraiserController extends Controller
         }
 
         $data = [
-            'title' => 'Profile of'. $user->name,
-            'countCampaign' => $getCampaign->count(),
-            'countDonation' => $getDonation->count(),
+            'title' => 'Profile of '. $user->name,
+            'countCampaign' => $getCampaign ? $getCampaign->count() : 0,
+            'countContributor' => $getContributor,
             'amountDonation' => $amountDonation,
             'user_id' => $id,
         ];

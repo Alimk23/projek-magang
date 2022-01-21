@@ -8,13 +8,19 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
 
 use App\Http\Controllers\UserDataController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\User\DashboardController as userDashboard;
+use App\Http\Controllers\User\UserProfileController as userProfile;
+use App\Http\Controllers\User\FundraisingController as userFundraising;
+use App\Http\Controllers\User\DonationController as userDonation;
+
+
 use App\Http\Controllers\Admin\BankController as adminBank;
 use App\Http\Controllers\Admin\NewsController as adminNewsInfo;
 use App\Http\Controllers\Admin\CompanyController as adminCompany;
 use App\Http\Controllers\Admin\ProfileController as adminProfile;
 use App\Http\Controllers\Admin\CampaignController as adminCampaign;
 use App\Http\Controllers\Admin\WithdrawController as adminWithdraw;
+use App\Http\Controllers\Admin\FundraiserController as adminFundraiser;
 use App\Http\Controllers\Admin\CustomerServiceController as adminCustomerService;
 
 use App\Http\Controllers\Admin\DashboardController as adminDashboard;
@@ -56,14 +62,16 @@ Route::get('/ms', function () {
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'checkRole']);
+Route::get('/home', [HomeController::class, 'redirectUrl']);
 Route::get('/admin/campaign/create/checkSlug', [adminCampaign::class, 'checkSlug']);
+Route::get('/admin/withdraw/create/checkCampaign', [adminWithdraw::class, 'checkCampaign']);
 Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
 Route::get('/status/{id}', [PaymentController::class, 'status']);
 
 Route::get('/user-data/getLoginInfo', [UserDataController::class, 'getLoginInfo']);
 Route::get('/user-data/getProfileInfo', [UserDataController::class, 'getProfileInfo']);
 Route::get('/user-data/getCompanyInfo', [UserDataController::class, 'getCompanyInfo']);
+Route::get('/user-data/withdraw/getWithdrawInfo', [UserDataController::class, 'getWithdrawInfo']);
 Route::get('/payment/getReceiverInfo', [superAdminPayment::class, 'getReceiverInfo']);
 Route::get('/payment/getPaymentInfo', [superAdminPayment::class, 'getPaymentInfo']);
 Route::get('/campaign/getCampaignInfo', [superAdminCampaign::class, 'getCampaignInfo']);
@@ -74,10 +82,17 @@ Route::resource('payment', PaymentController::class)->except('index','destroy');
 Route::resource('profile', adminProfile::class)->only('show');
 Route::resource('category', superAdminCategory::class)->only('show');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','User'])->group(function () {
+    Route::resource('user', userDashboard::class)->only('index');
+    Route::resource('user/fundraising', userFundraising::class);
+    Route::resource('user/profile', userProfile::class);
+    Route::resource('user/donation', userDonation::class);
+});
+Route::middleware(['auth','Admin'])->group(function () {
     Route::resource('admin', adminDashboard::class)->only('index');
     Route::resource('admin/campaign', adminCampaign::class)->except('show');
     Route::resource('admin/contributor', adminContributor::class)->only('index','destroy');
+    Route::resource('admin/fundraiser', adminFundraiser::class)->only('index');
     Route::resource('admin/profile', adminProfile::class)->except('edit','create', 'destroy','show');
     Route::resource('admin/company', adminCompany::class)->only('update');
     Route::resource('admin/bank', adminBank::class)->except('show');
@@ -88,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('admin/donation/{donation}', [DonationController::class, 'update']);
     Route::delete('admin/donation/{donation}', [DonationController::class, 'destroy']);
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','SuperAdmin'])->group(function () {
     Route::resource('superadmin', superadminDashboard::class)->only('index');
     Route::resource('superadmin/category', superAdminCategory::class)->except('show');
     Route::resource('superadmin/bank', superAdminBank::class)->except('show');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBanksTable extends Migration
+class CreateUserProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateBanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('banks', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('user_profiles', function (Blueprint $table) {
+            $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('bank_logo')->nullable();
-            $table->string('bank_code');
-            $table->string('bank_name');
-            $table->string('bank_account');
-            $table->string('alias');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateBanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banks');
+        Schema::dropIfExists('user_profiles');
     }
 }

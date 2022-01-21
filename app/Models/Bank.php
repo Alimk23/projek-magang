@@ -18,6 +18,6 @@ class Bank extends Model
     }
     public function withdraw()
     {
-        return $this->hasMany(Withdraw::class, 'campaign_id');
+        return $this->hasOne(Withdraw::class, 'campaign_id');
     }
 }

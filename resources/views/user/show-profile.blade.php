@@ -34,7 +34,7 @@
                     <b>Program</b> <a class="float-right text-primary font-weight-bold">{{ $data['countCampaign'] ? $data['countCampaign'] : '0'}}</a>
                 </li>
                 <li class="list-group-item">
-                    <b>Donatur</b> <a class="float-right text-primary font-weight-bold">{{ $data['countDonation'] ? $data['countDonation'] : '0'}}</a>
+                    <b>Donatur</b> <a class="float-right text-primary font-weight-bold">{{ $data['countContributor'] ? $data['countContributor'] : '0'}}</a>
                 </li>
                 <li class="list-group-item">
                     <b>Dana dikelola</b> <a class="float-right text-primary font-weight-bold">Rp {{ currency_format($data['amountDonation'] ? $data['amountDonation'] : '0') }}</a>

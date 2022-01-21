@@ -7,6 +7,8 @@ use App\Models\Payment;
 use App\Models\Donation;
 use App\Models\UserGrade;
 use App\Http\Controllers\Controller;
+use App\Models\DonationByFundraiser;
+use App\Models\Fundraising;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -48,6 +50,8 @@ class PaymentController extends Controller
         $payment = new payment;
         $getPayment = $payment->firstwhere('id', $id);
         $getDonation = $getPayment->donation;
+        $fundraising_id = DonationByFundraiser::where('donation_id', $getDonation->id)->first()->fundraising_id;
+        $getFundraising = Fundraising::where('id', $fundraising_id)->first();
         $getCampaign = $getPayment->donation->campaign;
         $getUserGrade = UserGrade::firstwhere('user_id', $getDonation->user_id);
         $donationGradeUpdate = 1;
@@ -90,6 +94,10 @@ class PaymentController extends Controller
         $updateDonation = $getDonation->update([
             'status' => 1
         ]);
+        $updateFundraising = $getFundraising->update([
+            'total' => $getFundraising->total + $getDonation->nominal
+        ]);
+
         if ($getPayment->receipt) {
             Storage::delete($getPayment->receipt);
         }

@@ -7,6 +7,8 @@ use App\Models\Profile;
 use App\Models\Donation;
 use App\Models\Withdraw;
 use App\Models\UserGrade;
+use App\Models\Fundraising;
+use App\Models\UserProfile;
 use App\Models\CategoryByUser;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -66,6 +68,14 @@ class User extends Authenticatable
     }
     public function withdraw()
     {
-        return $this->hasMany(Withdraw::class, 'user_id');
+        return $this->hasOne(Withdraw::class, 'user_id');
+    }
+    public function UserProfile()
+    {
+        return $this->hasOne(UserProfile::class, 'user_id');
+    }
+    public function fundraising()
+    {
+        return $this->hasMany(Fundraising::class, 'user_id');
     }
 }

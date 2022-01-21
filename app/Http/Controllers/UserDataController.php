@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Profile;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -112,6 +113,11 @@ class UserDataController extends Controller
     public function getCompanyInfo(Company $company){
         $id =  $_GET['id'];
         $getData = $company->firstWhere('user_id', $id) ;
+        echo json_encode($getData);
+    }
+    public function getWithdrawInfo(Withdraw $withdraw){
+        $id =  $_GET['id'];
+        $getData = $withdraw->firstWhere('id', $id) ;
         echo json_encode($getData);
     }
 }

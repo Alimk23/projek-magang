@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\DonationByFundraiser;
+use App\Models\Fundraising;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,7 +51,7 @@ class DonationController extends Controller
         $validatedData = $request->validate([
             'campaign_id' => 'required',
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:10|max:13|regex:/(08)[0-9]{9}/',
             'nominal' => 'required|integer',
             'bank' => 'required',
         ]);
@@ -80,46 +82,55 @@ class DonationController extends Controller
                 'message' => $request->message,
             ])->id;
         }
-        $newPayment = Payment::create([
-            'donation_id' => $newDonation,
-            'order_id' => $order_id,
-            'bank_id' => $request->bank,
-            'nominal' => $validatedData['nominal'],
-        ])->id;
-        
-        $getDonationData = Donation::find($newDonation);
-        $getPaymentData = Payment::find($newPayment);
-        if (substr(trim($request->phone), 0, 1)=='0') {
-            $phone = '62'.substr(trim($request->phone), 1);
+        if ($newDonation) {
+            if (!empty($request->ref)) {
+                $getFundraiser = Fundraising::where('referral_code',$request->ref)->first();
+                DonationByFundraiser::create([
+                    'fundraising_id' => $getFundraiser->id,
+                    'donation_id' => $newDonation,
+                ]);
+            }
+            $newPayment = Payment::create([
+                'donation_id' => $newDonation,
+                'order_id' => $order_id,
+                'bank_id' => $request->bank,
+                'nominal' => $validatedData['nominal'],
+            ])->id;
+            $getDonationData = Donation::find($newDonation);
+            $getPaymentData = Payment::find($newPayment);
+            $phone = whatsapp_format($request->phone);
+    
+            $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
+    
+    Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
+    Selangkah lagi, Bapak/Ibu akan mengukir senyum para santri yatim dan penghafal Alquran, dan semoga ini menjadi Amal Sholeh yang diterima Allah SWT.
+    
+    Bapak/Ibu tinggal transfer infaq terbaik sejumlah:
+    
+    Rp ". currency_format($getDonationData->nominal) ."
+    
+    Ke nomor rekening sebagai berikut:
+    ⬇⬇⬇⬇⬇⬇⬇
+    
+    " .$getPaymentData->bank->bank_account ."\nan. ". $getPaymentData->bank->alias."
+    
+    ". $getPaymentData->bank->bank_name ."
+    
+    Kode Bank: ". $getPaymentData->bank->bank_code ."
+    
+    Atau donasi Bpk/Ibu dapat dibayarkan via E-Payment (Auto checking) dengan klik link berikut:
+    ". env('APP_URL').'/payment/'.$order_id ."
+    
+    Semoga Allah Mudahkan Bapak/ibu dalam berinfaq dan semoga Menjadi Amal sholeh yang Allah terima.
+    Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
+            $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
+            // $sendtoUser = $this->sendMessage($request->phone, $msgUser);
+            $sendtoAdmin = $this->sendMessage($getDonationData->campaign->cs->phone, $msgAdmin);
+            return redirect('/payment/'.$order_id);
         }
-
-        $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
-
-Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
-Selangkah lagi, Bapak/Ibu akan mengukir senyum para santri yatim dan penghafal Alquran, dan semoga ini menjadi Amal Sholeh yang diterima Allah SWT.
-
-Bapak/Ibu tinggal transfer infaq terbaik sejumlah:
-
-Rp ". currency_format($getDonationData->nominal) ."
-
-Ke nomor rekening sebagai berikut:
-⬇⬇⬇⬇⬇⬇⬇
-
-" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias."
-
-". $getPaymentData->bank->bank_name ."
-
-Kode Bank: ". $getPaymentData->bank->bank_code ."
-
-Atau donasi Bpk/Ibu dapat dibayarkan via E-Payment (Auto checking) dengan klik link berikut:
-". env('APP_URL').'/payment/'.$order_id ."
-
-Semoga Allah Mudahkan Bapak/ibu dalam berinfaq dan semoga Menjadi Amal sholeh yang Allah terima.
-Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
-        $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
-        // $sendtoUser = $this->sendMessage($request->phone, $msgUser);
-        $sendtoAdmin = $this->sendMessage($getDonationData->campaign->user->phone, $msgAdmin);
-        return redirect('/payment/'.$order_id);
+        else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -130,10 +141,8 @@ Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->camp
      */
     public function show($id, Campaign $campaign,Bank $bank)
     {
+        $ref =  !empty($_GET['ref']) ? $_GET['ref'] : '';
         $detail = $campaign->firstwhere('id', $id);
-        // get data bank dari user yang membuat campaign
-        // $getBank = $bank->where('user_id', $detail->user_id)->get();
-        
         // get data bank dari Super Admin id 1
         $getBank = $bank->where('user_id', 1)->get();
         
@@ -141,6 +150,7 @@ Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->camp
             'title' => 'Create Payment',
             'details' => $detail,
             'banks' => $getBank,
+            'ref' => $ref,
         ];
         return view('user.create-donation', compact('data'));
     }

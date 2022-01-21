@@ -2,29 +2,23 @@
 
 namespace App\Models;
 
-use App\Models\Bank;
-use App\Models\User;
 use App\Models\Campaign;
+use App\Models\Fundraising;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Auth;
 
-class Withdraw extends Model
+class CampaignByFundraiser extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table= 'withdraws';
+    protected $table= 'campaign_by_fundraiser';
 
     public function campaign()
     {
         return $this->belongsTo(Campaign::class,'id');
     }
-    public function user()
+    public function fundraising()
     {
-        return $this->belongsTo(User::class,'id');
-    }
-    public function bank()
-    {
-        return $this->belongsTo(Bank::class,'id');
+        return $this->belongsTo(Fundraising::class,'id');
     }
 }

@@ -92,9 +92,17 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/admin/contributor') }}" class="nav-link {{ Request::is('admin/contributor*') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-user-plus"></i>
                         <p>
                             Contributor
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/admin/fundraiser') }}" class="nav-link {{ Request::is('admin/fundraiser*') ? 'active' : ''}}">
+                    <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Fundraiser
                         </p>
                     </a>
                 </li>

@@ -39,50 +39,54 @@
           <div class="col-sm-10">
             <div class="container-fluid">
               <!-- Timelime example  -->
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- The time line -->
-                  <div class="timeline">
-                    <!-- timeline time label -->
-                    @if ($report)                        
-                    @foreach ($report as $newsReport) 
-                    <div class="time-label">
-                      <span class="bg-red">{{ date_format($newsReport['created_at'],"d M Y") }}</span>
-                    </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-envelope bg-blue"></i>
-                      <div class="timeline-item">
-                        <span class="time"><i class="fas fa-clock"></i> {{ date_format($newsReport['created_at'],"H:i") }}</span>
-                        <h3 class="timeline-header">{{ $newsReport['title'] }}</h3>
-      
-                        <div class="timeline-body">
-                          {!! $newsReport['description'] !!}
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!-- The time line -->
+                      <div class="timeline">
+                        <!-- timeline time label -->
+                        @if ($report)                        
+                        @foreach ($report as $newsReport) 
+                        <div class="time-label">
+                          <span class="bg-red">{{ date_format($newsReport['created_at'],"d M Y") }}</span>
                         </div>
-                        <div class="timeline-footer d-flex mt-3">
-                          <form action="news/{{ $newsReport['id'] }}/edit" method="GET">
-                            <button type="submit" class="btn btn-primary btn-sm rounded-lg mx-1">
-                              Edit
-                            </button>
-                          </form>
-                          <form action="news/{{ $newsReport['id'] }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm rounded-lg mx-1">
-                              Delete
-                            </button>
-                          </form>  
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <div>
+                          <i class="fas fa-envelope bg-blue"></i>
+                          <div class="timeline-item">
+                            <span class="time"><i class="fas fa-clock"></i> {{ date_format($newsReport['created_at'],"H:i") }}</span>
+                            <h3 class="timeline-header font-weight-bold">{{ $newsReport['title'] }}</h3>
+          
+                            <div class="timeline-body">
+                              {!! $newsReport['description'] !!}
+                            </div>
+                            <div class="d-none">
+                              <form action="news/{{ $newsReport['id'] }}/edit" method="GET">
+                                <button type="submit" class="btn btn-primary btn-sm rounded-lg mx-1">
+                                  Edit
+                                </button>
+                              </form>
+                              <form action="news/{{ $newsReport['id'] }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm rounded-lg mx-1">
+                                  Delete
+                                </button>
+                              </form>  
+                            </div>
+                          </div>
                         </div>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        @endforeach
+                        @endif
                       </div>
                     </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    @endforeach
-                    @endif
+                    <!-- /.col -->
                   </div>
                 </div>
-                <!-- /.col -->
               </div>
             </div>
             <!-- /.timeline -->

@@ -17,16 +17,21 @@
 
 @section('content')
 <section class="content">
-  @if (session()->has('success'))
-    <input type="text" class="d-none" id="successAlert" value="{{ session('success') }}">
-  @endif
-  @if (session()->has('error'))
-    <input type="text" class="d-none" id="errorAlert" value="{{ session('error') }}">
-  @endif
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 mb-5">
           <div class="card">
+            <div class="card-header">
+              @if (session()->has('limit'))
+              <div class="card-header">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('limit') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>                     
+              </div>
+              @endif
             <!-- /.card-header -->
             <div class="card-body">
                 <form action="{{ url('/admin/withdraw') }}" method="post">
@@ -45,9 +50,10 @@
                     <div class="row mb-3">
                         <div class="col">
                           <label for="campaign">Campaign</label>
-                          <select class="form-control select2-allow-clear select2Minimal @error('campaign') is-invalid @enderror" name="campaign_id" data-placeholder="Choose the campaign" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                          <select class="form-control @error('campaign') is-invalid @enderror" name="campaign_id" id="campaignId" data-placeholder="Choose the campaign" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                            <option selected disabled>Pilih Campaign</option>
                             @foreach ($data['campaign'] as $campaign)
-                            <option value="{{ $campaign['id'] }}">{{ $campaign['title'] }}</option>
+                            <option value="{{ $campaign['id'] }}" {{ (old('campaign_id') == $campaign['id']) ? 'selected' : '' }}>{{ $campaign['title'] }}</option>
                             @endforeach
                           </select>                                  
                             @error('campaign_id')
@@ -60,9 +66,10 @@
                     <div class="row mb-3">
                         <div class="col">
                           <label for="bank">Bank</label>
-                          <select class="form-control select2-allow-clear select2Minimal @error('bank') is-invalid @enderror" name="bank_id" data-placeholder="Choose the bank" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                          <select class="form-control select2-allow-clear @error('bank') is-invalid @enderror" name="bank_id" data-placeholder="Choose the bank" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                            <option selected disabled>Pilih Bank Tujuan</option>
                             @foreach ($data['bank'] as $bank)
-                            <option value="{{ $bank['id'] }}">{{ $bank['bank_name'] }} - {{ $bank['alias'] }} ({{ $bank['bank_account'] }})</option>
+                            <option value="{{ $bank['id'] }}" {{ (old('bank_id') == $bank['id']) ? 'selected' : '' }}>{{ $bank['bank_name'] }} - {{ $bank['alias'] }} ({{ $bank['bank_account'] }})</option>
                             @endforeach
                           </select>                                  
                             @error('bank_id')
@@ -75,9 +82,14 @@
                     <div class="row mb-3">
                         <div class="col">
                           <label for="nominal">Nominal</label>
-                          <p>Jumlah maksimal yang dapat ditarik: 
-                            <input type="text" disabled>
-                          </p>
+                          <div class="d-flex">
+                            <div class="mr-2">
+                              <p>Saldo terkumpul: </p>
+                            </div>
+                            <div class="">
+                              <input class="text-primary border-0 shadow-none" type="text" id="maxNominal" name="maxNominal" value="Rp " readonly>
+                            </div>
+                          </div>
                           <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Rp</span>
@@ -129,11 +141,18 @@
 @endsection
 
 @section('js-custom')
-<!-- bs-custom-file-input -->
-<script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
-      $(function () {
-      bsCustomFileInput.init();
+    const campaignId = document.querySelector('#campaignId');
+    const maxNominal = document.querySelector('#maxNominal');
+
+    var formatter = new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
+    campaignId.addEventListener('change', function(){
+      fetch('http://localhost:8000/admin/withdraw/create/checkCampaign?id=' + campaignId.value)
+            .then(response => response.json())
+            .then(data => maxNominal.value = formatter.format(data.maxNominal))
     });
 </script>
 @endsection

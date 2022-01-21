@@ -106,15 +106,15 @@
                       <p class="my-0 py-0">Donasi Terkumpul</p>
                     </div>
                     <div class="d-flex flex-column align">
-                      @if ($countdown != -0.0)                          
-                      <p class="mb-0">
-                        <strong>
-                          {{ $countdown }}
-                        </strong>
-                      </p>
-                      <p class="my-0 py-0">Hari Lagi</p>
-                      @else
+                      @if ($countdown < 0)                          
                         <p class="my-0 py-0 text-muted">Sudah berakhir</p>                    
+                      @else
+                        <p class="mb-0">
+                          <strong>
+                            {{ $countdown }}
+                          </strong>
+                        </p>
+                        <p class="my-0 py-0">Hari Lagi</p>
                       @endif
                     </div>
                   </div>
@@ -132,15 +132,15 @@
                   </p>
                 </div>
                 <div class="card-footer bg-light p-2">
-                  @if ($countdown != -0.0)
+                  @if ($countdown < 0)
+                  <a href="/campaigns/{{ $campaign['slug'] }}" class="btn btn-secondary d-block rounded text-decoration-none" style="color:white !important">
+                    Lihat Selengkapnya
+                  </a>                                            
+                  @else
                   <a href="/campaigns/{{ $campaign['slug'] }}" class="btn btn-primary d-block rounded text-decoration-none" style="color:white !important">
                     <i class="fas fa-hand-point-right mr-2"></i>
                     Donasi Sekarang
                   </a>                      
-                  @else
-                  <button class="btn btn-secondary text-white d-block rounded text-decoration-none">
-                    Program telah berakhir
-                  </button>                                            
                   @endif
                 </div>
               </div>              
@@ -176,7 +176,7 @@
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-lg-12 text-center">
-        <h2 class="fa-3x mb-4 text-uppercase font-weight-bold">Anda punya program sedekah?</h2>
+        <h2 class="fa-3x mb-4 text-uppercase font-weight-bold">Anda punya program kebaikan?</h2>
         <h3 class="mb-4 text-capitalize">
           ayo gabung bersama kami, agar orang lain dapat berkontribusi dalam kebaikan
         </h3>

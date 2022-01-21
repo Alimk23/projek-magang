@@ -86,25 +86,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="bank_logo">Logo Bank</label>
-                            <div class="input-group">
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input @error('bank_logo') is-invalid @enderror" aria-describedby="logoBankHelp" name="bank_logo" id="bank_logo" value="{{ old('bank_logo') }}">
-                                <label class="custom-file-label" for="bank_logo">Choose file</label>
-                              </div>
-                            </div>
-                            <small id="logoBankHelp" class="form-text text-muted">
-                              Ukuran logo yang ditampilkan adalah 50 x 20 piksel
-                            </small>
-                            @error('bank_logo')
-                            <div class="text-small text-danger" role="alert">
-                              <small>{{ $message }}</small>
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col mt-2">

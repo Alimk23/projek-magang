@@ -12,10 +12,10 @@
                     <img
                         src="{{ url('/img/logo.png') }}"
                         alt="Hobi Sedekah"
-                        class="brand-image ml-4 my-0 py-0"
+                        class="brand-image ml-md-4 my-0 py-0 mx-auto"
                         style="opacity: 0.8;width:250px"
                     />
-                    <p class="text-xs text-muted text-capitalize" style="color:rgb(175, 175, 175) !important;margin-top:-2rem;margin-left:2rem">#HidupBerkahBerlimpah</p>
+                    <p class="text-xs text-muted text-capitalize mx-auto" style="color:rgb(175, 175, 175) !important;margin-top:-2rem">#HidupBerkahBerlimpah</p>
                 </a>
             </div>
             <div class="card-body">

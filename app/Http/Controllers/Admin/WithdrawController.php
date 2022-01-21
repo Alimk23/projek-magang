@@ -17,13 +17,13 @@ class WithdrawController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Campaign $campaign, Bank $bank)
     {
         $withdraw = Withdraw::where('user_id',Auth::user()->id)->get();
         $data = [
             'title' => 'Withdraw Management',
         ];
-        return view('admin.withdraw.withdraw',compact('data','withdraw')); 
+        return view('admin.withdraw.withdraw',compact('data','withdraw','campaign','bank')); 
     }
 
     /**
@@ -60,12 +60,22 @@ class WithdrawController extends Controller
             'nominal' => 'required',
             'description' => 'required',
         ]);
-        $store = Withdraw::create($validatedData);
-        if ($store == true) {
-            return redirect('/admin/withdraw')->with('success','Add new withdraw request successful');
+        $getCampaign = Campaign::find($request->campaign_id);
+        if ($validatedData['nominal'] <= $getCampaign->collected) {
+            $store = Withdraw::create($validatedData);
+            
+            if ($store == true) {
+                $getCampaign->update([
+                    'collected' => $getCampaign->collected - $validatedData['nominal']
+                ]);
+                return redirect('/admin/withdraw')->with('success','Add new withdraw request successful');
+            } 
+            else{
+                return redirect('/admin/withdraw')->with('error','Add new withdraw request failed');
+            }
         }
         else{
-            return redirect('/admin/withdraw')->with('error','Add new withdraw request failed');
+            return redirect('/admin/withdraw/create')->with('limit','Nominal yang diminta melebihi batas');
         }
     }
 
@@ -137,5 +147,10 @@ class WithdrawController extends Controller
         else{
             return redirect('/admin/withdraw')->with('error','Delete withdraw request failed');
         }
+    }
+    public function checkCampaign(Request $request){
+        $getData = Campaign::find($request->id);
+        $collected = $getData->collected;
+        return response()->json(['maxNominal' => $collected]);
     }
 }

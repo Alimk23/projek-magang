@@ -6,7 +6,9 @@ use App\Models\News;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Donation;
+use App\Models\Fundraising;
 use App\Models\CustomerService;
+use App\Models\CampaignByFundraiser;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,6 +51,10 @@ class Campaign extends Model
     }
     public function withdraw()
     {
-        return $this->hasMany(Withdraw::class, 'campaign_id');
+        return $this->hasOne(Withdraw::class, 'campaign_id');
+    }
+    public function fundraising()
+    {
+        return $this->hasMany(Fundraising::class,'campaign_id');
     }
 }

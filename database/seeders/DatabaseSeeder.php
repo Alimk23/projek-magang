@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('rahasia123'),
         ]);
         User::create([
-            'name' => 'BMI Jogja',
+            'name' => 'BMI',
             'email' => 'bmijogja@gmail.com',
             'phone' => '083852542002',
             'role' => '1',
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
 
         Company::create([
             'user_id' => 2,
-            'company_name' => 'BMI Jogja',
+            'company_name' => 'Baitulmaal Munzalan Indonesia',
             'job_title' => 'Customer Services',
         ]);
 
@@ -127,7 +127,6 @@ class DatabaseSeeder extends Seeder
         ]);
         Bank::create([
             'user_id' => 3,
-            'bank_logo' => 'bank-logo/p9VMWOWdLQhHgE0cYrIHnGiqjg4yNh1Su5gWBdV8.svg',
             'bank_code' => '014',
             'bank_name' => 'Bank BCA',
             'bank_account' => '8690658454',
@@ -136,12 +135,12 @@ class DatabaseSeeder extends Seeder
         CustomerService::create([
             'user_id' => 2,
             'name' => 'Sudirman',
-            'phone' => '089833695525',
+            'phone' => '08983936489',
         ]);
         CustomerService::create([
             'user_id' => 3,
             'name' => 'Putri',
-            'phone' => '089700582007',
+            'phone' => '083839362022',
         ]);
 
         Campaign::create([

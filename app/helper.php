@@ -8,6 +8,16 @@ if (!function_exists('currency_format')) {
         return number_format($number, 0, ',','.');
     }
 }
+if (!function_exists('whatsapp_format')) {
+    function whatsapp_format($phone) {
+        if (substr(trim($phone), 0, 1)=='0') {
+            return '62'.substr(trim($phone), 1);
+        }
+        else {
+            return $phone;
+        }
+    }
+}
 if (!function_exists('getProfilePicture')) {
     function getProfilePicture() {
         $profile = new Profile;

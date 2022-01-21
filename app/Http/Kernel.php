@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\isSuperAdmin;
 use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'SuperAdmin' => isSuperAdmin::class,
         'Admin' => isAdmin::class,
+        'User' => isUser::class,
     ];
 }

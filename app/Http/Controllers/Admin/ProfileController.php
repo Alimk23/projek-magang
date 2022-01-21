@@ -87,9 +87,15 @@ class ProfileController extends Controller
         $getProfileData = Profile::where('user_id', $id)->first();
         $getCampaign = Campaign::where('user_id', $id)->get();
         
+        $getContributor = 0;
+        $getDonation = Donation::where('status',1)->get();
         if ($getCampaign) {
             foreach ($getCampaign as $campaignData) {
-                $getDonation = Donation::where('campaign_id',$campaignData['id'])->get();
+                foreach ($campaignData->donation as $donation) {
+                    if ($donation['status']==1) {
+                        $getContributor++;
+                    }
+                }
             }
         }
 
@@ -103,7 +109,7 @@ class ProfileController extends Controller
         $data = [
             'title' => $getProfileData->company->company_name,
             'countCampaign' => $getCampaign->count(),
-            'countDonation' => $getDonation->count(),
+            'countContributor' => $getContributor,
             'amountDonation' => $amountDonation,
             'user_id' => $id,
         ];
@@ -145,7 +151,7 @@ class ProfileController extends Controller
             $save = Profile::create([
                 'user_id' => $id,
                 'address' => $validatedData['address'],
-                'photo' => $validatedData['photo'],
+                'photo' => $request->photo ? $validatedData['photo'] : null,
             ]);
         } else {
             if (empty($request->photo)) {

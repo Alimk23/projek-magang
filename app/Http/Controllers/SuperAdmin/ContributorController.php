@@ -69,7 +69,7 @@ class ContributorController extends Controller
             $amountDonation = 0;
         }
         $data = [
-            'title' => 'Profile of'. $user->name,
+            'title' => 'Profile of '. $user->name,
             'totalDonation' => $getDonation->count(),
             'successDonation' => $totalDonation->count(),
             'amountDonation' => $amountDonation,

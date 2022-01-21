@@ -79,12 +79,12 @@
       </div>
       <div class="card-footer bg-light p-2">
         @if ($countdown > -0.0)            
-        <form action="/donation/{{ $data['campaign']->id }}" method="get">        
+        <a href="{{ '/donation/'. $data['campaign']->id.'?ref='.$data['ref'] }}">
           <button type="submit" class="btn btn-primary btn-block rounded">
             <i class="fas fa-hand-point-right mr-2"></i>
             Donasi Sekarang
           </button>
-        </form>
+        </a>
         @else
         <button type="button" class="btn btn-secondary disabled text-white btn-block rounded">
           Program telah berakhir
@@ -141,7 +141,7 @@
         <div class="card">
           <div class="card-header">
             <a href="" data-card-widget="collapse">
-              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Info Terbaru</h3>
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Fundraiser</h3>
               <div class="card-tools text-right">
                 <button type="button" class="btn btn-tool" title="Collapse">
                   <i class="fas fa-minus"></i>
@@ -150,13 +150,84 @@
             </div>
             </a>
           <div class="card-body">
-            
+            <div class="row">
+              <div class="col-md-12">
+                @if ($fundraising->isEmpty())
+                  <div class="d-flex justify-content-center text-muted">
+                    Belum ada data yang dapat ditampilkan
+                  </div>
+                @else
+                  @foreach ($fundraising as $item)
+                    @if (!$item->DonationByFundraiser->isEmpty())                    
+                    <div class="d-flex">
+                      <div class="img rounded-circle">
+                        <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
+                      </div>
+                      <div>
+                        <div class="ml-3" style="margin-bottom: -1rem">
+                          <a href="#" class="text-decoration-none">
+                            <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
+                              <p class="text-">
+                                {{ $data['user']->where('id',$item->user_id)->first()->name }}
+                              </p>  
+                            </div>
+                          </a>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-md mb-0">
+                            Telah berhasil mengajak <b>{{ $item->DonationByFundraiser->count() }}</b> orang untuk berinfak: <b>Rp {{ currency_format($item->total) }}</b> 
+                          </p>  
+                        </div>
+                      </div>
+                    </div>
+                        
+                    @else
+                    <div class="d-flex justify-content-center text-muted">
+                      Belum ada data yang dapat ditampilkan
+                    </div>
+                    @endif
+                  @endforeach
+                @endif
+              </div>
+              <!-- /.col -->
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <div class="card">
+          <div class="card-header bg-info d-flex align-items-center justify-content-around">
+            <h3 class="card-title text-white" style="font-size: 20px !important;color:black;">
+            Ingin ikutan share program kebaikan ini? yuk jadi fundraiser sekarang...
+            </h3>
+            <div class="card-tools text-right">
+              <form action="/user/fundraising" method="post">
+                @csrf
+                <input type="text" class="d-none" name="campaign_id" id="campaignId" value="{{ $data['campaign']->id }}">
+                <button type="submit" class="btn btn-outline-light">
+                  Jadi Fundraiser
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <a href="" data-card-widget="collapse">
+              <h3 class="card-title" style="font-size: 20px !important; font-weight:600;color:black;">Info Terbaru</h3>
+              <div class="card-tools text-right">
+                <button type="button" class="btn btn-tool" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
             <div class="row">
               <div class="col-md-12">
                 <!-- The time line -->
                 <div class="timeline">
                   <!-- timeline time label -->
-                  @if ($data['getNews'])                        
+                  @if (!$data['getNews']->isEmpty())
                   @foreach ($data['getNews'] as $newsReport) 
                   <div class="time-label">
                     <span class="bg-red">{{ date_format($newsReport['created_at'],"d M Y") }}</span>
@@ -167,8 +238,7 @@
                     <i class="fas fa-envelope bg-blue"></i>
                     <div class="timeline-item">
                       <span class="time"><i class="fas fa-clock"></i> {{ date_format($newsReport['created_at'],"H:i") }}</span>
-                      <h3 class="timeline-header">{{ $newsReport['title'] }}</h3>
-    
+                      <h3 class="timeline-header font-weight-bold">{{ $newsReport['title'] }}</h3>
                       <div class="timeline-body">
                         {!! $newsReport['description'] !!}
                       </div>
@@ -177,6 +247,12 @@
                   <!-- END timeline item -->
                   <!-- timeline item -->
                   @endforeach
+                  @else
+                  <div class="bg-white">
+                    <div class="d-flex justify-content-center text-muted">
+                      Belum ada data yang dapat ditampilkan
+                    </div>
+                  </div>
                   @endif
                 </div>
               </div>

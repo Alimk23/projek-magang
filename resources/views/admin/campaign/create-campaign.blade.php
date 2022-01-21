@@ -53,7 +53,7 @@
                           <label for="cs">Customer Service</label>
                           <select class="form-control select2-allow-clear select2Minimal @error('cs') is-invalid @enderror" name="cs_id" data-placeholder="Choose the customer service" data-dropdown-css-class="select2-primary" style="width: 100%;">
                             @foreach ($data['cs'] as $cs)
-                            <option value="{{ $cs['id'] }}">{{ $cs['name'] }}</option>
+                            <option value="{{ $cs['id'] }}" {{ (old('cs_id') == $cs['id']) ? 'selected' : '' }}>{{ $cs['name'] }}</option>
                             @endforeach
                           </select>                                  
                             @error('cs_id')
@@ -100,7 +100,7 @@
                           <label for="category">Category</label>
                           <select class="form-control select2-allow-clear select2Minimal @error('category') is-invalid @enderror" name="category_id" data-placeholder="Choose the category" data-dropdown-css-class="select2-primary" style="width: 100%;">
                             @foreach ($data['category'] as $category)
-                            <option value="{{ $category['id'] }}">{{ $category['title'] }}</option>
+                            <option value="{{ $category['id'] }}" {{ (old('category_id') == $category['id']) ? 'selected' : '' }}>{{ $category['title'] }}</option>
                             @endforeach
                           </select>                                  
                             @error('category_id')
