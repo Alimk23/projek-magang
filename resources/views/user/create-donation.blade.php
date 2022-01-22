@@ -133,7 +133,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nama Lengkap" value="{{ $auth ? $auth->name : old('name') }}">
             @error('name')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>
@@ -158,7 +158,7 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Whatsapp (ex. 0821{{  date("d") }}{{  date("m") }}{{  date("Y") }})" value="{{ old('phone') }}">
+            <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Nomor Whatsapp (ex. 0821{{  date("d") }}{{  date("m") }}{{  date("Y") }})" value="{{ $auth ? $auth->phone : old('phone') }}">
             @error('phone')
             <div class="text-small text-danger" role="alert">
               <small>{{ $message }}</small>

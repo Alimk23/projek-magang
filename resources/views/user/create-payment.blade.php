@@ -90,7 +90,7 @@
         <div class="formConfirm d-none">
           <div class="row">
             <div class="col">
-              <p class="text-small align-text-bottom">Isi formulir konfirmasi pembayaran berikut ini:</p>
+              <p class="text-small align-text-bottom">Upload Bukti Pembayaran</p>
             </div>
           </div>    
           <form action="/payment/{{ $getPayment->id }}" method="post" enctype="multipart/form-data">
@@ -98,53 +98,13 @@
             @method('PATCH')
             <div class="row mb-3">
               <div class="col">
-                <input type="text" class="form-control @error('bank_alias') is-invalid @enderror" id="bank_alias" name="bank_alias" placeholder="Atas Nama Rekening Pengirim" value="{{ old('bank_alias') }}">
-                @error('bank_alias')
-                <div class="text-small text-danger" role="alert">
-                  <small>{{ $message }}</small>
-                </div>
-                @enderror
-              </div>   
-            </div> 
-            <div class="row mb-3">
-              <div class="col">
-                <input type="text" class="form-control @error('bank_account') is-invalid @enderror" id="bank_account" name="bank_account" placeholder="Nomor Rekening Pengirim" value="{{ old('bank_account') }}">
-                @error('bank_account')
-                <div class="text-small text-danger" role="alert">
-                  <small>{{ $message }}</small>
-                </div>
-                @enderror
-              </div>   
-            </div> 
-            <div class="row mb-3">
-              <div class="col">
-                <input type="text" class="form-control @error('bank_name') is-invalid @enderror" id="bank_name" name="bank_name" placeholder="Nama Bank Pengirim" value="{{ old('bank_name') }}">
-                @error('bank_name')
-                <div class="text-small text-danger" role="alert">
-                  <small>{{ $message }}</small>
-                </div>
-                @enderror
-              </div>   
-            </div> 
-            <div class="row mb-3">
-              <div class="col">
                 <div class="input-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input @error('receipt') is-invalid @enderror" name="receipt" id="receipt">
-                      <label class="custom-file-label text-muted" for="receipt">Upload Bukti Pembayaran</label>
+                      <label class="custom-file-label text-muted" for="receipt">Pilih file</label>
                     </div>
                 </div>
                 @error('receipt')
-                <div class="text-small text-danger" role="alert">
-                  <small>{{ $message }}</small>
-                </div>
-                @enderror
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col">
-                <input type="text" class="form-control @error('note') is-invalid @enderror" id="note" name="note" placeholder="Keterangan (Optional)" value="{{ old('note') }}">
-                @error('note')
                 <div class="text-small text-danger" role="alert">
                   <small>{{ $message }}</small>
                 </div>

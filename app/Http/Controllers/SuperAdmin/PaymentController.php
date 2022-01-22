@@ -48,10 +48,13 @@ class PaymentController extends Controller
     public function update($id)
     {
         $payment = new payment;
+        $getFundraising = null;
         $getPayment = $payment->firstwhere('id', $id);
         $getDonation = $getPayment->donation;
-        $fundraising_id = DonationByFundraiser::where('donation_id', $getDonation->id)->first()->fundraising_id;
-        $getFundraising = Fundraising::where('id', $fundraising_id)->first();
+        $fundraising = DonationByFundraiser::where('donation_id', $getDonation->id)->first();
+        if ($fundraising) {
+            $getFundraising = Fundraising::where('id', $fundraising->fundraising_id)->first();
+        }
         $getCampaign = $getPayment->donation->campaign;
         $getUserGrade = UserGrade::firstwhere('user_id', $getDonation->user_id);
         $donationGradeUpdate = 1;
@@ -94,9 +97,11 @@ class PaymentController extends Controller
         $updateDonation = $getDonation->update([
             'status' => 1
         ]);
-        $updateFundraising = $getFundraising->update([
-            'total' => $getFundraising->total + $getDonation->nominal
-        ]);
+        if ($getFundraising) {            
+            $updateFundraising = $getFundraising->update([
+                'total' => $getFundraising->total + $getDonation->nominal
+            ]);
+        }
 
         if ($getPayment->receipt) {
             Storage::delete($getPayment->receipt);

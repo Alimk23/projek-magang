@@ -7,7 +7,6 @@ use App\Models\Profile;
 use App\Models\Donation;
 use App\Models\Withdraw;
 use App\Models\UserGrade;
-use App\Models\Fundraising;
 use App\Models\UserProfile;
 use App\Models\CategoryByUser;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Fundraising;
 
 class User extends Authenticatable
 {
@@ -76,6 +76,6 @@ class User extends Authenticatable
     }
     public function fundraising()
     {
-        return $this->hasMany(Fundraising::class, 'user_id');
+        return $this->belongsTo(Fundraising::class,'user_id');
     }
 }

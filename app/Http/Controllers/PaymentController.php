@@ -128,9 +128,6 @@ class PaymentController extends Controller
         $donation = new Donation;
 
         $validatedData = $request->validate([
-            'bank_alias' => 'required',
-            'bank_account' => 'required',
-            'bank_name' => 'required',
             'receipt' => 'required|image|file|max:1024',
         ]);
         if ($request->file('receipt')) {
@@ -139,11 +136,7 @@ class PaymentController extends Controller
 
         $getPayment = $payment->firstwhere('id', $payment_id);
         $getPayment->update([
-            'bank_alias' => $validatedData['bank_alias'],
-            'bank_account' => $validatedData['bank_account'],
-            'bank_name' => $validatedData['bank_name'],
             'receipt' => $validatedData['receipt'],
-            'note' => $request->note,
             'status' => 1,
         ]);        
         return redirect('/status/'. $getPayment->order_id);

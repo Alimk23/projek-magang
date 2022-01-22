@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\CustomerService;
 use App\Models\Donation;
 use App\Models\Fundraising;
+use App\Models\UserProfile;
 use Closure;
 use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
@@ -50,7 +51,7 @@ class HomeController extends Controller
     }
     
 
-    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news, CustomerService $customerService){
+    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news, CustomerService $customerService, UserProfile $userProfile){
         $user = new User();
         $ref = !empty($_GET['ref']) ? $_GET['ref'] : '';
         $getCampaign = $campaign->where('slug', $slug)->first();
@@ -72,6 +73,7 @@ class HomeController extends Controller
             'getNews' => $getNews,
             'user'=>$user,
             'photo'=>$photo,
+            'userProfile'=>$userProfile,
             'cs'=>$getCS,
             'ref'=> $ref,
         ];

@@ -179,25 +179,12 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="showBankNamePayment">Bank Name</label>
-          <input class="form-control" readonly type="text" name="showBankNamePayment" id="showBankNamePayment">
-        </div>
-        <div class="form-group">
-          <label for="showBankAccountPayment">Bank Account</label>
-          <input class="form-control" readonly type="text" name="showBankAccountPayment" id="showBankAccountPayment">
-        </div>
-        <div class="form-group">
-          <label for="showAliasPayment">Alias</label>
-          <input class="form-control" readonly type="text" name="showAliasPayment" id="showAliasPayment">
-        </div>
-        <div class="form-group">
-          <label for="showNotePayment">Note</label>
-          <textarea class="form-control" readonly name="showNotePayment" id="showNotePayment" cols="30" rows="2"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="showReceiptPayment">Receipt</label>
-          <img id="receiptPreview" class="img-fluid mb-3 col-sm-5">
-          <input class="form-control" readonly type="text" name="showReceiptPayment" id="showReceiptPayment">
+          <div class="d-flex flex-column">
+            <label for="showReceiptPayment">Receipt</label>
+            <a href="" id="receiptShow" target="_blank">
+              <img src="" id="receiptPreview" class="img-fluid">
+            </a>
+          </div>
         </div>
       </div>
       <div class="card-footer">        

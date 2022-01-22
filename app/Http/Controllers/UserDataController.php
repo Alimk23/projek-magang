@@ -82,10 +82,15 @@ class UserDataController extends Controller
         $update = $user->update($validatedData);
 
         if ($update == true) {
-            return redirect('/superadmin/settings')->with('success','Edit login info is successful');
+            if ($user->role == 0) {
+                return redirect('/superadmin/settings')->with('success','Edit login info is successful');
+            }
+            if ($user->role == 2) {
+                return redirect('/user/profile')->with('success','Edit profil berhasil');
+            }
         }
         else{
-            return redirect('/superadmin/settings')->with('error','Edit slogin info is failed');
+            return redirect()->back()->with('error','Edit login info is failed');
         }
     }
 

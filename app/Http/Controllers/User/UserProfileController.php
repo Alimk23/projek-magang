@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfileController extends Controller
 {
@@ -15,7 +17,12 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        //
+        $auth = Auth::user();
+        $profile = UserProfile::where('user_id',$auth->id)->first();
+        $data = [
+            'title' => 'Profil Saya'
+        ];
+        return view('user.profile.profile', compact('data','auth','profile'));
     }
 
     /**
@@ -68,9 +75,34 @@ class UserProfileController extends Controller
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserProfile $userProfile)
+    public function update($id, Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'photo' => 'image|file|max:1024',
+        ]);
+        $validatedData['user_id'] = $id;
+        $userProfile = UserProfile::where('user_id',$id)->first();
+        if ($userProfile) {
+            if ($userProfile->photo) {
+                Storage::delete($userProfile->photo);
+            }
+            $validatedData['photo'] = $request->file('photo')->store('profile-image');
+            
+            $update = $userProfile->update($validatedData);
+        }
+        else {
+            if ($request->file('photo')) {
+                $validatedData['photo'] = $request->file('photo')->store('profile-image');
+            }
+            $update = UserProfile::create($validatedData);
+        }
+        
+        if ($update == true) {
+            return redirect('/user/profile')->with('success','Update foto profil berhasil');
+        }
+        else{
+            return redirect('/user/profile')->with('error','Update foto profil gagal');
+        }
     }
 
     /**

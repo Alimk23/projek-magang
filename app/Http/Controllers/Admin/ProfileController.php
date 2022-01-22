@@ -10,6 +10,7 @@ use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -159,6 +160,11 @@ class ProfileController extends Controller
                     'address' => $validatedData['address'],
                 ]);
             } else {
+                if ($getProfileData->photo) {
+                    Storage::delete($getProfileData->photo);
+                }
+                $validatedData['photo'] = $request->file('photo')->store('profile-image');
+
                 $save = $getProfileData->update([
                     'address' => $validatedData['address'],
                     'photo' => $validatedData['photo'],

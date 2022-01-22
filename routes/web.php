@@ -75,6 +75,8 @@ Route::get('/user-data/withdraw/getWithdrawInfo', [UserDataController::class, 'g
 Route::get('/payment/getReceiverInfo', [superAdminPayment::class, 'getReceiverInfo']);
 Route::get('/payment/getPaymentInfo', [superAdminPayment::class, 'getPaymentInfo']);
 Route::get('/campaign/getCampaignInfo', [superAdminCampaign::class, 'getCampaignInfo']);
+Route::get('/customer-service/getCSInfo', [adminCustomerService::class, 'getCSInfo']);
+
 
 Route::resource('userdata', UserDataController::class);
 Route::resource('donation', DonationController::class)->except('index','destroy','update');

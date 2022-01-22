@@ -25,11 +25,12 @@ $(function () {
             method: "get",
             dataType: "json",
             success: function (data) {
-                $("#showBankNamePayment").val(data.bank_name);
-                $("#showBankAccountPayment").val(data.bank_account);
-                $("#showAliasPayment").val(data.bank_alias);
-                $("#showNotePayment").val(data.note);
-                $("#showReceiptPayment").val(
+                $("#receiptPreview").attr(
+                    "src",
+                    "http://localhost:8000/storage/" + data.receipt
+                );
+                $("#receiptShow").attr(
+                    "href",
                     "http://localhost:8000/storage/" + data.receipt
                 );
             },
@@ -114,6 +115,26 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 $("#showDescriptionWd").val(data.description);
+            },
+        });
+    });
+});
+
+//show payment bank info
+$(function () {
+    $(".btnDelCS").on("click", function () {
+        const id = $(this).data("id");
+        $.ajax({
+            url: "http://localhost:8000/customer-service/getCSInfo",
+            data: { id: id },
+            method: "get",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#formDelCS").attr(
+                    "action",
+                    "/admin/customer-service/" + data.id
+                );
             },
         });
     });

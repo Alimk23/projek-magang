@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
-use App\Models\DonationByFundraiser;
 use App\Models\Fundraising;
 use Illuminate\Http\Request;
+use App\Models\DonationByFundraiser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DonationController extends Controller
@@ -112,7 +113,7 @@ class DonationController extends Controller
     Ke nomor rekening sebagai berikut:
     ⬇⬇⬇⬇⬇⬇⬇
     
-    " .$getPaymentData->bank->bank_account ."\nan. ". $getPaymentData->bank->alias."
+    " .$getPaymentData->bank->bank_account ."\nan.  ". $getPaymentData->bank->alias."
     
     ". $getPaymentData->bank->bank_name ."
     
@@ -145,14 +146,16 @@ class DonationController extends Controller
         $detail = $campaign->firstwhere('id', $id);
         // get data bank dari Super Admin id 1
         $getBank = $bank->where('user_id', 1)->get();
-        
+        if (Auth::check() && Auth::user()->role == 2) {
+            $auth = Auth::user();
+        }
         $data = [
             'title' => 'Create Payment',
             'details' => $detail,
             'banks' => $getBank,
             'ref' => $ref,
         ];
-        return view('user.create-donation', compact('data'));
+        return view('user.create-donation', compact('data','auth'));
     }
 
     /**

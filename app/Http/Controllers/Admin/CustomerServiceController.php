@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\CustomerService;
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerServiceController extends Controller
@@ -123,6 +124,13 @@ class CustomerServiceController extends Controller
      */
     public function destroy($id)
     {
+        $campaign = new Campaign;
+        $getCampaign = $campaign->where('cs_id',$id)->first();
+        $data = [
+            'cs_id' => null,
+            'status' => 4,
+        ];
+        $getCampaign->update($data);
         $delete = CustomerService::destroy($id);
         if ($delete) {
             return redirect('/admin/customer-service')->with('success','Delete customer service is successful');
@@ -130,5 +138,10 @@ class CustomerServiceController extends Controller
         else{
             return redirect('/admin/customer-service')->with('error','Delete customer service is failed');
         }
+    }
+    public function getCSInfo(CustomerService $customerService){
+        $id =  $_GET['id'];
+        $getData = $customerService->firstWhere('id', $id) ;
+        echo json_encode($getData);
     }
 }

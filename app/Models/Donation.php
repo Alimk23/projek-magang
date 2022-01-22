@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -29,5 +30,10 @@ class Donation extends Model
     public function DonationByFundraiser()
     {
         return $this->hasMany(DonationByFundraiser::class,'donation_id');
+    }
+    public function getPayment($donation_id){
+        return DB::table('payments')
+        ->where('donation_id', '=',$donation_id )
+        ->get();
     }
 }

@@ -102,9 +102,15 @@
                           @php
                               $getCS = $cs->where('id',$campaign['cs_id'])->first();
                           @endphp
+                          @if ($getCS)                              
                           {{ $getCS->name }}
                           <br>
                           ({{ $getCS->phone }})
+                          @else
+                          <div class="text-danger">
+                            Not Complete
+                          </div>
+                          @endif
                         </td>
                         <td>
                             @if (Storage::disk('public')->exists($campaign['cover']))
@@ -135,6 +141,9 @@
                           @endif
                           @if ($campaign['status'] == 3)
                               <div class="text-warning">Update Review</div>
+                          @endif
+                          @if ($campaign['status'] == 4)
+                              <div class="text-danger">Not Publish</div>
                           @endif
                         </td>
                         <td>

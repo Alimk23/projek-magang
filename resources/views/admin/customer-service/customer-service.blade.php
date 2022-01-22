@@ -79,17 +79,13 @@
                         <td class="align-middle">{{ $cs['phone'] }}</td>
                         <td class="align-middle d-inline-flex">
                           <form action="/admin/customer-service/{{ $cs['id'] }}/edit" method="GET">
-                            <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-0 px-1 mx-1">
+                            <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-1 px-1 mx-1">
                               <i class="fas fa-edit"></i>
                             </button>
                           </form>
-                          <form action="/admin/customer-service/{{ $cs['id'] }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                          </form>
+                          <button type="button" class="btnDelCS btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1"  data-toggle="modal" data-target="#delCS" data-id="{{ $cs['id'] }}">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
                         </td>
                       </tr>
                       @endforeach
@@ -107,6 +103,36 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+@endsection
+
+@section('modal')
+<div class="modal fade" id="delCS">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h4 class="modal-title">Peringatan <span class="text-danger">!!!</span></h4>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mb-5 mt-1">
+        <p>Campaign yang terafiliasi dengan customer service ini akan dinonaktifkan untuk sementara hingga Anda memilih Customer Service yang diinginkan.</p>
+        <p>Apakah Anda yakin?</p>
+      </div>
+      <div class="modal-footer">
+        <form action="" id="formDelCS" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="button" class="btn btn-secondary text-right" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary text-right">Yakin</button>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
 @endsection
 
 @section('footer')
@@ -127,7 +153,7 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+        <script src="/js/script.js"></script>
         <!-- Page specific script -->
         <script>
             $(function () {

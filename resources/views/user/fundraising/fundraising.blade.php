@@ -98,7 +98,7 @@
                                 $slug = $campaign->where('id',$fundraising['campaign_id'])->first()->slug;
                                 $link = env('APP_URL').'/campaigns/'.$slug .'?ref='. $fundraising['referral_code'];
                             @endphp
-                            <a href="{{ $link }}" >
+                            <a href="{{ $link }}" target="_blank">
                             Link
                             </a>
                           </td>

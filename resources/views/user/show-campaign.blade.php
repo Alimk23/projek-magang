@@ -158,17 +158,28 @@
                   </div>
                 @else
                   @foreach ($fundraising as $item)
-                    @if (!$item->DonationByFundraiser->isEmpty())                    
+                    @if (!$item->DonationByFundraiser->isEmpty())
+                    @php
+                        $getUserProfile = $data['userProfile']->where('user_id',$item->user_id)->get();
+                        $getUser = $data['user']->where('id',$item->user_id)->first();
+                    @endphp
+                    @foreach ($getUserProfile as $userProfile)
                     <div class="d-flex">
-                      <div class="img rounded-circle">
-                        <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
-                      </div>
+                      @if (!empty($getUserProfile)) 
+                        @if (Storage::disk('public')->exists($userProfile['photo']))
+                          <img src="{{ Storage::disk('public')->url($userProfile['photo']) }}" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
+                        @else
+                          <img src="/img/default.png" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
+                        @endif
+                      @else
+                        <img src="/img/default.png" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
+                      @endif
                       <div>
                         <div class="ml-3" style="margin-bottom: -1rem">
                           <a href="#" class="text-decoration-none">
                             <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
                               <p class="text-">
-                                {{ $data['user']->where('id',$item->user_id)->first()->name }}
+                                {{ $getUser->name }}
                               </p>  
                             </div>
                           </a>
@@ -180,6 +191,7 @@
                         </div>
                       </div>
                     </div>
+                    @endforeach
                         
                     @else
                     <div class="d-flex justify-content-center text-muted">

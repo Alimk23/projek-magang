@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DonationController extends Controller
@@ -18,16 +19,13 @@ class DonationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Donation $donation,Campaign $campaign,Payment $payment,User $user)
+    public function index()
     {
+        $getDonation = Donation::where('user_id', Auth::user()->id)->get();
         $data = [
-            'title' => 'Donation',
-            'donation'=> $donation->all(),
-            'getCampaign' => $campaign,
-            'getUser' => $user,
-            'getPayment' => $payment,
+            'title' => 'Donasi Saya',
         ];
-        return view('user.donation.donation',compact('data'));
+        return view('user.donation.donation',compact('data','getDonation'));
     }
 
     /**

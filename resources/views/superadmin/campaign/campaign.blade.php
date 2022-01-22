@@ -81,6 +81,9 @@
                           @if ($campaign['status'] == 2)
                               <div class="text-danger">Rejected</div>
                           @endif
+                          @if ($campaign['status'] == 4)
+                              <div class="text-danger">Not Publish</div>
+                          @endif
                         </td>
                         <td>
                             {{ $campaign['title'] }}

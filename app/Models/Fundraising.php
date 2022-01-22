@@ -16,9 +16,10 @@ class Fundraising extends Model
     protected $guarded = [];
     protected $table= 'fundraisings';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class,'id');
+    public function getUser($user_id){
+        return DB::table('users')
+        ->where('id', '=', $user_id)
+        ->first();
     }
     public function campaign()
     {
