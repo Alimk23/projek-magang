@@ -135,11 +135,11 @@ class DatabaseSeeder extends Seeder
         CustomerService::create([
             'user_id' => 2,
             'name' => 'Sudirman',
-            'phone' => '08983936489',
+            'phone' => '089822563485',
         ]);
         CustomerService::create([
             'user_id' => 3,
-            'name' => 'Putri',
+            'name' => 'Jaki Umam',
             'phone' => '083839362022',
         ]);
 
