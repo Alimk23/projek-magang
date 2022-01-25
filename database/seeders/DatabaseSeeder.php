@@ -9,6 +9,7 @@ use App\Models\Profile;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\CustomerService;
+use App\Models\RegistrationStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -87,6 +88,22 @@ class DatabaseSeeder extends Seeder
             'company_id' => 3,
             'photo' => 'profile-image/xWfk44HISzHKOE2lpgJwPoKw3Ay8dufhOLDU2lto.jpg',
             'address' => 'Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal',
+        ]);
+        RegistrationStatus::create([
+            'user_id' => 1,
+            'status' => 1,
+        ]);
+        RegistrationStatus::create([
+            'user_id' => 2,
+            'status' => 1,
+        ]);
+        RegistrationStatus::create([
+            'user_id' => 3,
+            'status' => 1,
+        ]);
+        RegistrationStatus::create([
+            'user_id' => 4,
+            'status' => 0,
         ]);
         
         Category::create([

@@ -16,9 +16,9 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     @if (Storage::disk('public')->exists($getProfile->photo))
-                        <img src="{{ Storage::disk('public')->url($getProfile->photo) }}" class="profile-user-img img-fluid img-circle" alt="Profile Picture">
+                    <img src="{{ Storage::disk('public')->url($getProfile->photo) }}" width="100px" height="100px" class="rounded-circle profile-user-img" alt="Profile Picture">
                     @else
-                        <img src="/img/default.png" class="profile-user-img img-fluid img-circle" alt="Profile Picture">
+                    <img src="/img/default.png" width="100px" height="100px" class="rounded-circle profile-user-img" alt="Profile Picture">
                     @endif
                 </div>
 

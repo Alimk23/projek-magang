@@ -180,7 +180,7 @@
         <h3 class="mb-4 text-capitalize">
           ayo gabung bersama kami, agar orang lain dapat berkontribusi dalam kebaikan
         </h3>
-        <a href="#" class="btn btn-primary rounded m-0">Gabung Sekarang</a>
+        <a href="/organization/create" class="btn btn-primary rounded m-0">Gabung Sekarang</a>
       </div>
     </div>
   </div>

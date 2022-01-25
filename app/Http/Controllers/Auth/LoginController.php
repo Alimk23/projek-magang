@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Models\RegistrationStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -42,14 +44,28 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role == 0) {
-            return redirect('/superadmin');
+        if (Auth::check()) {
+            $user = Auth::user();
+            $RegistrationStatus = RegistrationStatus::where('user_id',$user->id)->with('user')->firstOrFail();
+            if ($RegistrationStatus) {                
+                if ($RegistrationStatus->status == 0) {
+                    return redirect('/organization/status');
+                }
+            }
+            else {                
+                if ($user->role == 0) {
+                    return redirect('/superadmin');
+                }
+                if ($user->role == 1) {
+                    return redirect('/admin');
+                }
+                if ($user->role == 2) {
+                    return redirect('/user');
+                }
+            }
         }
-        if ($user->role == 1) {
-            return redirect('/admin');
-        }
-        if ($user->role == 2) {
-            return redirect('/user');
+        else {
+            return redirect('/login')->with('error','Silahkan masuk kembali');
         }
     }
 

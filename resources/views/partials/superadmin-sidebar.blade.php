@@ -47,7 +47,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
           <!-- Sidebar user (optional) -->
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
             <div class="image">
             @if (Storage::disk('public')->exists(getProfilePicture()))
                 <img src="{{ Storage::disk('public')->url(getProfilePicture()) }}" class="img-circle elevation-2" alt="Profile Picture">
@@ -99,10 +99,10 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/superadmin/fundraiser') }}" class="nav-link {{ Request::is('superadmin/fundraiser*') ? 'active' : ''}}">
+                            <a href="{{ url('/superadmin/organization') }}" class="nav-link {{ Request::is('superadmin/organization*') ? 'active' : ''}}">
                             <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Fundraiser
+                                    Organization
                                 </p>
                             </a>
                         </li>

@@ -66,7 +66,7 @@
                                 </div>
                                 @enderror
                               </div>
-                              <i id="iconShow"></i>
+                              <i id="iconShow" class="{{ $category->icon }}"></i>
                             </div>
                           </div>
                         </div>

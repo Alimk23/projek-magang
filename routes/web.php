@@ -34,7 +34,7 @@ use App\Http\Controllers\SuperAdmin\SettingsController as superAdminSettings;
 use App\Http\Controllers\SuperAdmin\WithdrawController as superAdminWithdraw;
 use App\Http\Controllers\SuperAdmin\AnalyticsController as superAdminAnalytics;
 use App\Http\Controllers\SuperAdmin\DashboardController as superadminDashboard;
-use App\Http\Controllers\SuperAdmin\FundraiserController as superAdminFundraiser;
+use App\Http\Controllers\SuperAdmin\OrganizationController as superAdminOrganization;
 use App\Http\Controllers\SuperAdmin\ContributorController as superAdminContributor;
 
 /*
@@ -67,6 +67,11 @@ Route::get('/admin/campaign/create/checkSlug', [adminCampaign::class, 'checkSlug
 Route::get('/admin/withdraw/create/checkCampaign', [adminWithdraw::class, 'checkCampaign']);
 Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
 Route::get('/status/{id}', [PaymentController::class, 'status']);
+
+Route::get('/organization/create', [HomeController::class, 'createOrganization']);
+Route::post('/organization', [HomeController::class, 'storeOrganization']);
+Route::get('/organization/status', [HomeController::class, 'statusOrganization'])->middleware('auth','Admin');
+
 
 Route::get('/user-data/getLoginInfo', [UserDataController::class, 'getLoginInfo']);
 Route::get('/user-data/getProfileInfo', [UserDataController::class, 'getProfileInfo']);
@@ -111,7 +116,7 @@ Route::middleware(['auth','SuperAdmin'])->group(function () {
     Route::resource('superadmin/bank', superAdminBank::class)->except('show');
     Route::resource('superadmin/contributor', superAdminContributor::class);
     Route::resource('superadmin/company', superAdminCompany::class)->only('update');
-    Route::resource('superadmin/fundraiser', superAdminFundraiser::class)->except('update','edit');
+    Route::resource('superadmin/organization', superAdminOrganization::class)->except('edit');
     Route::resource('superadmin/payment', superAdminPayment::class)->only('index','update','destroy');
     Route::resource('superadmin/campaign', superAdminCampaign::class)->only('index','update','destroy','show');
     Route::resource('superadmin/withdraw', superAdminWithdraw::class)->only('index','update','destroy');

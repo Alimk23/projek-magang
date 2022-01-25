@@ -120,7 +120,7 @@ $(function () {
     });
 });
 
-//show payment bank info
+//show customer service info
 $(function () {
     $(".btnDelCS").on("click", function () {
         const id = $(this).data("id");
@@ -130,7 +130,6 @@ $(function () {
             method: "get",
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 $("#formDelCS").attr(
                     "action",
                     "/admin/customer-service/" + data.id

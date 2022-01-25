@@ -143,6 +143,7 @@ class DonationController extends Controller
     public function show($id, Campaign $campaign,Bank $bank)
     {
         $ref =  !empty($_GET['ref']) ? $_GET['ref'] : '';
+        $auth = null;
         $detail = $campaign->firstwhere('id', $id);
         // get data bank dari Super Admin id 1
         $getBank = $bank->where('user_id', 1)->get();

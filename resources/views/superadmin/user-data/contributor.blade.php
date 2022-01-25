@@ -67,21 +67,33 @@
                     @foreach ($users as $user)                  
                       <tr>
                         <td>
-                          {{ $i }}
+                          {{ $i++ }}
                         </td>
                         <td>
                           {{ $user['name'] }}
                         </td>
                         <td>
-                          {{ $user['email'] }}
+                          @if ($user['email'])
+                            {{ $user['email'] }}                        
+                          @else
+                              <div class="text-danger">
+                                Not Complete
+                              </div>
+                          @endif
                         </td>
                         <td>
                           {{ $user['phone'] }}
                         </td>
                         <td>
+                        @if (!$user->UserGrade->isEmpty())
                           @foreach ($user->UserGrade as $usergrade)
-                              {{ $usergrade->donation_grade }}{{ $usergrade->amount_grade }}
+                            {{ $usergrade->donation_grade }}{{ $usergrade->amount_grade }}
                           @endforeach
+                        @else
+                            <div class="text-danger">
+                              Not Complete
+                            </div>
+                        @endif
                         </td>
                         <td>
                             <form action="/superadmin/contributor/{{ $user['id'] }}" method="get">

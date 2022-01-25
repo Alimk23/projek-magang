@@ -9,11 +9,11 @@ use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PaymentController;
 use App\Models\Company;
+use App\Models\RegistrationStatus;
 
-class FundraiserController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,11 +22,11 @@ class FundraiserController extends Controller
      */
     public function index(Company $company)
     {
-        $users = User::where('role',1)->get();
+        $users = User::where('role',1)->with('RegistrationStatus')->get();
         $data = [
-            'title' => 'Fundraiser',
+            'title' => 'Organization',
         ];
-        return view('superadmin.user-data.fundraiser',compact('data','users','company')); 
+        return view('superadmin.user-data.organization',compact('data','users','company')); 
     }
 
     /**
@@ -87,7 +87,7 @@ class FundraiserController extends Controller
             'amountDonation' => $amountDonation,
             'user_id' => $id,
         ];
-        return view('superadmin.user-data.show-fundraiser',compact('data','getProfile','getCampaign')); 
+        return view('superadmin.user-data.show-organization',compact('data','getProfile','getCampaign')); 
     }
 
     /**
@@ -110,7 +110,28 @@ class FundraiserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'status' => 'required|max:255',
+        ]);
+        $registrationStatus = RegistrationStatus::where('user_id',$id)->first();
+        
+        $update = $registrationStatus->update($validatedData);
+        if ($request->status==1) {            
+            if ($update == true) {
+                return redirect('/superadmin/organization')->with('success','Confirm organization request is successful');
+            }
+            else{
+                return redirect('/superadmin/organization')->with('error','Confirm organization request is failed');
+            }
+        }
+        elseif ($request->status==2) {            
+            if ($update == true) {
+                return redirect('/superadmin/organization')->with('success','Reject organization request is successful');
+            }
+            else{
+                return redirect('/superadmin/organization')->with('error','Reject organization request is failed');
+            }
+        }
     }
 
     /**
@@ -121,22 +142,6 @@ class FundraiserController extends Controller
      */
     public function destroy($id)
     {
-        $paymentController = new PaymentController;
-        $donation = Donation::firstWhere('user_id',$id);
-        $payment = Payment::firstWhere('donation_id',$donation->id);
-        $user = User::firstWhere('id',$id);
-        if ($payment) {
-            $delPayment = $paymentController->destroy($payment->id);
-        }
-        if ($donation) {
-            $delDonation = $donation->delete(); 
-        }
-        $delete = User::destroy($id);
-        if ($delete) {
-            return redirect('/superadmin/contributor')->with('success','Delete contributor is successful');
-        }
-        else{
-            return redirect('/superadmin/contributor')->with('error','Delete contributor is failed');
-        }
+        // 
     }
 }

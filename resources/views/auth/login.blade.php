@@ -39,12 +39,12 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="input-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
                     @error('email')
                     <div class="text-small text-danger" role="alert">
@@ -52,10 +52,17 @@
                     </div>
                     @enderror
                     <div class="input-group mt-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span onclick="showPass()">
+                                    <i id="eye" class="fas fa-eye-slash"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -80,4 +87,22 @@
         <!-- /.card -->
     </div>
 </div>
+@endsection
+@section('js-custom')
+<script>
+    var state = false;
+    function showPass() {
+        if (state) {
+            document.getElementById("password").setAttribute("type","password");
+            $('#eye').removeClass();
+            $('#eye').addClass("fas fa-eye-slash");
+            state = false;
+        } else {
+            document.getElementById("password").setAttribute("type","text");
+            $('#eye').removeClass();
+            $('#eye').addClass("fas fa-eye");
+            state = true;
+        }
+    }
+</script>
 @endsection

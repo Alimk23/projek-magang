@@ -160,14 +160,13 @@
                   @foreach ($fundraising as $item)
                     @if (!$item->DonationByFundraiser->isEmpty())
                     @php
-                        $getUserProfile = $data['userProfile']->where('user_id',$item->user_id)->get();
+                        $getUserProfile = $data['userProfile']->where('user_id',$item->user_id)->first();
                         $getUser = $data['user']->where('id',$item->user_id)->first();
                     @endphp
-                    @foreach ($getUserProfile as $userProfile)
                     <div class="d-flex">
                       @if (!empty($getUserProfile)) 
-                        @if (Storage::disk('public')->exists($userProfile['photo']))
-                          <img src="{{ Storage::disk('public')->url($userProfile['photo']) }}" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
+                        @if (Storage::disk('public')->exists($getUserProfile->photo))
+                          <img src="{{ Storage::disk('public')->url($getUserProfile->photo) }}" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
                         @else
                           <img src="/img/default.png" class="img-circle my-1" height="45px" width="45px" alt="Profile Picture" srcset="">
                         @endif
@@ -176,13 +175,9 @@
                       @endif
                       <div>
                         <div class="ml-3" style="margin-bottom: -1rem">
-                          <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
-                              <p class="text-">
-                                {{ $getUser->name }}
-                              </p>  
-                            </div>
-                          </a>
+                          <p class="font-weight-bold">
+                            {{ $getUser->name }}
+                          </p>  
                         </div>
                         <div class="ml-3">
                           <p class="text-md mb-0">
@@ -191,7 +186,6 @@
                         </div>
                       </div>
                     </div>
-                    @endforeach
                         
                     @else
                     <div class="d-flex justify-content-center text-muted">
@@ -298,17 +292,15 @@
                     <img src="/img/default.png" width="40px" alt="Profile Picture" srcset="">
                   </div>
                   <div class="ml-3" style="margin-bottom: -1rem">
-                    <a href="#" class="text-decoration-none">
-                      <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
-                        <p class="text-sm">
-                          @if ($getDonation['anonym'] == 'on')
-                              Hamba Allah
-                          @else
-                              {{ $getUser->name }}
-                          @endif
-                        </p>  
-                      </div>
-                    </a>
+                    <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
+                      <p class="text-sm font-weight-bold">
+                        @if ($getDonation['anonym'] == 'on')
+                            Hamba Allah
+                        @else
+                            {{ $getUser->name }}
+                        @endif
+                      </p>  
+                    </div>
                     <p class="text-muted text-xs border-top">
                       <?php 
                       $endDate=strtotime($getDonation['updated_at']);

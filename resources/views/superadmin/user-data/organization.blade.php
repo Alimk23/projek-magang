@@ -42,10 +42,10 @@
       <div class="container-fluid">
         <div class="row mb-3 mt-0">
           <div class="col-md-2">
-            <a href="{{ url('/superadmin/fundraiser/create') }}">
+            <a href="{{ url('/organization/create') }}">
               <button type="button" class="btn btn-block btn-outline-success btn-sm">
                 <i class="fas fa-plus-circle"></i>
-                Add New Fundraiser
+                Add New Organization
               </button>
             </a>
           </div>
@@ -78,7 +78,7 @@
                     @foreach ($users as $user)                  
                       <tr>
                         <td>
-                          {{ $i }}
+                          {{ $i++ }}
                         </td>
                         <td>
                           {{ $user['name'] }}
@@ -103,12 +103,27 @@
                           @endif
                         </td>
                         <td>
+                          @php
+                              $status = $user->RegistrationStatus->pluck('status')->first();
+                          @endphp
+                          @if ($status == 0)                              
+                          <div class="text-danger">
+                            Inactive
+                          </div>
+                          @endif
+                          @if ($status == 1)                              
                           <div class="text-success">
                             Active
                           </div>
+                          @endif
+                          @if ($status == 2)                              
+                          <div class="text-danger">
+                            Rejected
+                          </div>
+                          @endif
                         </td>
                         <td>
-                            <form action="/superadmin/fundraiser/{{ $user['id'] }}" method="get">
+                            <form action="/superadmin/organization/{{ $user['id'] }}" method="get">
                               <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
                                 <i class="far fa-eye"></i>
                               </button>
@@ -116,17 +131,39 @@
                         </td>
                         <td>
                           <div class="d-flex">
-                            <form action="/superadmin/campaign/id" method="POST">
+                            @if ($status == 1)                                
+                            <form action="/superadmin/organization/id" method="POST">
                               @csrf
                               @method('DELETE')
-                              <button type="submit" class="btn btn-outline-danger btn-xs rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                <i class="fas fa-trash-alt"></i>
+                              <button type="submit" class="btn btn-outline-warning btn-sm rounded-lg py-0 px-1 mx-1">
+                                <i class="fas fa-exclamation-triangle"></i>
                               </button>
                             </form>
+                            @endif
+                            @if ($status == 0)
+                            <div class="d-flex">    
+                              <form action="/superadmin/organization/{{ $user['id'] }}" class="mx-1" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <input type="text" name="status" class="d-none" id="status" value="1">
+                                <button type="submit" class="btn btn-outline-success btn-block btn-sm rounded-lg py-0 mx-1">
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              </form>
+                              <form action="/superadmin/organization/{{ $user['id'] }}" class="mx-1" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <input type="text" name="status" class="d-none" id="status" value="2">
+                                <button type="submit" class="btn btn-outline-danger btn-block btn-sm rounded-lg py-0 mx-1">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </form>
+                            </div>  
+                            @endif
                           </div>
                         </td>
                       </tr>
-                      @endforeach
+                    @endforeach
                   </tbody>
                 </table>
               </div>
