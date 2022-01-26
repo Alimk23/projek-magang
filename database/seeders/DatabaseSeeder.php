@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'name' => 'BMI',
-            'email' => 'bmijogja@gmail.com',
+            'email' => 'advertiserbmi@gmail.com',
             'phone' => '083852542002',
             'role' => 1,
             'password' => Hash::make('rahasia123'),
@@ -40,6 +40,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Jaki Umam',
             'email' => 'jakiumam@gmail.com',
             'phone' => '083839362022',
+            'role' => 1,
+            'password' => Hash::make('rahasia123'),
+        ]);
+        User::create([
+            'name' => 'Hobi Sedekah',
+            'email' => 'hobisedekahindonesia@gmail.com',
+            'phone' => '081284786808',
             'role' => 1,
             'password' => Hash::make('rahasia123'),
         ]);
@@ -89,6 +96,19 @@ class DatabaseSeeder extends Seeder
             'photo' => 'profile-image/xWfk44HISzHKOE2lpgJwPoKw3Ay8dufhOLDU2lto.jpg',
             'address' => 'Jalan Darul Hasanah, Tegalandong, Lebaksiu, Tegal',
         ]);
+
+        Company::create([
+            'user_id' => 4,
+            'company_name' => 'Hobi Sedekah',
+            'job_title' => 'Administrator',
+        ]);
+
+        Profile::create([
+            'user_id' => 4,
+            'company_id' => 4,
+            'photo' => 'profile-image/H07f8Y8KG8Jxk2vn4C1dsKi4mq9V5TjAXe9Lk8M8.jpg',
+            'address' => 'Jalan Darul Hasanah, Tegal, Jawa Tengah',
+        ]);
         RegistrationStatus::create([
             'user_id' => 1,
             'status' => 1,
@@ -103,6 +123,10 @@ class DatabaseSeeder extends Seeder
         ]);
         RegistrationStatus::create([
             'user_id' => 4,
+            'status' => 1,
+        ]);
+        RegistrationStatus::create([
+            'user_id' => 5,
             'status' => 0,
         ]);
         
@@ -151,13 +175,18 @@ class DatabaseSeeder extends Seeder
         ]);
         CustomerService::create([
             'user_id' => 2,
-            'name' => 'Sudirman',
-            'phone' => '089822563485',
+            'name' => 'Mayda',
+            'phone' => '08112744333',
         ]);
         CustomerService::create([
             'user_id' => 3,
             'name' => 'Jaki Umam',
             'phone' => '083839362022',
+        ]);
+        CustomerService::create([
+            'user_id' => 4,
+            'name' => 'Mayda',
+            'phone' => '081284786808',
         ]);
 
         Campaign::create([
@@ -278,6 +307,21 @@ class DatabaseSeeder extends Seeder
             *Media fisikaisme yang lebih mudah diikuti dapat diakses di kanal youtube, instagram, quora atau facebook.
             
             ',
+        ]);
+        Campaign::create([
+            'user_id' => 4,
+            'cs_id' => 3,
+            'category_id' => 1,
+            'status' => 1,
+            'title' => 'Lauk-pauk untuk para tetangga',
+            'slug' => 'lauk-untuk-para-tetangga',
+            'cover' => 'cover-image/a28wrPOS1LL2Ui8UGqH1XWoNLGWvxJEuzzUncyF8.jpg',
+            'target' => 25000000,
+            'end_date' => '2022-02-28',
+            'caption' => 'Sedekah yang paling baik adalah memberi makan kepada orang yang membutuhkan makan. Mari bantu iyu Susi memberi makan tetangga-tetangganya yang janda dan fakir miskin.',
+            'description' => "
+            <div>Assalamu'alaikum warahmatullahi wa barakatuh.</div><div><br></div><div>Hai para penghobi sedekah, admin mau menceritakan satu sosok yang hobi sedekah di desa yang cukup jauh.</div><div><br></div><div>Mboke Kamidah dari desa Tegalandong, kec. Lebaksiu, kab. Tegal terkenal sebagai penjual lauk dari era 80-an. Namun sejak tahun 2000-an, tradisi berjualan lauk terhenti karena Simbok meninggal dunia.</div><div><br></div><div>Saat ini, rumah yang ditempati Simbok diwariskan ke salah satu cucunya. Beliau juga meneruskan tradisi Simbok mengolah lauk-pauk. Namun kali ini lauk-pauk tersebut tidak dijual, tapi dibagikan secara cuma-cuma.</div><div><br></div><div>Beliau adalah Susilowati, salah satu orang terkaya di desa, meskipun secara harta tidak begitu banyak, namun secara mental sangat kaya. Beliau tergerak untuk membantu meringankan beban pangan dan nutrisi untuk para janda dan fakir miskin di lingkungannya. Iyu Susi memasak lauk-pauk setiap hari tak kurang dari dua wajan besar untuk dibagikan kepada tetangga-tetangganya yang membutuhkan, terutama para janda dan fakir-miskin.</div><div><br></div><div>Kepedulian beliau ditularkan melalui aksi nyata karena keahliannya dalam mengolah makanan dan hobinya bersedekah.</div><div><br></div><div>Bagi Anda yang ingin mendukung gerakan lauk untuk para tetangga yang digagas iyu Susi dapat mengikuti langkah-langkah berikut ini:</div><div>1. Klik tombol donasi sekarang.</div><div>2. Pilih nominal untuk berdonasi.</div><div>3. Pilih metode pembayaran transfer.</div><div>4. Lakukan pembayaran.</div><div>5. Konfirmasikan ke customer service.</div><div>6. Dan Anda telah ikut berpartisipasi memberi makan tetangga-tetangga iyu Susi.</div><div><br></div><div>Dana yang terkumpul dari campaign ini akan digunakan untuk mendukung gerakan ini dan dana pengembangan dakwah untuk kemaslahatan platform ini.</div><div><br></div><div>Jazakumullahu khair katsir.</div>
+            ",
         ]);
     }
 }

@@ -4,10 +4,10 @@
       <img
         src="{{ url('/img/logo.png') }}"
         alt="Hobi Sedekah"
-        class="brand-image ml-4"
-        style="opacity: 0.8;transform:scale(3,3)"
+        class="brand-image ml-md-2"
+        style="opacity: 0.8;transform:scale(1.2,1.2)"
       />
-      <p class="text-xs text-muted text-capitalize m-0 p-0" style="color:rgb(175, 175, 175) !important">#HidupBerkahBerlimpah</p>
+      <p class="text-xs text-muted text-capitalize m-0 p-0" style="color:rgb(175, 175, 175) !important;">#HidupBerkahBerlimpah</p>
     </a>
     <button
       class="navbar-toggler order-1"

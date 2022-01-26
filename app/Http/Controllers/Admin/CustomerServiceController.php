@@ -83,7 +83,7 @@ class CustomerServiceController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $customerService = CustomerService::find($id)->first();
+        $customerService = CustomerService::where('id',$id)->first();
         $data = [
             'title' => 'Edit Customer Service',
             'user_id' => $user->id
@@ -106,7 +106,7 @@ class CustomerServiceController extends Controller
             'name' => 'required|max:255',
             'phone' => 'required',
         ]);
-        $customerService = CustomerService::find($id)->first();
+        $customerService = CustomerService::where('id',$id)->first();
         $update = $customerService->update($validatedData);
         if ($update == true) {
             return redirect('/admin/customer-service')->with('success','Update customer service successful');
@@ -130,7 +130,9 @@ class CustomerServiceController extends Controller
             'cs_id' => null,
             'status' => 4,
         ];
-        $getCampaign->update($data);
+        if ($getCampaign) {
+            $getCampaign->update($data);
+        }
         $delete = CustomerService::destroy($id);
         if ($delete) {
             return redirect('/admin/customer-service')->with('success','Delete customer service is successful');

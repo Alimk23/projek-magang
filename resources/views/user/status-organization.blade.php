@@ -70,12 +70,7 @@
                 @endif
               </div>
             </div>
-            <div class="row mb-3 justify-content-between border-bottom">
-              <div class="col">
-                Simpan link berikut ini untuk melihat status pendaftaran lembaga anda:
-                <input type="text" class="w-100 form-control form-control-border" readonly value="{{ env('APP_URL'); }}/organization/status/{{ $RegistrationStatus->id }}">
-              </div>
-            </div>
+
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
             </form>

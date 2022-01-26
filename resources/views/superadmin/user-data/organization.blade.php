@@ -123,11 +123,17 @@
                           @endif
                         </td>
                         <td>
-                            <form action="/superadmin/organization/{{ $user['id'] }}" method="get">
-                              <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
-                                <i class="far fa-eye"></i>
-                              </button>
-                            </form>
+                          @if ($getCompany)
+                          <form action="/superadmin/organization/{{ $user['id'] }}" method="get">
+                            <button type="submit" class="btn btn-outline-primary btn-sm rounded-lg py-0">
+                              <i class="far fa-eye"></i>
+                            </button>
+                          </form>
+                          @else
+                          <button type="button" disabled class="btn btn-outline-primary btn-sm rounded-lg py-0">
+                            <i class="far fa-eye"></i>
+                          </button>                              
+                          @endif
                         </td>
                         <td>
                           <div class="d-flex">

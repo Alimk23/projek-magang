@@ -153,7 +153,7 @@
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="/assets_ui/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <script src="/js/script.js"></script>
+        <script src="/js/ajax.js"></script>
         <!-- Page specific script -->
         <script>
             $(function () {

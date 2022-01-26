@@ -122,7 +122,7 @@ $(function () {
 
 //show customer service info
 $(function () {
-    $(".btnDelCS").on("click", function () {
+    $(".btnDeleteCS").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
             url: "http://localhost:8000/customer-service/getCSInfo",
@@ -130,8 +130,12 @@ $(function () {
             method: "get",
             dataType: "json",
             success: function (data) {
-                $("#formDelCS").attr(
+                $("#formDeleteCS").attr(
                     "action",
+                    "/admin/customer-service/" + data.id
+                );
+                $("#deleteCSId").attr(
+                    "href",
                     "/admin/customer-service/" + data.id
                 );
             },

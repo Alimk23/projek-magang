@@ -17,8 +17,8 @@
               @if (Storage::disk('public')->exists($data['details']->cover))
                 <img src="{{ Storage::disk('public')->url($data['details']->cover) }}" alt="" class="img-fluid">
               @else
-                <img src="/img/logo.png" alt="" class="img-fluid">
-                <p class="text-xs text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -2rem 0rem 0rem 2rem">#HidupBerkahBerlimpah</p>          
+              <img src="/img/logo.png" alt="" class="img-fluid mx-auto my-auto" width="148px">
+              <p class="text-xs text-muted text-capitalize ml-3" style="color:rgb(175, 175, 175) !important;margin-top:-2rem !important">#HidupBerkahBerlimpah</p>          
               @endif
             </div>
           </div>
@@ -40,17 +40,17 @@
         </div>
         <div class="row mb-3">
           <div class="col">
-            <p>Insya Allah, pecinta sedekah yang baik akan:</p>
+            <p>Insya Allah, penghobi sedekah yang baik akan:</p>
             <div class="d-flex align-items-baseline">
               <i class="fas fa-check text-success mr-1"></i>
               <p>
-                Didoakan oleh puluhan ribu santri yatim dan penghafal Quran.
+                Didoakan ribuan malaikat.
               </p>  
             </div>
             <div class="d-flex align-items-baseline">
               <i class="fas fa-check text-success mr-1"></i>
               <p>
-                Berkah berlimpah rezekinya, menjadi wasilah datangnya rasa tenang dan bahagia
+                Berkah berlimpah rezekinya, menjadi wasilah datangnya ketenangan.
               </p>  
             </div>
           </div>

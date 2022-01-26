@@ -15,8 +15,8 @@
         @if (Storage::disk('public')->exists($data['campaign']->cover))
           <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="img-fluid">
         @else
-          <img src="/img/logo.png" alt="" class="img-fluid">
-          <p class="text-sm text-muted text-capitalize" style="color:rgb(175, 175, 175) !important; margin: -3rem 0rem 0rem 9rem">#HidupBerkahBerlimpah</p>          
+          <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="300px">
+          <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
         @endif
       </div>
       <div class="d-flex">

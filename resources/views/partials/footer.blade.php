@@ -3,16 +3,28 @@
     <div class="row justify-content-between">
       <div class="col-lg-3">
         <div class="mb-1">
-          <img src="/img/logo.png" alt="logo" width="178px" style="margin-left: -2rem">
+          <img src="/img/logo.png" alt="logo" width="158px">
         </div>
         <p class="mb-1">
-          <a href="tel:08977020249" class="text-decoration-none" style="color: white !important">
-            <i class="fas fa-phone mr-2"></i>
+          <a href="https://api.whatsapp.com/send/?phone=6283852542004" target="_blank" class="text-decoration-none" style="color: white !important">
+            <i class="fab fa-whatsapp mr-2"></i>
             083852542004
           </a>
         </p>
         <p class="mb-1">
-          <a href="mailto:" class="text-decoration-none" style="color: white !important">
+          <a href="https://www.facebook.com/hobisedekahindonesia" target="_blank" class="text-decoration-none" style="color: white !important">
+            <i class="fab fa-facebook mr-2"></i>
+            @hobisedekahindonesia
+          </a>
+        </p>
+        <p class="mb-1">
+          <a href="https://www.instagram.com/hobisedekah_/" target="_blank" class="text-decoration-none" style="color: white !important">
+            <i class="fab fa-instagram mr-2"></i>
+            @hobisedekah_ 
+          </a>
+        </p>
+        <p class="mb-1">
+          <a href="mailto:hobisedekahindonesia@gmail.com" class="text-decoration-none" style="color: white !important">
             <i class="fas fa-envelope mr-2"></i>
             hobisedekahindonesia@gmail.com
           </a>
