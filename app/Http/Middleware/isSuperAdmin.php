@@ -18,7 +18,7 @@ class isSuperAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!auth::check() || auth::user()->role != 0) {
-            abort(403);
+            abort(403, 'Silahkan login sebagai superadmin');
         }
         return $next($request);
     }

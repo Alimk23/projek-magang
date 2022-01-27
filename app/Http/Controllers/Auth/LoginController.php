@@ -46,7 +46,7 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $RegistrationStatus = RegistrationStatus::where('user_id',$user->id)->with('user')->firstOrFail();
+            $RegistrationStatus = RegistrationStatus::where('user_id',$user->id)->with('user')->first();
             if ($RegistrationStatus) {                
                 if ($RegistrationStatus->status == 0) {
                     return redirect('/organization/status');

@@ -18,7 +18,7 @@ class isAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!auth::check() || auth::user()->role != 1) {
-            abort(403);
+            abort(403, 'Silahkan login sebagai admin lembaga');
         }
         return $next($request);
     }

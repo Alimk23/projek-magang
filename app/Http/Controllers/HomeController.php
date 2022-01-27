@@ -43,7 +43,7 @@ class HomeController extends Controller
     public function redirectUrl(){
         if (Auth::check()) {
             $user = Auth::user();
-            $RegistrationStatus = RegistrationStatus::where('user_id',$user->id)->with('user')->firstOrFail();
+            $RegistrationStatus = RegistrationStatus::where('user_id',$user->id)->with('user')->first();
             if (!empty($RegistrationStatus)) {
                 if ($RegistrationStatus->status == 0) {
                     return redirect('/organization/status');

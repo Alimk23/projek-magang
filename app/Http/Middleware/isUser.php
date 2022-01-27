@@ -18,7 +18,7 @@ class isUser
     public function handle(Request $request, Closure $next)
     {
         if (!auth::check() || auth::user()->role != 2) {
-            abort(403);
+            abort(403, 'Silahkan login sebagai pengguna biasa');
         }
         return $next($request);
     }
