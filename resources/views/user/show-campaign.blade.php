@@ -186,11 +186,6 @@
                         </div>
                       </div>
                     </div>
-                        
-                    @else
-                    <div class="d-flex justify-content-center text-muted">
-                      Belum ada data yang dapat ditampilkan
-                    </div>
                     @endif
                   @endforeach
                 @endif

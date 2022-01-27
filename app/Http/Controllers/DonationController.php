@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\DonationByFundraiser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\CustomerService;
 
 class DonationController extends Controller
 {
@@ -97,10 +98,11 @@ class DonationController extends Controller
                 'bank_id' => $request->bank,
                 'nominal' => $validatedData['nominal'],
             ])->id;
-            $getDonationData = Donation::find($newDonation);
+            $getDonationData = Donation::whereId($newDonation)->with('campaign')->first();
+            $getCS = CustomerService::whereId($getDonationData->campaign->cs_id)->first();
             $getPaymentData = Payment::find($newPayment);
             $phone = whatsapp_format($request->phone);
-    
+            
             $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
     
     Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
@@ -126,7 +128,8 @@ class DonationController extends Controller
     Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
             $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
             // $sendtoUser = $this->sendMessage($request->phone, $msgUser);
-            $sendtoAdmin = $this->sendMessage($getDonationData->campaign->cs->phone, $msgAdmin);
+            
+            $sendtoAdmin = $this->sendMessage($getCS->phone, $msgAdmin);
             return redirect('/payment/'.$order_id);
         }
         else {

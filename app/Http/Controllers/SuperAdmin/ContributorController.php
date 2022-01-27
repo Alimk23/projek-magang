@@ -73,7 +73,7 @@ class ContributorController extends Controller
             'totalDonation' => $getDonation->count(),
             'successDonation' => $totalDonation->count(),
             'amountDonation' => $amountDonation,
-            'lastDonation' => $lastDonation,
+            'lastDonation' => $lastDonation ? $lastDonation : null,
             'user_id' => $id,
         ];
         return view('superadmin.user-data.show-contributor',compact('data','getProfile','getDonation','user','userGrade')); 

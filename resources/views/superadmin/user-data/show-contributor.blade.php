@@ -47,7 +47,7 @@
                 </li>
                 <li class="list-group-item">
                     <b>Last Donation</b> <a class="float-right text-muted font-weight-bold">
-                        {{ date_format($data['lastDonation']->created_at,"d M Y | H:i") }}
+                        {{ $data['lastDonation'] ? date_format($data['lastDonation']->created_at,"d M Y | H:i") : 'No Data' }}
                     </a>
                 </li>
                 </ul>

@@ -156,7 +156,7 @@ class DatabaseSeeder extends Seeder
             'bank_code' => '451',
             'bank_name' => 'Bank Syariah Indonesia',
             'bank_account' => '7957958887',
-            'alias' => 'Yayasan Hobi Sedekah',
+            'alias' => 'Yayasan Hobi Sedekah Indonesia',
         ]);
         Bank::create([
             'user_id' => 1,
