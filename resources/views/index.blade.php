@@ -81,12 +81,12 @@
                   <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">
                     <div class="row">
                       <div class="col">
-                        <div class="card mt-2 mx-auto shadow-sm" style="height: 15rem; overflow:hidden;">
+                        <div class="card mt-2 mx-auto shadow-sm" style="height: 13rem; overflow:hidden;">
                           @if (Storage::disk('public')->exists($campaign['cover']))
                             <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
                           @else
                             <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
-                            <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
+                            <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-4rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
                           @endif
                         </div>
                       </div>

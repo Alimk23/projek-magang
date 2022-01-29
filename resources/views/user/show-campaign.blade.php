@@ -11,12 +11,12 @@
 <div class="container py-5">
   <div class="row d-flex align-items-end justify-content-center">
     <div class="col-lg-4">
-      <div class="card mt-2 mx-auto shadow-sm" style="height: 15rem; overflow:hidden;">
+      <div class="card mt-2 mx-auto shadow-sm" style="height: 13rem; overflow:hidden;">
         @if (Storage::disk('public')->exists($data['campaign']->cover))
           <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="card-img-top">
         @else
           <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
-          <p class="text-sm text-muted text-capitalize offset-2 offset-xs-3 offset-sm-3 offset-md-3" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
+          <p class="text-sm text-muted text-capitalize offset-2 offset-xs-3 offset-sm-3 offset-md-3" style="color:rgb(175, 175, 175) !important;margin-top:-4rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
         @endif
       </div>
       <div class="d-flex">
