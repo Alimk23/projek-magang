@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-    public function index(Campaign $campaign, Donation $donation, Category $category){
+    public function index(Campaign $campaign, Category $category){
         $collectedDonation = Campaign::select('collected')->pluck('collected')->all();
         if (!empty($collectedDonation)) {
             $totalDonation = array_sum($collectedDonation);
@@ -30,6 +30,7 @@ class HomeController extends Controller
             $totalDonation = 0;
         }
 
+        $donation = Donation::where('status',1)->get();
         $data = [
             'title' => 'Beranda',
             'campaign' => $campaign->all(),

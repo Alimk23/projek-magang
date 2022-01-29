@@ -14,61 +14,84 @@
           <h4 class="fa-3x mb-2 text-uppercase font-weight-bold">{{ $selectedCategory->title }}</h4>
         </div>
         @foreach ($getCampaign as $campaign)
-        @if ($campaign['status'] == 1)            
-        <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">
-          <div class="col-lg-4 col-md-6">
-            <div class="card mt-4 mx-auto" style="width: 310px;height: 210px; overflow:hidden;">
-            @if (Storage::disk('public')->exists($campaign['cover']))
-              <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
-            @else
-              <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="260px">
-              <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-2rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>              
-            @endif
-            </div>
-            <div class="card-body p-2">
-              <div class="d-flex justify-content-between text-dark">
-                <div class="d-flex flex-column">
-                  <p class="mb-0">
-                    <strong>
-                     Rp. {{ currency_format($campaign['collected']) }}
-                    </strong>
-                  </p>
-                  <p class="my-0 py-0">Donasi Terkumpul</p>
+        @if ($campaign['status'] == 1)
+          @php                          
+          $endDate=strtotime($campaign['end_date']);
+          $countdown=ceil(($endDate-time())/60/60/24);
+          @endphp
+        <div class="col-10 col-md-4 mt-3">
+          <div class="card d-flex shadow vh-75">
+            <div class="card-body">
+              <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">
+                <div class="row">
+                  <div class="col">
+                    <div class="card mt-2 mx-auto shadow-sm" style="height: 15rem; overflow:hidden;">
+                      @if (Storage::disk('public')->exists($campaign['cover']))
+                        <img src="{{ Storage::disk('public')->url($campaign['cover']) }}" alt="" class="card-img-top">
+                      @else
+                        <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
+                        <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
+                      @endif
+                    </div>
+                  </div>
                 </div>
-                <div class="d-flex flex-column">
-                  <p class="mb-0">
-                    <strong>
-                    <?php 
-                      $endDate=strtotime($campaign['end_date']);
-                      $countdown=ceil(($endDate-time())/60/60/24);
-                      echo $countdown;
-                    ?>
-                    </strong>
-                  </p>
-                  <p class="my-0 py-0">Hari Lagi</p>
+                <div class="row">
+                  <div class="col d-flex justify-content-between text-dark">
+                    <div class="d-flex flex-column">
+                      <p class="mb-0">
+                        <strong>
+                        Rp. {{ currency_format($campaign['collected']) }}
+                        </strong>
+                      </p>
+                      <p class="my-0 py-0">Donasi Terkumpul</p>
+                    </div>
+                    <div class="d-flex flex-column align">
+                      @if ($countdown < 0)                          
+                        <p class="my-0 py-0 text-muted">Sudah berakhir</p>                    
+                      @else
+                        <p class="mb-0">
+                          <strong>
+                            {{ $countdown }}
+                          </strong>
+                        </p>
+                        <p class="my-0 py-0">Hari Lagi</p>
+                      @endif
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="card-body d-flex flex-column p-2 border-top" style="height: 180px">
-              <h4 class="card-title font-weight-bold">
-                {{ $campaign['title'] }}
-              </h4>
-              <p class="text-xs">
-                {{ $campaign['user']['company']['company_name'] }}
-                <i class="bi bi-patch-check-fill text-primary"></i>
-              </p>
-              <p class="card-text text-small">
-                {{ Str::limit($campaign['caption'], 120, '...') }}
-              </p>
-            </div>
-            <div class="card-footer bg-light p-2">
-              <a href="/campaigns/{{ $campaign['slug'] }}" class="btn btn-primary d-block rounded text-decoration-none" style="color:white !important">
-                <i class="fas fa-hand-point-right mr-2"></i>
-                Donasi Sekarang
+                <div class="row" style="max-height: 150px">
+                  <div class="col d-flex flex-column p-2 border-top">
+                    <div class="card-title font-weight-bold">
+                      {{ $campaign['title'] }}
+                    </div>
+                    <p class="text-xs">
+                      {{ $campaign['user']['company']['company_name'] }}
+                      <i class="bi bi-patch-check-fill text-primary"></i>
+                    </p>
+                    <p class="card-text text-small">
+                      {{ Str::limit($campaign['caption'], 120, '...') }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col">
+                    @if ($countdown < 0)
+                    <a href="/campaigns/{{ $campaign['slug'] }}" class="btn btn-secondary d-block rounded text-decoration-none" style="color:white !important">
+                      Lihat Selengkapnya
+                    </a>                                            
+                    @else
+                    <a href="/campaigns/{{ $campaign['slug'] }}" class="btn btn-primary d-block rounded text-decoration-none" style="color:white !important">
+                      <i class="fas fa-hand-point-right mr-2"></i>
+                      Donasi Sekarang
+                    </a>                      
+                    @endif
+                  </div>
+                </div>
               </a>
             </div>
-          </div>              
-        </a>
+          </div>
+        </div>
+
         @endif
         @endforeach
       </div>
