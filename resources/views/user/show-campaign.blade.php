@@ -11,12 +11,12 @@
 <div class="container py-5">
   <div class="row d-flex align-items-end justify-content-center">
     <div class="col-lg-4">
-      <div class="card mt-0 mt-lg-4" style="width: 350px;height: 244px; overflow:hidden;">
+      <div class="card mt-2 mx-auto shadow-sm" style="height: 15rem; overflow:hidden;">
         @if (Storage::disk('public')->exists($data['campaign']->cover))
-          <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="img-fluid">
+          <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="card-img-top">
         @else
-          <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="300px">
-          <p class="text-sm text-muted text-capitalize ml-4" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
+          <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
+          <p class="text-sm text-muted text-capitalize offset-2 offset-xs-3 offset-sm-3 offset-md-3" style="color:rgb(175, 175, 175) !important;margin-top:-5rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
         @endif
       </div>
       <div class="d-flex">
@@ -196,19 +196,17 @@
           <!-- /.card-body -->
         </div>
         <div class="card">
-          <div class="card-header bg-info d-flex align-items-center justify-content-around">
-            <h3 class="card-title text-white" style="font-size: 20px !important;color:black;">
+          <div class="card-header bg-info d-flex flex-column flex-md-row align-items-center justify-content-around">
+            <h5 class="text-white text-center">
             Ingin ikutan share program kebaikan ini? yuk jadi fundraiser sekarang...
-            </h3>
-            <div class="card-tools text-right">
-              <form action="/user/fundraising" method="post">
-                @csrf
-                <input type="text" class="d-none" name="campaign_id" id="campaignId" value="{{ $data['campaign']->id }}">
-                <button type="submit" class="btn btn-outline-light">
-                  Jadi Fundraiser
-                </button>
-              </form>
-            </div>
+            </h5>
+            <form action="/user/fundraising" method="post">
+              @csrf
+              <input type="text" class="d-none" name="campaign_id" id="campaignId" value="{{ $data['campaign']->id }}">
+              <button type="submit" class="btn btn-outline-light">
+                Jadi Fundraiser
+              </button>
+            </form>
           </div>
         </div>
         <div class="card">

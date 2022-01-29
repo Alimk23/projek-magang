@@ -39,7 +39,7 @@
     <div class="container text-white py-3">
       <div class="row text-center">
         <div class="col-4">
-          <p class="font-weight-bold fa-2x">
+          <p class="font-weight-bold">
           @if (empty($data['donation']))
               0
           @else
@@ -49,11 +49,11 @@
           <p class="text text-uppercase mb-0">Donatur</p>
         </div>
         <div class="col-4">
-          <p class="font-weight-bold fa-2x">Rp {{ currency_format($data['totalDonation']) }}</p>
+          <p class="font-weight-bold">Rp {{ currency_format($data['totalDonation']) }}</p>
           <p class="text text-uppercase mb-0">Total Ziswaf</p>
         </div>
         <div class="col-4">
-          <p class="font-weight-bold fa-2x">
+          <p class="font-weight-bold">
             {{ $data['campaign']->count() }}
           </p>
           <p class="text text-uppercase mb-0">Program</p>
