@@ -7,12 +7,13 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Jobs\SendWhatsapp;
 use App\Models\Fundraising;
 use Illuminate\Http\Request;
+use App\Models\CustomerService;
 use App\Models\DonationByFundraiser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\CustomerService;
 
 class DonationController extends Controller
 {
@@ -99,37 +100,42 @@ class DonationController extends Controller
                 'nominal' => $validatedData['nominal'],
             ])->id;
             $getDonationData = Donation::whereId($newDonation)->with('campaign')->first();
-            $getCS = CustomerService::whereId($getDonationData->campaign->cs_id)->first();
+            $phoneCS = CustomerService::whereId($getDonationData->campaign->cs_id)->first()->phone;
             $getPaymentData = Payment::find($newPayment);
             $phone = whatsapp_format($request->phone);
             
-            $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
+    //         $msgUser = "Assalamu'alaikum, benar dengan Bapak/Ibu $request->name?
     
-    Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
-    Selangkah lagi, Bapak/Ibu akan mengukir senyum para santri yatim dan penghafal Alquran, dan semoga ini menjadi Amal Sholeh yang diterima Allah SWT.
+    // Saya ". $getDonationData->campaign->user->name .", dari ". $getDonationData->campaign->user->company->company_name ."
+    // Selangkah lagi, Bapak/Ibu akan mengukir senyum para santri yatim dan penghafal Alquran, dan semoga ini menjadi Amal Sholeh yang diterima Allah SWT.
     
-    Bapak/Ibu tinggal transfer infaq terbaik sejumlah:
+    // Bapak/Ibu tinggal transfer infaq terbaik sejumlah:
     
-    Rp ". currency_format($getDonationData->nominal) ."
+    // Rp ". currency_format($getDonationData->nominal) ."
     
-    Ke nomor rekening sebagai berikut:
-    ⬇⬇⬇⬇⬇⬇⬇
+    // Ke nomor rekening sebagai berikut:
+    // ⬇⬇⬇⬇⬇⬇⬇
     
-    " .$getPaymentData->bank->bank_account ."\nan.  ". $getPaymentData->bank->alias."
+    // " .$getPaymentData->bank->bank_account ."\nan.  ". $getPaymentData->bank->alias."
     
-    ". $getPaymentData->bank->bank_name ."
+    // ". $getPaymentData->bank->bank_name ."
     
-    Kode Bank: ". $getPaymentData->bank->bank_code ."
+    // Kode Bank: ". $getPaymentData->bank->bank_code ."
     
-    Atau donasi Bpk/Ibu dapat dibayarkan via E-Payment (Auto checking) dengan klik link berikut:
-    ". env('APP_URL').'/payment/'.$order_id ."
+    // Atau donasi Bpk/Ibu dapat dibayarkan via E-Payment (Auto checking) dengan klik link berikut:
+    // ". env('APP_URL').'/payment/'.$order_id ."
     
-    Semoga Allah Mudahkan Bapak/ibu dalam berinfaq dan semoga Menjadi Amal sholeh yang Allah terima.
-    Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
+    // Semoga Allah Mudahkan Bapak/ibu dalam berinfaq dan semoga Menjadi Amal sholeh yang Allah terima.
+    // Jika ada masalah dalam proses transfernya sampaikan ke ". $getDonationData->campaign->user->name ." ya, insyallah ". $getDonationData->campaign->user->name ." bantu semaksimal mungkin.";
+            
+    
             $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
             // $sendtoUser = $this->sendMessage($request->phone, $msgUser);
             
-            $sendtoAdmin = $this->sendMessage($getCS->phone, $msgAdmin);
+            // $sendtoAdmin = $this->sendMessage($getCS->phone, $msgAdmin);
+            if (!empty($phoneCS)) {
+                $sendtoAdmin = SendWhatsapp::dispatch($phoneCS,$msgAdmin);
+            }
             return redirect('/payment/'.$order_id);
         }
         else {
