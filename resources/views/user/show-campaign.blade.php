@@ -8,8 +8,8 @@
 @endsection
 
 @section('content')
-<div class="container py-5">
-  <div class="row d-flex align-items-end justify-content-center">
+<div class="container pb-5 pt-2">
+  <div class="row d-flex align-items-lg-stretch justify-content-center">
     <div class="col-lg-4">
       <div class="card mt-2 mx-auto shadow-sm" style="height: 13rem; overflow:hidden;">
         @if (Storage::disk('public')->exists($data['campaign']->cover))
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="col-lg-8">
-      <div class="card-body d-flex flex-column p-2 border-bottom" style="height: 130px">
+      <div class="card-body d-flex flex-column p-2 border-bottom">
         <h4 class="card-title font-weight-bold">
           {{ $data['campaign']->title }}
         </h4>

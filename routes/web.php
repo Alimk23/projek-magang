@@ -49,15 +49,23 @@ use App\Http\Controllers\SuperAdmin\ContributorController as superAdminContribut
 */
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
-    return "Successfull";
+    dd(Artisan::output());
 });
 Route::get('/mfs', function () {
     Artisan::call('migrate:fresh --seed');
-    return "Successfull";
+    dd(Artisan::output());
 });
 Route::get('/ms', function () {
     Artisan::call('migrate --seed');
-    return "Successfull";
+    dd(Artisan::output());
+});
+Route::get('/m', function () {
+    Artisan::call('migrate');
+    dd(Artisan::output());
+});
+Route::get('/rl', function () {
+    Artisan::call('route:list');
+    dd(Artisan::output());
 });
 Auth::routes();
 

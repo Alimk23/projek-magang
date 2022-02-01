@@ -101,6 +101,7 @@
                             <a href="{{ $link }}" target="_blank">
                             Link
                             </a>
+                            <input id="copyAlert" class="d-none" value="Link berhasil di salin">
                           </td>
                           <td>
                             <div class="d-flex">
@@ -231,7 +232,12 @@
               navigator.clipboard.writeText(copyText.value);
 
               /* Alert the copied text */
-              alert("Link berhasil di copy ");
+              // alert("Link berhasil di copy ");
+              var x = document.getElementById("copyAlert").value;
+              Toast.fire({
+                icon: 'success',
+                title: x
+              })
             }
         </script>
 @endsection

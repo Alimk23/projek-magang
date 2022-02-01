@@ -53,7 +53,17 @@
         <div class="row mb-3 justify-content-between border-bottom">
           <div class="col">
             Simpan link berikut ini untuk melihat status transaksi anda:
-            <input type="text" class="w-100 form-control form-control-border" readonly value="{{ env('APP_URL'); }}/status/{{ $getPayment->order_id }}">
+            <div class="d-flex">              
+              <input type="text" class="w-100 form-control form-control-border" readonly name="link" id="link" value="{{ env('APP_URL'); }}/status/{{ $getPayment->order_id }}">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <button type="button" onclick="copyText()" class="btn py-0 btn-outline-primary btn-sm rounded-lg">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <input id="copyAlert" class="d-none" value="Link berhasil di salin">
+                </div>
+            </div>
+            </div>
           </div>
         </div>
         @endforeach
@@ -73,8 +83,24 @@
 <!-- bs-custom-file-input -->
 <script src="{{ url('assets_ui/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
-      $(function () {
-      bsCustomFileInput.init();
-    });
+    function copyText() {
+    /* Get the text field */
+    var copyText = document.getElementById("link");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(copyText.value);
+
+    /* Alert the copied text */
+    // alert("Link berhasil di copy ");
+    var x = document.getElementById("copyAlert").value;
+    Toast.fire({
+      icon: 'success',
+      title: x
+    })
+  }
 </script>
 @endsection
