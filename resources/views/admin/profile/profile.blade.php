@@ -181,40 +181,77 @@
                 </div>
               </div>
               </a>
-            <div class="card-body">
-              <form action="#" method="post">
-                  @csrf
-                  @method('PATCH')
-                  <div class="form-group row mt-0">
-                    <div class="col-md-3">
-                      <label class="font-weight-normal" for="oldPassword">Password Lama</label>
+              <div class="card-body">
+                <form action="/user-data/reset-password" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <div class="form-group row mt-0 d-none">
+                      <div class="col-md-3">
+                        <label class="font-weight-normal" for="email">Email</label>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="email" name="email" class="form-control" id="email" value="{{ $data['email'] }}">
+                        @error('email')
+                        <div class="text-small text-danger" role="alert">
+                          <small>{{ $message }}</small>
+                        </div>
+                        @enderror
+                      </div>
                     </div>
-                    <div class="col-md-9">
-                      <input type="password" name="oldpassword" class="form-control" id="oldPassword">
+                    <div class="form-group row mt-0">
+                      <div class="col-md-3">
+                        <label class="font-weight-normal" for="old_password">Password Lama</label>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="input-group">
+                          <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="old_password">
+                          <div class="input-group-append" onclick="showPass()">
+                            <div class="input-group-text">
+                                <span>
+                                    <i id="eye" class="fas fa-eye-slash"></i>
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+                        @error('old_password')
+                        <div class="text-small text-danger" role="alert">
+                          <small>{{ $message }}</small>
+                        </div>
+                        @enderror
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row mt-0">
-                    <div class="col-md-3">
-                      <label class="font-weight-normal" for="newPassoword">Password Baru</label>
+                    <div class="form-group row mt-0">
+                      <div class="col-md-3">
+                        <label class="font-weight-normal" for="password">Password Baru</label>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                        @error('password')
+                        <div class="text-small text-danger" role="alert">
+                          <small>{{ $message }}</small>
+                        </div>
+                        @enderror
+                      </div>
                     </div>
-                    <div class="col-md-9">
-                      <input type="password" name="newpassword" class="form-control" id="newPassoword">
+                    <div class="form-group row mt-0">
+                      <div class="col-md-3">
+                        <label class="font-weight-normal" for="password-confirm">Ulangi Password Baru</label>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password-confirm" name="password_confirmation">
+                        @error('password_confirmation')
+                        <div class="text-small text-danger" role="alert">
+                          <small>{{ $message }}</small>
+                        </div>
+                        @enderror
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row mt-0">
-                    <div class="col-md-3">
-                      <label class="font-weight-normal" for="newPassword">Ulangi Password Baru</label>
-                    </div>
-                    <div class="col-md-9">
-                      <input type="password" name="newpasswordconfirm" class="form-control" id="newPassword">
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-block btn-outline-primary btn-sm w-auto ml-auto mr-auto">
-                      <i class="fas fa-edit"></i>
-                      Reset
-                  </button>
-              </form>
-            </div>
+                    <button type="submit" class="btn btn-block btn-outline-primary btn-sm w-auto ml-auto mr-auto">
+                        <i class="fas fa-edit"></i>
+                        Reset
+                    </button>
+                </form>
+              </div>
             <!-- /.card-body -->
           </div>
         </div>
@@ -365,5 +402,25 @@
     $(function () {
       bsCustomFileInput.init();
     });
+</script>
+<script>
+  var state = false;
+  function showPass() {
+      if (state) {
+          document.getElementById("old_password").setAttribute("type","password");
+          document.getElementById("password").setAttribute("type","password");
+          document.getElementById("password-confirm").setAttribute("type","password");
+          $('#eye').removeClass();
+          $('#eye').addClass("fas fa-eye-slash");
+          state = false;
+      } else {
+          document.getElementById("old_password").setAttribute("type","text");
+          document.getElementById("password").setAttribute("type","text");
+          document.getElementById("password-confirm").setAttribute("type","text");
+          $('#eye').removeClass();
+          $('#eye').addClass("fas fa-eye");
+          state = true;
+      }
+  }
 </script>
 @endsection

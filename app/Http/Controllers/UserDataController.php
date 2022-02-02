@@ -8,69 +8,34 @@ use App\Models\Profile;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserDataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function resetPassword(Request $request){
+        $validatedData = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'old_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $user = User::where('email', $request->email)->first();
+        $validationOldPassword = Hash::check($request->old_password, $user->password);
+        if ($validationOldPassword) {
+            $update = $user->update([                
+                'password' => Hash::make($request->password),
+            ]);
+            if ($update) {
+                return redirect()->back()->with('success','Reset password berhasil');
+            }
+            else {
+                return redirect()->back()->with('error','Maaf, terjadi kesalahan sistem. Reset password gagal');
+            }
+        }
+        else {
+            return redirect()->back()->with('error','Password lama tidak sama dengan yang berada di database kami');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([

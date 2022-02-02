@@ -51,6 +51,10 @@ Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
     dd(Artisan::output());
 });
+Route::get('/listen', function () {
+    Artisan::call('queue:listen');
+    dd(Artisan::output());
+});
 Route::get('/mfs', function () {
     Artisan::call('migrate:fresh --seed');
     dd(Artisan::output());
@@ -81,6 +85,7 @@ Route::post('/organization', [HomeController::class, 'storeOrganization']);
 Route::get('/organization/status', [HomeController::class, 'statusOrganization'])->middleware('auth','Admin');
 
 
+Route::patch('/user-data/reset-password', [UserDataController::class, 'resetPassword']);
 Route::get('/user-data/getLoginInfo', [UserDataController::class, 'getLoginInfo']);
 Route::get('/user-data/getProfileInfo', [UserDataController::class, 'getProfileInfo']);
 Route::get('/user-data/getCompanyInfo', [UserDataController::class, 'getCompanyInfo']);

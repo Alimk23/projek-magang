@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Register')
+@section('title','Login')
 
 @section('content')
 <div class="hold-transition login-page container-fluid">
@@ -19,57 +19,45 @@
                 </a>
             </div>
             <div class="card-body">
-                <form action="{{ route('register') }}" method="post">
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>          
+                @endif
+                @if (session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>          
+                @endif
+
+                <form action="/password/reset" method="post">
                     @csrf
                     <div class="input-group">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        <input type="name" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Full Name">
-                    </div>
-                    @error('name')
-                    <div class="text-small text-danger" role="alert">
-                    <small>{{ $message }}</small>
-                    </div>
-                    @enderror
-
-                    <div class="input-group mt-3">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
                     @error('email')
                     <div class="text-small text-danger" role="alert">
                     <small>{{ $message }}</small>
                     </div>
                     @enderror
-
-                    <div class="input-group mt-3">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-phone"></span>
-                            </div>
-                        </div>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Phone">
-                    </div>
-                    @error('phone')
-                    <div class="text-small text-danger" role="alert">
-                    <small>{{ $message }}</small>
-                    </div>
-                    @enderror
-
                     <div class="input-group mt-3">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Password Lama">
                         <div class="input-group-append" onclick="showPass()">
                             <div class="input-group-text">
                                 <span>
@@ -78,33 +66,45 @@
                             </div>
                         </div>
                     </div>
-                    @error('password')
+                    @error('old_password')
                     <div class="text-small text-danger" role="alert">
                         <small>{{ $message }}</small>
                     </div>
                     @enderror
+
                     <div class="input-group mt-3">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password-confirm" name="password_confirmation" placeholder="Repeat Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password Baru">
+                    </div>
+                    @error('password')
+                    <div class="text-small text-danger" role="alert">
+                        <small>{{ $message }}</small>
+                    </div>
+                    @enderror
+                    
+                    <div class="input-group mt-3">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password-confirm" name="password_confirmation" placeholder="Ulangi Password Baru">
                     </div>
                     @error('password_confirmation')
                     <div class="text-small text-danger" role="alert">
                         <small>{{ $message }}</small>
                     </div>
                     @enderror
-                    <button type="submit" class="mt-3 btn btn-primary btn-block">Buat Akun</button>
+                    <button type="submit" class="mt-3 btn btn-primary btn-block">Reset Password</button>
                 </form>
                 <!-- /.social-auth-links -->
         
                 <p class="mb-1 mt-2">
-                    Sudah punya akun? <a href="{{ url('login') }}" class="text-center">klik untuk login</a>
-                </p>
-                <p class="mb-1 mt-2">
-                    Punya program kebaikan? <a href="{{ url('/organization/create') }}" class="text-center">silahkan daftar disini</a>
+                    Kembali ke halaman login? <a href="{{ url('login') }}" class="text-center">klik untuk login</a>
                 </p>
             </div>
         <!-- /.card-body -->
@@ -113,18 +113,19 @@
     </div>
 </div>
 @endsection
-
 @section('js-custom')
 <script>
     var state = false;
     function showPass() {
         if (state) {
+            document.getElementById("old_password").setAttribute("type","password");
             document.getElementById("password").setAttribute("type","password");
             document.getElementById("password-confirm").setAttribute("type","password");
             $('#eye').removeClass();
             $('#eye').addClass("fas fa-eye-slash");
             state = false;
         } else {
+            document.getElementById("old_password").setAttribute("type","text");
             document.getElementById("password").setAttribute("type","text");
             document.getElementById("password-confirm").setAttribute("type","text");
             $('#eye').removeClass();

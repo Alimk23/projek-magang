@@ -58,9 +58,9 @@
                             </div>
                         </div>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                        <div class="input-group-append">
+                        <div class="input-group-append" onclick="showPass()">
                             <div class="input-group-text">
-                                <span onclick="showPass()">
+                                <span>
                                     <i id="eye" class="fas fa-eye-slash"></i>
                                 </span>
                             </div>
@@ -76,7 +76,7 @@
                 <!-- /.social-auth-links -->
         
                 <p class="mb-1 mt-2">
-                    <a href="#">Lupa Password</a>
+                    <a href="/password/reset/{{ rand(1,1000000) }}">Lupa Password</a>
                 </p>
                 <p class="mb-1">
                     <a href="{{ route('register') }}" class="text-center">Buat Akun</a>
