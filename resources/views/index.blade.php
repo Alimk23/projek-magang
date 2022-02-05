@@ -75,7 +75,7 @@
             $endDate=strtotime($campaign['end_date']);
             $countdown=ceil(($endDate-time())/60/60/24);
             @endphp
-            <div class="col-10 col-md-6 col-lg-4 mt-3">
+            <div class="col-10 col-md-5 col-lg-4 mt-3">
               <div class="card d-flex shadow vh-75">
                 <div class="card-body">
                   <a href="/campaigns/{{ $campaign['slug'] }}" class="text-dark text-decoration-none">

@@ -1,6 +1,6 @@
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+<nav class="main-header navbar navbar-expand-lg navbar-light navbar-white">
   <div class="container">
-    <a href="{{ url('/') }}" class="navbar-brand">
+    <a href="{{ url('/') }}" class="navbar-brand ml-3 ml-sm-2 ml-md-1 ml-lg-0">
       <img
         src="{{ url('/img/logo.png') }}"
         alt="Hobi Sedekah"
@@ -28,7 +28,7 @@
         </li>
         @if (Request::is('/'))            
         <li class="nav-item">
-          <a href="#sedekahprioritas" class="nav-link">Sedekah Prioritas</a>
+          <a href="#sedekahprioritas" class="nav-link d-inline-block">Sedekah Prioritas</a>
         </li>
         <li class="nav-item">
           <a href="#kategori" class="nav-link">Kategori</a>
