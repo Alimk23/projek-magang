@@ -9,90 +9,92 @@
 
 @section('content')
 <div class="container pb-5 pt-2">
-  <div class="row d-flex align-items-lg-stretch justify-content-center">
-    <div class="col-lg-4">
-      <div class="card mt-2 mx-auto shadow-sm" style="height: 13rem; overflow:hidden;">
-        @if (Storage::disk('public')->exists($data['campaign']->cover))
-          <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="card-img-top">
-        @else
-          <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
-          <p class="text-sm text-muted text-capitalize offset-2 offset-xs-3 offset-sm-3 offset-md-3" style="color:rgb(175, 175, 175) !important;margin-top:-4rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
-        @endif
-      </div>
-      <div class="d-flex">
-        <div class="img rounded-circle">
-        @if (Storage::disk('public')->exists($data['photo']))
-          <img src="{{ Storage::disk('public')->url($data['photo']) }}" width="40px" class="rounded-circle" alt="Profile Picture">
-        @else
-          <img src="/img/default.png" width="40px" class="rounded-circle" alt="Profile Picture" srcset="">
-        @endif
-
+  <section id="donasi-sekarang">
+    <div class="row d-flex align-items-lg-stretch justify-content-center">
+      <div class="col-lg-4">
+        <div class="card mt-2 mx-auto shadow-sm" style="height: 13rem; overflow:hidden;">
+          @if (Storage::disk('public')->exists($data['campaign']->cover))
+            <img src="{{ Storage::disk('public')->url($data['campaign']->cover) }}" alt="" class="card-img-top">
+          @else
+            <img src="/img/logo.png" alt="" class="mx-auto my-auto" width="250px">
+            <p class="text-sm text-muted text-capitalize offset-2 offset-xs-3 offset-sm-3 offset-md-3" style="color:rgb(175, 175, 175) !important;margin-top:-4rem !important;margin-bottom:3rem !important">#HidupBerkahBerlimpah</p>          
+          @endif
         </div>
-        <div class="ml-3" style="margin-bottom: -1rem">
-          <a href="/profile/{{ $data['campaign']->user->id }}" class="text-decoration-none">
-            <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
-              <p class="text-sm">
-                {{ $data['campaign']->user->company->company_name }}
-                <i class="bi bi-patch-check-fill text-primary"></i>
-              </p>  
-            </div>
-          </a>
-          <p class="text-muted text-xs border-top">Akun terverifikasi</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card-body d-flex flex-column p-2 border-bottom">
-        <h4 class="card-title font-weight-bold">
-          {{ $data['campaign']->title }}
-        </h4>
-        <p class="card-text text-small">
-          {{ $data['campaign']->caption }}
-        </p>
-      </div>
-      <div class="card-body p-2">
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ $data['campaign']->collected/$data['campaign']->target*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $data['campaign']->collected/$data['campaign']->target*100 }}%"></div>
-        </div>
-        <div class="d-flex justify-content-between text-dark">
-          <div class="d-flex flex-column">
-            <h3 class="mb-0">
-              <strong>
-                Rp. {{ currency_format($data['campaign']->collected) }}
-              </strong>
-            </h3>
-            <p class="my-0 py-0">Terkumpul dari Rp. {{ currency_format($data['campaign']->target) }}</p>
+        <div class="d-flex">
+          <div class="img rounded-circle">
+          @if (Storage::disk('public')->exists($data['photo']))
+            <img src="{{ Storage::disk('public')->url($data['photo']) }}" width="40px" class="rounded-circle" alt="Profile Picture">
+          @else
+            <img src="/img/default.png" width="40px" class="rounded-circle" alt="Profile Picture" srcset="">
+          @endif
+  
           </div>
-          @php                  
-            $endDate=strtotime($data['campaign']->end_date);
-            $countdown=ceil(($endDate-time())/60/60/24);
-          @endphp 
-          <div class="d-flex flex-column">
-            <h3 class="mb-0">
-              <strong>
-              {{ $countdown > -0.0 ? $countdown : '' }}
+          <div class="ml-3" style="margin-bottom: -1rem">
+            <a href="/profile/{{ $data['campaign']->user->id }}" class="text-decoration-none">
+              <div class="d-flex align-items-center" style="margin-bottom: -1rem;">
+                <p class="text-sm">
+                  {{ $data['campaign']->user->company->company_name }}
+                  <i class="bi bi-patch-check-fill text-primary"></i>
+                </p>  
+              </div>
+            </a>
+            <p class="text-muted text-xs border-top">Akun terverifikasi</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card-body d-flex flex-column p-2 border-bottom">
+          <h4 class="card-title font-weight-bold">
+            {{ $data['campaign']->title }}
+          </h4>
+          <p class="card-text text-small">
+            {{ $data['campaign']->caption }}
+          </p>
+        </div>
+        <div class="card-body p-2">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ $data['campaign']->collected/$data['campaign']->target*100 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $data['campaign']->collected/$data['campaign']->target*100 }}%"></div>
+          </div>
+          <div class="d-flex justify-content-between text-dark">
+            <div class="d-flex flex-column">
+              <h3 class="mb-0">
+                <strong>
+                  Rp. {{ currency_format($data['campaign']->collected) }}
                 </strong>
-            </h3>
-            <p class="my-0 py-0">{{ $countdown > -0.0 ? 'Hari Lagi' : 'Sudah berakhir' }}</p>
+              </h3>
+              <p class="my-0 py-0">Terkumpul dari Rp. {{ currency_format($data['campaign']->target) }}</p>
+            </div>
+            @php                  
+              $endDate=strtotime($data['campaign']->end_date);
+              $countdown=ceil(($endDate-time())/60/60/24);
+            @endphp 
+            <div class="d-flex flex-column">
+              <h3 class="mb-0">
+                <strong>
+                {{ $countdown > -0.0 ? $countdown : '' }}
+                  </strong>
+              </h3>
+              <p class="my-0 py-0">{{ $countdown > -0.0 ? 'Hari Lagi' : 'Sudah berakhir' }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer bg-light p-2">
-        @if ($countdown > -0.0)            
-        <a href="{{ '/donation/'. $data['campaign']->id.'?ref='.$data['ref'] }}">
-          <button type="submit" class="btn btn-primary btn-block rounded">
-            <i class="fas fa-hand-point-right mr-2"></i>
-            Donasi Sekarang
+        <div class="card-footer bg-light p-2">
+          @if ($countdown > -0.0)            
+          <a href="{{ '/donation/'. $data['campaign']->id.'?ref='.$data['ref'] }}">
+            <button type="submit" class="btn btn-primary btn-block rounded">
+              <i class="fas fa-hand-point-right mr-2"></i>
+              Donasi Sekarang
+            </button>
+          </a>
+          @else
+          <button type="button" class="btn btn-secondary disabled text-white btn-block rounded">
+            Program telah berakhir
           </button>
-        </a>
-        @else
-        <button type="button" class="btn btn-secondary disabled text-white btn-block rounded">
-          Program telah berakhir
-        </button>
-        @endif
+          @endif
+        </div>
       </div>
     </div>
-  </div>
+  </section>
   <div class="row mt-3">
     <div class="col-12">
       <div class="bg-white">
