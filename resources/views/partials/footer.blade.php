@@ -32,7 +32,7 @@
         <p class="mb-1">
           <a href="/" class="text-decoration-none" style="color: white !important">
             <i class="fas fa-globe mr-2"></i>
-            www.hobisedekah.com
+            www.hobisedekah.id
           </a>
         </p>
       </div>
