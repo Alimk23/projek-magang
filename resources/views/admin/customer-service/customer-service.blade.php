@@ -65,6 +65,7 @@
                         <th style="width: 20px">No</th>
                         <th>Name</th>
                         <th>Phone</th>
+                        <th>Email</th>
                         <th style="width: 40px">Action</th>
                       </tr>
                     </thead>
@@ -77,6 +78,7 @@
                         <td class="align-middle">{{ $i++ }}</td>
                         <td class="align-middle">{{ $cs['name'] }}</td>
                         <td class="align-middle">{{ $cs['phone'] }}</td>
+                        <td class="align-middle">{{ $cs['email'] }}</td>
                         <td class="align-middle d-inline-flex">
                           <form action="/admin/customer-service/{{ $cs['id'] }}/edit" method="GET">
                             <button type="submit" class="btn btn-outline-primary btn-xs rounded-lg py-1 px-1 mx-1">

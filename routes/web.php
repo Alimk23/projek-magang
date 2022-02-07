@@ -1,30 +1,32 @@
 <?php
 
+use App\Mail\SendMail;
+use App\Models\Campaign;
+use App\Models\Withdraw;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
-
 use App\Http\Controllers\UserDataController;
-use App\Http\Controllers\User\DashboardController as userDashboard;
-use App\Http\Controllers\User\UserProfileController as userProfile;
-use App\Http\Controllers\User\FundraisingController as userFundraising;
-use App\Http\Controllers\User\DonationController as userDonation;
 
 
 use App\Http\Controllers\Admin\BankController as adminBank;
 use App\Http\Controllers\Admin\NewsController as adminNewsInfo;
 use App\Http\Controllers\Admin\CompanyController as adminCompany;
 use App\Http\Controllers\Admin\ProfileController as adminProfile;
+use App\Http\Controllers\User\DonationController as userDonation;
 use App\Http\Controllers\Admin\CampaignController as adminCampaign;
 use App\Http\Controllers\Admin\WithdrawController as adminWithdraw;
-use App\Http\Controllers\Admin\FundraiserController as adminFundraiser;
-use App\Http\Controllers\Admin\CustomerServiceController as adminCustomerService;
+use App\Http\Controllers\User\DashboardController as userDashboard;
 
+use App\Http\Controllers\User\UserProfileController as userProfile;
 use App\Http\Controllers\Admin\DashboardController as adminDashboard;
 use App\Http\Controllers\SuperAdmin\BankController as superAdminBank;
+use App\Http\Controllers\Admin\FundraiserController as adminFundraiser;
+use App\Http\Controllers\User\FundraisingController as userFundraising;
 use App\Http\Controllers\Admin\ContributorController as adminContributor;
 use App\Http\Controllers\SuperAdmin\CompanyController as superAdminCompany;
 use App\Http\Controllers\SuperAdmin\PaymentController as superAdminPayment;
@@ -34,8 +36,9 @@ use App\Http\Controllers\SuperAdmin\SettingsController as superAdminSettings;
 use App\Http\Controllers\SuperAdmin\WithdrawController as superAdminWithdraw;
 use App\Http\Controllers\SuperAdmin\AnalyticsController as superAdminAnalytics;
 use App\Http\Controllers\SuperAdmin\DashboardController as superadminDashboard;
-use App\Http\Controllers\SuperAdmin\OrganizationController as superAdminOrganization;
+use App\Http\Controllers\Admin\CustomerServiceController as adminCustomerService;
 use App\Http\Controllers\SuperAdmin\ContributorController as superAdminContributor;
+use App\Http\Controllers\SuperAdmin\OrganizationController as superAdminOrganization;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +98,7 @@ Route::get('/payment/getPaymentInfo', [superAdminPayment::class, 'getPaymentInfo
 Route::get('/campaign/getCampaignInfo', [superAdminCampaign::class, 'getCampaignInfo']);
 Route::get('/customer-service/getCSInfo', [adminCustomerService::class, 'getCSInfo']);
 
+Route::get('/sendmails', [DonationController::class, 'sendmail']);
 
 Route::resource('userdata', UserDataController::class);
 Route::resource('donation', DonationController::class)->except('index','destroy','update');

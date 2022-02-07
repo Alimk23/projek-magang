@@ -44,7 +44,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="name">Nama</label>
+                            <label for="name">Name</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                             @error('name')
                             <div class="text-small text-danger" role="alert">
@@ -55,9 +55,20 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="phone">Nomor Handphone</label>
+                            <label for="phone">Phone</label>
                             <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
                             @error('phone')
+                            <div class="text-small text-danger" role="alert">
+                              <small>{{ $message }}</small>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+                            @error('email')
                             <div class="text-small text-danger" role="alert">
                               <small>{{ $message }}</small>
                             </div>

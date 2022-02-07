@@ -177,16 +177,19 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'name' => 'Mayda',
             'phone' => '08112744333',
+            'email' => 'alimmughanil.work@gmail.com',
         ]);
         CustomerService::create([
             'user_id' => 3,
             'name' => 'Jaki Umam',
             'phone' => '083839362022',
+            'email' => 'alimmughanil.work@gmail.com',
         ]);
         CustomerService::create([
             'user_id' => 4,
             'name' => 'Mayda',
             'phone' => '081284786808',
+            'email' => 'alimmughanil.work@gmail.com',
         ]);
 
         Campaign::create([

@@ -52,6 +52,7 @@ class CustomerServiceController extends Controller
         $validatedData = $request->validate([
             'user_id' => 'required',
             'name' => 'required|max:255',
+            'email' => 'required|email',
             'phone' => 'required',
         ]);
         $store = CustomerService::create($validatedData);
@@ -104,6 +105,7 @@ class CustomerServiceController extends Controller
         $validatedData = $request->validate([
             'user_id' => 'required',
             'name' => 'required|max:255',
+            'email' => 'required|email',
             'phone' => 'required',
         ]);
         $customerService = CustomerService::where('id',$id)->first();
