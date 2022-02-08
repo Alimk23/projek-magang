@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
+use App\Jobs\SendMailJob;
 use App\Models\Bank;
 use App\Models\User;
-use App\Mail\SendMail;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
@@ -15,7 +14,6 @@ use Illuminate\Http\Request;
 use App\Models\CustomerService;
 use App\Models\DonationByFundraiser;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class DonationController extends Controller
@@ -125,7 +123,7 @@ class DonationController extends Controller
                     'phone' => whatsapp_format($request->phone),
                     'created_at' => date_format($getDonationData->created_at,"d M Y | H:i")
                 ];
-                $this->sendMail($emailCS, $emailData);
+                SendMailJob::dispatch($emailCS, $emailData);
             }
             return redirect('/payment/'.$order_id);
         }
@@ -227,14 +225,5 @@ class DonationController extends Controller
         $user = new User;
         $getUser = $user->firstwhere($key, $value);
         return $getUser;
-    }
-    public function sendMail($toEmail, $data)
-    {
-        $message = new SendMail($data);
-        try {
-            Mail::to($toEmail)->send($message);
-        } catch (Exception $e) {
-            return $e;
-        }
     }
 }
