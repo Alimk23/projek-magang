@@ -73,7 +73,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a href="{{ url('/superadmin/analytics') }}" class="nav-link {{ Request::is('superadmin/analytics*') ? 'active' : ''}}">
                     <i class="nav-icon fas fa-chart-line"></i>
                         <p>
