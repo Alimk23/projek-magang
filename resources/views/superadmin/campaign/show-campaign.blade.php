@@ -46,7 +46,7 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body table-responsive" style="width: 100px">
+              <div class="card-body table-responsive" style="width: 100%">
                 {!! $data['description'] !!}
               </div>
               <!-- /.card-body -->
