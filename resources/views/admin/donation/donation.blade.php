@@ -73,19 +73,16 @@
                       @endphp
                       @if ($getCampaign->user_id == $user->id)
                         @if ($donation['status']==1)                          
+                          @php 
+                            $getUser = $data['getUser']->firstwhere('id', $donation['user_id']);
+                          @endphp 
                           <tr>
                             <td>{{ $i++ }}</td>
                             <td>
-                              @php 
-                                  $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
-                                  echo $getCampaign['name'];
-                              @endphp 
+                              {{ $getUser['name'] }}
                             </td>
                             <td>
-                              @php                                
-                                  $getCampaign = $data['getUser']->firstwhere('id', $donation['user_id']);
-                                  echo $getCampaign['phone'];
-                              @endphp 
+                              {{ $getUser['phone'] }} 
                             </td>
                             <td>
                               @php                                
@@ -98,15 +95,11 @@
                             <td>{{ $donation['message'] }}</td>
                             <td>{{ $donation['updated_at']}}</td>
                             <td>
-                              <div class="d-inline-flex">
-                                <form action="/admin/donation/{{ $donation['id'] }}" method="POST">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-outline-danger btn-block rounded-lg py-0 px-1 mx-1" data-toggle="modal" data-target="#editCategoryModal">
-                                    <i class="fas fa-trash-alt"></i>
-                                  </button>
-                                </form>
-                              </div>
+                              <a href="https://api.whatsapp.com/send?phone={{ whatsapp_format($getUser['phone']) }}" target="_blank">
+                                <button type="button" class="btn btn-outline-success btn-sm rounded-lg btn-block">
+                                  <i class="fab fa-whatsapp"></i>
+                                </button>                                
+                              </a>
                             </td>
                           </tr>
                         @endif
