@@ -2,7 +2,7 @@ $(function () {
     $(".btnDelCS").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/customer-service/getCSInfo",
+            url: "http://hobisedekah.herokuapp.com/customer-service/getCSInfo",
             data: { id: id },
             method: "get",
             dataType: "json",

@@ -3,7 +3,7 @@ $(function () {
     $(".btnReceiverInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/payment/getReceiverInfo",
+            url: "http://hobisedekah.herokuapp.com/payment/getReceiverInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -20,18 +20,18 @@ $(function () {
     $(".btnPaymentInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/payment/getPaymentInfo",
+            url: "http://hobisedekah.herokuapp.com/payment/getPaymentInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
             success: function (data) {
                 $("#receiptPreview").attr(
                     "src",
-                    "http://localhost:8000/storage/" + data.receipt
+                    "http://hobisedekah.herokuapp.com/storage/" + data.receipt
                 );
                 $("#receiptShow").attr(
                     "href",
-                    "http://localhost:8000/storage/" + data.receipt
+                    "http://hobisedekah.herokuapp.com/storage/" + data.receipt
                 );
             },
         });
@@ -42,7 +42,7 @@ $(function () {
     $(".editLoginInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/user-data/getLoginInfo",
+            url: "http://hobisedekah.herokuapp.com/user-data/getLoginInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -59,14 +59,14 @@ $(function () {
     $(".editProfileInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/user-data/getProfileInfo",
+            url: "http://hobisedekah.herokuapp.com/user-data/getProfileInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
             success: function (data) {
                 $("#editAddress").val(data.address);
                 $("#editPhoto").val(
-                    "http://localhost:8000/storage/" + data.photo
+                    "http://hobisedekah.herokuapp.com/storage/" + data.photo
                 );
             },
         });
@@ -77,7 +77,7 @@ $(function () {
     $(".editCompanyInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/user-data/getCompanyInfo",
+            url: "http://hobisedekah.herokuapp.com/user-data/getCompanyInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -94,7 +94,7 @@ $(function () {
     $(".btnCaptionInfo").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/campaign/getCampaignInfo",
+            url: "http://hobisedekah.herokuapp.com/campaign/getCampaignInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -109,7 +109,8 @@ $(function () {
     $(".btnWdDesc").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/user-data/withdraw/getWithdrawInfo",
+            url:
+                "http://hobisedekah.herokuapp.com/user-data/withdraw/getWithdrawInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
@@ -125,7 +126,7 @@ $(function () {
     $(".btnDeleteCS").on("click", function () {
         const id = $(this).data("id");
         $.ajax({
-            url: "http://localhost:8000/customer-service/getCSInfo",
+            url: "http://hobisedekah.herokuapp.com/customer-service/getCSInfo",
             data: { id: id },
             method: "get",
             dataType: "json",
