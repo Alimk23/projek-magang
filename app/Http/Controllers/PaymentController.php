@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\HistoryPayment;
 use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Auth\Events\Login;
@@ -154,11 +155,17 @@ class PaymentController extends Controller
     }
 
     public function status($order_id){
-        $getPayment = Payment::firstOrFail()->where('order_id', $order_id)->get();
-        $data = [
-            'getPayment' => $getPayment
-        ];
+        $getPayment = Payment::where('order_id', $order_id)->get();
+        if (empty($getPayment)) {            
+            $data = [
+                'getPayment' => $getPayment
+            ];
+        } else {
+            $getHistoryPayment = HistoryPayment::where('order_id', $order_id)->get();
+            $data = [
+                'getPayment' => $getHistoryPayment
+            ];
+        }
         return view('user.status-payment', compact('data'));
     }
-
 }

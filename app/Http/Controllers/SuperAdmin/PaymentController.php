@@ -9,6 +9,7 @@ use App\Models\UserGrade;
 use App\Http\Controllers\Controller;
 use App\Models\DonationByFundraiser;
 use App\Models\Fundraising;
+use App\Models\HistoryPayment;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -106,6 +107,11 @@ class PaymentController extends Controller
         if ($getPayment->receipt) {
             Storage::delete($getPayment->receipt);
         }
+        $historyPayment = HistoryPayment::create([
+            'order_id' => $getPayment->order_id,
+            'nominal' => $getPayment->nominal,
+            'status' => 2,
+        ]);
         $delPayment = $getPayment->delete();
         
         return redirect()->back()->with('success','Payment confirmation is successfull');;
@@ -122,6 +128,12 @@ class PaymentController extends Controller
         if ($payment->receipt) {
             Storage::delete($payment->receipt);
         }
+        $historyPayment = HistoryPayment::create([
+            'order_id' => $payment->order_id,
+            'nominal' => $payment->nominal,
+            'status' => 3,
+        ]);
+
         $delete = $payment->delete($id);
         if ($delete) {
             return redirect('/superadmin/payment')->with('success','Delete payment is successful');
