@@ -168,12 +168,13 @@ class CampaignController extends Controller
         }
         $update = $campaign->update($validatedData);
 
-        if ($update == true) {
-            return redirect('/admin/campaign')->with('success','Edit campaign is successful');
-        }
-        else{
-            return redirect('/admin/campaign')->with('error','Edit campaign is failed');
-        }
+        dd($validatedData);
+        // if ($update == true) {
+        //     return redirect('/admin/campaign')->with('success','Edit campaign is successful');
+        // }
+        // else{
+        //     return redirect('/admin/campaign')->with('error','Edit campaign is failed');
+        // }
     }
 
     /**
