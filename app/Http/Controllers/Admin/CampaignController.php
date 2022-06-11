@@ -168,14 +168,12 @@ class CampaignController extends Controller
         }
         $update = $campaign->update($validatedData);
 
-        dump(asset("storage/".$validatedData['cover']));
-        dump($validatedData);
-        // if ($update == true) {
-        //     return redirect('/admin/campaign')->with('success','Edit campaign is successful');
-        // }
-        // else{
-        //     return redirect('/admin/campaign')->with('error','Edit campaign is failed');
-        // }
+        if ($update == true) {
+            return redirect('/admin/campaign')->with('success','Edit campaign is successful');
+        }
+        else{
+            return redirect('/admin/campaign')->with('error','Edit campaign is failed');
+        }
     }
 
     /**
