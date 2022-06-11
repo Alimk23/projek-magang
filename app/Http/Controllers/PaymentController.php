@@ -156,14 +156,14 @@ class PaymentController extends Controller
 
     public function status($order_id){
         $getPayment = Payment::where('order_id', $order_id)->get();
-        if (!empty($getPayment)) {            
-            $data = [
-                'getPayment' => $getPayment
-            ];
-        } else {
+        if ($getPayment->isEmpty()) {
             $getHistoryPayment = HistoryPayment::where('order_id', $order_id)->get();
             $data = [
                 'getPayment' => $getHistoryPayment
+            ];
+        } else{
+            $data = [
+                'getPayment' => $getPayment
             ];
         }
         return view('user.status-payment', compact('data'));
