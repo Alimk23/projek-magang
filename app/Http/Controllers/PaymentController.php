@@ -156,7 +156,7 @@ class PaymentController extends Controller
 
     public function status($order_id){
         $getPayment = Payment::where('order_id', $order_id)->get();
-        if (empty($getPayment)) {            
+        if (!empty($getPayment)) {            
             $data = [
                 'getPayment' => $getPayment
             ];

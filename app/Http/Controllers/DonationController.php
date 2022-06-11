@@ -106,25 +106,22 @@ class DonationController extends Controller
             $emailCS = $csData->email ? $csData->email : null;
             $getPaymentData = Payment::find($newPayment);
 
-            $phone = whatsapp_format($request->phone);    
-            $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
-            // $sendtoUser = $this->sendMessage($request->phone, $msgUser);
-            
-            // $sendtoAdmin = $this->sendMessage($getCS->phone, $msgAdmin);
-            if (!empty($phoneCS)) {
-                $sendtoAdmin = SendWhatsapp::dispatch($phoneCS,$msgAdmin);
-            }
-            if (!empty($emailCS)) {
-                $emailData = [
-                    'title' => 'Donasi Baru Diterima',
-                    'order_id' => $order_id,
-                    'nominal' => currency_format($validatedData['nominal']),
-                    'name' => $request->name,
-                    'phone' => whatsapp_format($request->phone),
-                    'created_at' => date_format($getDonationData->created_at,"d M Y | H:i")
-                ];
-                SendMailJob::dispatch($emailCS, $emailData);
-            }
+            // $phone = whatsapp_format($request->phone);    
+            // $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
+            // if (!empty($phoneCS)) {
+            //     $sendtoAdmin = SendWhatsapp::dispatch($phoneCS,$msgAdmin);
+            // }
+            // if (!empty($emailCS)) {
+            //     $emailData = [
+            //         'title' => 'Donasi Baru Diterima',
+            //         'order_id' => $order_id,
+            //         'nominal' => currency_format($validatedData['nominal']),
+            //         'name' => $request->name,
+            //         'phone' => whatsapp_format($request->phone),
+            //         'created_at' => date_format($getDonationData->created_at,"d M Y | H:i")
+            //     ];
+            //     SendMailJob::dispatch($emailCS, $emailData);
+            // }
             return redirect('/payment/'.$order_id);
         }
         else {
