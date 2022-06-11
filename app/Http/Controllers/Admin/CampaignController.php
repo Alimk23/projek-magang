@@ -168,7 +168,8 @@ class CampaignController extends Controller
         }
         $update = $campaign->update($validatedData);
 
-        dd($validatedData);
+        dump(asset("storage/".$validatedData['cover']));
+        dump($validatedData);
         // if ($update == true) {
         //     return redirect('/admin/campaign')->with('success','Edit campaign is successful');
         // }
