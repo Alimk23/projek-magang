@@ -314,12 +314,12 @@
                   <div class="card-body">
                     {{ $getDonation['message'] }}
                   </div>
-                  <div class="card-footer p-1 text-right">
+                  {{-- <div class="card-footer p-1 text-right">
                     <a href="" class="btn btn-sm">
                       <i class="fas fa-heart"></i>
                       Aamiin
                     </a>
-                  </div>
+                  </div> --}}
                 </div>
               @endif
             @endif
