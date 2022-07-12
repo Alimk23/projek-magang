@@ -56,6 +56,7 @@ abstract class GeneratorCommand extends Command
         'endif',
         'endswitch',
         'endwhile',
+        'enum',
         'eval',
         'exit',
         'extends',
@@ -76,6 +77,7 @@ abstract class GeneratorCommand extends Command
         'interface',
         'isset',
         'list',
+        'match',
         'namespace',
         'new',
         'or',
@@ -83,6 +85,7 @@ abstract class GeneratorCommand extends Command
         'private',
         'protected',
         'public',
+        'readonly',
         'require',
         'require_once',
         'return',
@@ -97,6 +100,14 @@ abstract class GeneratorCommand extends Command
         'while',
         'xor',
         'yield',
+        '__CLASS__',
+        '__DIR__',
+        '__FILE__',
+        '__FUNCTION__',
+        '__LINE__',
+        '__METHOD__',
+        '__NAMESPACE__',
+        '__TRAIT__',
     ];
 
     /**

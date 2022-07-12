@@ -200,6 +200,13 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
                     $app['log']->withoutContext();
                 }
 
+                if (method_exists($app['db'], 'getConnections')) {
+                    foreach ($app['db']->getConnections() as $connection) {
+                        $connection->resetTotalQueryDuration();
+                        $connection->allowQueryDurationHandlersToRunAgain();
+                    }
+                }
+
                 return $app->forgetScopedInstances();
             };
 
@@ -234,6 +241,11 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         $this->app->singleton('queue.failer', function ($app) {
             $config = $app['config']['queue.failed'];
+
+            if (array_key_exists('driver', $config) &&
+                (is_null($config['driver']) || $config['driver'] === 'null')) {
+                return new NullFailedJobProvider;
+            }
 
             if (isset($config['driver']) && $config['driver'] === 'dynamodb') {
                 return $this->dynamoFailedJobProvider($config);
