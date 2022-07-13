@@ -1,8 +1,5 @@
 <?php
 
-use App\Mail\SendMail;
-use App\Models\Campaign;
-use App\Models\Withdraw;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +37,9 @@ use App\Http\Controllers\Admin\CustomerServiceController as adminCustomerService
 use App\Http\Controllers\SuperAdmin\ContributorController as superAdminContributor;
 use App\Http\Controllers\SuperAdmin\OrganizationController as superAdminOrganization;
 
+use Illuminate\Foundation\Application;
+use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +50,23 @@ use App\Http\Controllers\SuperAdmin\OrganizationController as superAdminOrganiza
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboards', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
     dd(Artisan::output());
@@ -74,7 +91,6 @@ Route::get('/rl', function () {
     Artisan::call('route:list');
     dd(Artisan::output());
 });
-Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'redirectUrl']);
