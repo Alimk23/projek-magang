@@ -15,6 +15,7 @@ use App\Models\CustomerService;
 use App\Models\DonationByFundraiser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class DonationController extends Controller
 {
@@ -61,6 +62,8 @@ class DonationController extends Controller
         ]);
         $order_id = "HB-". mt_rand(000000,999999);
         $userData = $user->firstwhere('phone', $request->phone);
+
+        dd($validatedData);
         if ($userData) {
             $user_id = $userData->id;
         } else {
@@ -100,11 +103,11 @@ class DonationController extends Controller
                 'bank_id' => $request->bank,
                 'nominal' => $validatedData['nominal'],
             ])->id;
-            $getDonationData = Donation::whereId($newDonation)->with('campaign')->first();
-            $csData = CustomerService::whereId($getDonationData->campaign->cs_id)->first();
-            $phoneCS = $csData->phone ? $csData->phone : null;
-            $emailCS = $csData->email ? $csData->email : null;
-            $getPaymentData = Payment::find($newPayment);
+            // $getDonationData = Donation::whereId($newDonation)->with('campaign')->first();
+            // $csData = CustomerService::whereId($getDonationData->campaign->cs_id)->first();
+            // $phoneCS = $csData->phone ? $csData->phone : null;
+            // $emailCS = $csData->email ? $csData->email : null;
+            // $getPaymentData = Payment::find($newPayment);
 
             // $phone = whatsapp_format($request->phone);    
             // $msgAdmin = "Assalamu'alaikum Kak \n\nAda donasi baru yang masuk nih untuk program " . $getDonationData->campaign->title . " dengan nominal Rp ".currency_format($getDonationData->nominal). " dari: $request->name ($request->phone) yang belum selesai.  \n\nDengan detail pembayaran yang dipilih berupa transfer bank melalui Rekening berikut: \n".$getPaymentData->bank->bank_name. " (".($getPaymentData->bank->bank_code) .")\n" .$getPaymentData->bank->bank_account ."\nan.". $getPaymentData->bank->alias. "\n\nJika ingin mengingatkan donatur tersebut, bisa lewat kontak whatsapp berikut ini: \nhttps://wa.me/". $phone ." \n\nHobi Sedekah Notification";
@@ -146,12 +149,13 @@ class DonationController extends Controller
             $auth = Auth::user();
         }
         $data = [
-            'title' => 'Create Payment',
-            'details' => $detail,
+            'title' => 'Donasi Baru',
+            'campaign' => $detail,
             'banks' => $getBank,
-            'ref' => $ref,
+            'csrf' => csrf_token()
         ];
-        return view('user.create-donation', compact('data','auth'));
+        return Inertia::render('Donation/Create', $data);
+        // return view('user.create-donation', compact('data','auth'));
     }
 
     /**

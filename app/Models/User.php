@@ -48,17 +48,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function donation()
     {
-        return $this->hasMany(Donation::class,'user_id');
+        return $this->belongsTo(Donation::class,'user_id','id');
     }
     public function campaign()
     {
-        return $this->hasOne(Campaign::class);
+        return $this->hasOne(Campaign::class, 'id', 'user_id');
     }
     public function company()
     {
-        return $this->hasOne(Company::class, 'user_id');
+        return $this->hasOne(Company::class,'user_id','id');
     }
     public function profile()
     {
@@ -82,6 +83,6 @@ class User extends Authenticatable
     }
     public function fundraising()
     {
-        return $this->belongsTo(Fundraising::class,'user_id');
+        return $this->belongsTo(Fundraising::class,'user_id', 'id');
     }
 }

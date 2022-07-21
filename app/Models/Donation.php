@@ -17,15 +17,15 @@ class Donation extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class,'campaign_id');
+        return $this->belongsTo(Campaign::class,'id', 'campaign_id');
+    }
+    public function User()
+    {
+        return $this->hasOne(User::class,'id','user_id');
     }
     public function payment()
     {
         return $this->hasMany(Payment::class,'id');
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id');
     }
     public function DonationByFundraiser()
     {

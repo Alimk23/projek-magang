@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use Inertia\Inertia;
 use App\Models\Profile;
+use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\CategoryByUser;
 use App\Http\Controllers\Controller;
-use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -17,14 +18,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index()
     {
-        $user = Auth::user();
-        $getCategory = $category->all();
-        $data = [
-            'title' => 'Category'
-        ];
-        return view('superadmin.category.category',compact('data', 'getCategory'));
+        // 
     }
 
     /**
@@ -86,7 +82,13 @@ class CategoryController extends Controller
         $selectedCategory = Category::where('id',$id)->first();
         $getCampaign = Campaign::where('category_id',$id)->get();
         $getCategory = Category::all();
-        return view('user.show-by-category',compact('getCampaign','getCategory','selectedCategory'));
+        $data = [
+            'title' => $selectedCategory->title,
+            'campaign' => $getCampaign,
+            'category' => $getCategory,
+        ];
+        return Inertia::render('Category/Show',$data);
+        // return view('user.show-by-category',compact('getCampaign','getCategory','selectedCategory'));
     }
 
     /**

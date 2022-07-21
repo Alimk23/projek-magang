@@ -16,18 +16,17 @@ class Fundraising extends Model
     protected $guarded = [];
     protected $table= 'fundraisings';
 
-    public function getUser($user_id){
-        return DB::table('users')
-        ->where('id', '=', $user_id)
-        ->first();
-    }
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class,'id');
+        return $this->belongsTo(Campaign::class,'id','campaign_id');
     }
     public function DonationByFundraiser()
     {
         return $this->hasMany(DonationByFundraiser::class,'fundraising_id');
+    }
+    public function User()
+    {
+        return $this->hasMany(User::class,'id','user_id');
     }
     public function CampaignByFundraiser($user_id, $campaign_id){
         return DB::table('fundraisings')

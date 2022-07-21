@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CampaignCollection;
 use Closure;
 use App\Models\News;
 use App\Models\User;
+use Inertia\Inertia;
 use App\Models\Company;
 use App\Models\Profile;
 use App\Models\Campaign;
@@ -15,8 +17,8 @@ use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Models\CustomerService;
 use Dflydev\DotAccessData\Data;
-use App\Models\CampaignByFundraiser;
 use App\Models\RegistrationStatus;
+use App\Models\CampaignByFundraiser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,15 +32,18 @@ class HomeController extends Controller
             $totalDonation = 0;
         }
 
+        $getCampaign = new CampaignCollection($campaign->with('user.company')->paginate(12));
+        
         $donation = Donation::where('status',1)->get();
         $data = [
             'title' => 'Beranda',
-            'campaign' => $campaign->all(),
+            'campaign' => $getCampaign,
             'donation' => $donation->all(),
             'category' => $category->all(),
             'totalDonation' => $totalDonation,
         ];
-        return view('index',compact('data'));
+        // return view('index',compact('data'));
+        return Inertia::render('Homepage', $data);
     }
 
     public function redirectUrl(){
@@ -79,33 +84,19 @@ class HomeController extends Controller
     }
     
 
-    public function show($slug, Campaign $campaign, Donation $donation, Profile $profile, News $news, CustomerService $customerService, UserProfile $userProfile){
-        $user = new User();
+    public function show($slug){
         $ref = !empty($_GET['ref']) ? $_GET['ref'] : '';
-        $getCampaign = $campaign->where('slug', $slug)->first();
-        $fundraising = Fundraising::where('campaign_id',$getCampaign->id)->get();
-        $getDonation = $donation->where('campaign_id', $getCampaign->id)->get();
-        $getNews = $news->where('campaign_id', $getCampaign->id)->get();
-        $getProfile = $profile->where('user_id', $getCampaign->user_id)->first();
-        $getCS = $customerService->where('id', $getCampaign->cs_id)->first();
-        if (empty($getProfile)) {
-            $photo = null;
-        } else {
-            $photo = $getProfile->photo;
-        }
-        
+        $getCampaign = Campaign::with('user.profile','news','donation.user.profile' ,'user.company','cs','fundraising.user.profile','fundraising.DonationByFundraiser.donation')->where('slug', $slug)->first();
+        $getNews = News::where('campaign_id', $getCampaign->id)->get();
+
         $data = [
             'title' => $getCampaign->title,
             'campaign' => $getCampaign,
-            'getDonation' => $getDonation,
             'getNews' => $getNews,
-            'user'=>$user,
-            'photo'=>$photo,
-            'userProfile'=>$userProfile,
-            'cs'=>$getCS,
-            'ref'=> $ref,
         ];
-        return view('user.show-campaign', compact('data','fundraising'));
+
+        return Inertia::render('Detail/Campaign', $data);
+        // return view('user.show-campaign', compact('data','fundraising'));
     }
 
     public function createOrganization(){
@@ -166,5 +157,14 @@ class HomeController extends Controller
         $id = Auth::user()->id;
         $RegistrationStatus = RegistrationStatus::where('user_id',$id)->with('user')->firstOrFail();
         return view('user.status-organization',compact('RegistrationStatus'));
+    }
+
+    public function getCategory(Category $category){
+        $getCategory = $category->all();
+        $data = [
+            'title' => 'Semua Kategori',
+            'category' => $getCategory
+        ];
+        return Inertia::render('Category/Index', $data);    
     }
 }

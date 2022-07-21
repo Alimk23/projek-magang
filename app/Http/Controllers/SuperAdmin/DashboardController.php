@@ -34,13 +34,6 @@ class DashboardController extends Controller
 
         $allDonation = $donation->all();
 
-        foreach ($allDonation as $findDonation) {
-            if ($findDonation['status']==0 || $findDonation['status']==1) {
-                if ($findDonation['campaign']['user_id']==$user->id) {
-                    $countUser = User::where('id',$findDonation['user_id'])->get()->count();
-                }
-            }
-        }
         $getPayment = Payment::where('status',1)->get();
         $getWithdraw = Withdraw::where('status',0)->get();
         $getCampaignStatus = Campaign::where('status',0)->get();

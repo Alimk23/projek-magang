@@ -19,6 +19,8 @@ class Campaign extends Model
 
     protected $guarded = [];
     protected $table= 'campaign';
+
+    protected $with = 'user';
     
     public function sluggable(): array
     {
@@ -35,19 +37,19 @@ class Campaign extends Model
     }
     public function donation()
     {
-        return $this->hasMany(Donation::class);
+        return $this->hasMany(Donation::class,'campaign_id','id');
     }
     public function news()
     {
-        return $this->hasMany(News::class);
+        return $this->hasMany(News::class,'campaign_id','id');
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function cs()
     {
-        return $this->hasOne(CustomerService::class, 'id');
+        return $this->hasOne(CustomerService::class, 'id', 'cs_id');
     }
     public function withdraw()
     {
@@ -55,6 +57,6 @@ class Campaign extends Model
     }
     public function fundraising()
     {
-        return $this->hasMany(Fundraising::class,'campaign_id');
+        return $this->hasMany(Fundraising::class,'campaign_id','id');
     }
 }

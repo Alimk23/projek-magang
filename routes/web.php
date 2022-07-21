@@ -51,7 +51,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -94,9 +94,10 @@ Route::get('/rl', function () {
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'redirectUrl']);
+Route::get('/category', [HomeController::class, 'getCategory']);
 Route::get('/admin/campaign/create/checkSlug', [adminCampaign::class, 'checkSlug']);
 Route::get('/admin/withdraw/create/checkCampaign', [adminWithdraw::class, 'checkCampaign']);
-Route::get('/campaigns/{slug}', [HomeController::class, 'show']);
+Route::get('/detail/campaign/{campaign}', [HomeController::class, 'show']);
 Route::get('/status/{id}', [PaymentController::class, 'status']);
 
 Route::get('/organization/create', [HomeController::class, 'createOrganization']);

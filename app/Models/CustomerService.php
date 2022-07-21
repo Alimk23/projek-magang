@@ -14,6 +14,6 @@ class CustomerService extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class,'cs_id');
+        return $this->belongsTo(Campaign::class,'cs_id','id');
     }
 }

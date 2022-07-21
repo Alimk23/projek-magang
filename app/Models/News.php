@@ -14,6 +14,6 @@ class News extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class);
+        return $this->belongsTo(Campaign::class, 'id' , 'campaign_id');
     }
 }
